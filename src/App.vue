@@ -10,30 +10,41 @@
 				<span class='letter'>t</span>
 				<span class='letter'>h</span>
 			</div>
-			<div class='letters' style="top: 20px; left: 10px; position: relative;">
+			<div class='letters' style="top: 20px; left: -20px; position: relative;">
 				<span class='letter'>s</span>
 				<span class='letter'>u</span>
 				<span class='letter'>n</span>
 			</div>
 		</div>
+    <div class="headline-clip">
+      <span class="headline-wrapper" :style="{ width: wrapWidth+'px' }">
+        <span ref="word">
+          <p
+          v-for="word in words"
+          :key="words.indexOf(word)"
+          :class="showWord(words.indexOf(word))"
+          >
+          {{ word }}
+          </p>
+        </span>
+      </span>
+    </div>
+
 		<!-- <section class='cd-intro'>
-			<h1 class='cd-headline clip is-fullwidth'>
-				<span class='cd-words-wrapper'>
-					<b class='is-visible'>dev</b>
-					<b>maybe</b>
-					<b>perhaps</b>
+			<h1 class='cd-headline clip is-full-width'>
+				<span :style="{ width: wrapWidth+'px' }" ref="wrapper" class='cd-words-wrapper'>
+          <span ref="word">
+            <b
+            v-for="word in words"
+            :key="words.indexOf(word)"
+            :class="showWord(words.indexOf(word))"
+            >
+            {{ word }}
+            </b>
+          </span>
 				</span>
 			</h1>
 		</section> -->
-		<section class='cd-intro'>
-			<h1 class='cd-headline slide'>
-				<span class='cd-words-wrapper'>
-					<b class='is-visible'>dev</b>
-					<b>maybe</b>
-					<b>steak</b>
-				</span>
-			</h1>
-		</section>
 		<router-view/>
 	</div>
 </template>
@@ -41,7 +52,51 @@
 <script>
 
 export default {
-	name: 'app'
+	name: 'app',
+	data() {
+		return {
+			words: [
+				"developer",
+				"student",
+        "procrastinator",
+        "cat lover"
+			],
+      wordId: 0,
+      wrapWidth: 500,
+		}
+	},
+	computed: {
+
+	},
+	methods: {
+		showWord(id) {
+			return {
+				'word-visible': id == this.wordId,
+				'word-hidden': !(id == this.wordId),
+			}
+		},
+		animateHeadline(wait) {
+			setInterval(() => {
+        setTimeout(() => {
+          this.wrapWidth = 2;
+        }, 500)
+
+        setTimeout(() => {
+          this.wordId = this.wordId === this.words.length-1 ? 0 : this.wordId + 1;
+        }, 1000)
+        
+
+        setTimeout(() => {
+          this.wrapWidth = this.$refs.word.clientWidth + 10;  
+        }, 1001)
+        
+        
+			}, wait)
+		}
+	},
+	mounted() {
+		this.animateHeadline(3500);
+	}
 }
 
 </script>
@@ -59,7 +114,6 @@ export default {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
-	color: #2c3e50;
 	background-color: rgba(0, 0, 0, 0.911);
 	position: absolute;
 	width: 100%;
@@ -67,7 +121,6 @@ export default {
 }
 
 #name-container {
-	color: white;
 	position: absolute;
 	left: 60%;
 	top: 30%;
@@ -78,9 +131,48 @@ export default {
 
 
 
+/* animated headline */
+
+
+
+.headline-clip {
+  display: inline-block;
+  height: 20%;
+  position: absolute;
+  left: 68%;
+  right: 0;
+  border-left: 2px solid white;
+  top: 41%;
+}
+
+.headline-wrapper{
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  transition: width 0.5s ease;
+  border-right: 2px solid white;
+}
+
+.headline-clip p {
+  position: absolute;
+  color: #1f98b1;
+  font-size: 100px;
+  margin: 0 10px;
+}
+
+.word-visible {
+  opacity: 1;
+}
+
+.word-hidden {
+  opacity: 0;
+}
+
+
 
 /* random text animation */
-
 
 
 
@@ -88,14 +180,6 @@ export default {
   font-size: 0;
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
-}
-
-p {
-  font-family: sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  color: #eee;
-  opacity: 0.3;
 }
 
 .letter {
