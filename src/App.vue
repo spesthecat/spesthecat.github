@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<div id="name-container" class='wrapper'>
+		<div class='name-container'>
 			<div class='letters'>
 				<span class='letter'>k</span>
 				<span class='letter'>e</span>
@@ -10,41 +10,27 @@
 				<span class='letter'>t</span>
 				<span class='letter'>h</span>
 			</div>
-			<div class='letters' style="top: 20px; left: -20px; position: relative;">
-				<span class='letter'>s</span>
-				<span class='letter'>u</span>
-				<span class='letter'>n</span>
-			</div>
+			
 		</div>
+
+    <div class='name-container' style="top: 15em;">
+      <div class='letters'>
+          <span class='letter'>s</span>
+          <span class='letter'>u</span>
+          <span class='letter'>n</span>
+      </div>
+    </div>
     <div class="headline-clip">
       <span class="headline-wrapper" :style="{ width: wrapWidth+'px' }">
-        <span ref="word">
-          <p
-          v-for="word in words"
-          :key="words.indexOf(word)"
-          :class="showWord(words.indexOf(word))"
-          >
-          {{ word }}
-          </p>
-        </span>
+        <p ref="word"
+        v-for="word in words"
+        :key="words.indexOf(word)"
+        :class="showWord(words.indexOf(word))"
+        >
+        {{ word }}
+        </p>
       </span>
     </div>
-
-		<!-- <section class='cd-intro'>
-			<h1 class='cd-headline clip is-full-width'>
-				<span :style="{ width: wrapWidth+'px' }" ref="wrapper" class='cd-words-wrapper'>
-          <span ref="word">
-            <b
-            v-for="word in words"
-            :key="words.indexOf(word)"
-            :class="showWord(words.indexOf(word))"
-            >
-            {{ word }}
-            </b>
-          </span>
-				</span>
-			</h1>
-		</section> -->
 		<router-view/>
 	</div>
 </template>
@@ -59,14 +45,11 @@ export default {
 				"developer",
 				"student",
         "procrastinator",
-        "cat lover"
+        "cat lover",
 			],
-      wordId: 0,
-      wrapWidth: 500,
+      wordId: -1,
+      wrapWidth: 0,
 		}
-	},
-	computed: {
-
 	},
 	methods: {
 		showWord(id) {
@@ -87,7 +70,7 @@ export default {
         
 
         setTimeout(() => {
-          this.wrapWidth = this.$refs.word.clientWidth + 10;  
+          this.wrapWidth = this.$refs.word[this.wordId].clientWidth;  
         }, 1001)
         
         
@@ -95,15 +78,13 @@ export default {
 		}
 	},
 	mounted() {
-		this.animateHeadline(3500);
+		this.animateHeadline(4500);
 	}
 }
 
 </script>
 
 <style lang="scss">
-
-@import './assets/styles/cooltexteffects.css';
 
 * {
 	margin: 0;	
@@ -113,17 +94,17 @@ export default {
 	font-family: 'Open Sans', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
+  text-align: center;
 	background-color: rgba(0, 0, 0, 0.911);
 	position: absolute;
 	width: 100%;
 	height: 100%;
 }
 
-#name-container {
+.name-container {
 	position: absolute;
-	left: 60%;
-	top: 30%;
+	left: 25em;
+	top: 10em;
 	background: transparent;
 	transform: scale(3);
 	// border-bottom: 1px solid #5cd7e8;
@@ -137,12 +118,12 @@ export default {
 
 .headline-clip {
   display: inline-block;
-  height: 20%;
+  height: 4em;
   position: absolute;
-  left: 68%;
+  left: 34em;
   right: 0;
   border-left: 2px solid white;
-  top: 41%;
+  top: 13.8em;
 }
 
 .headline-wrapper{
@@ -158,8 +139,10 @@ export default {
 .headline-clip p {
   position: absolute;
   color: #1f98b1;
-  font-size: 100px;
-  margin: 0 10px;
+  font-size: 4em;
+  line-height: 90%;
+  padding: 0 10px;
+  white-space: nowrap;
 }
 
 .word-visible {
@@ -175,12 +158,6 @@ export default {
 /* random text animation */
 
 
-
-.wrapper {
-  font-size: 0;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
-}
 
 .letter {
   width: 24px;
