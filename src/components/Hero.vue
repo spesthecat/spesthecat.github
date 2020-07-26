@@ -92,7 +92,7 @@ export default {
 	left: 33%;
 	top: 150px;
 	background: transparent;
-	transform: scale(3);
+	transform: scale(2.6);
 }
 
 
@@ -112,7 +112,7 @@ export default {
   display: inline-block;
   height: 4em;
   border-left: 2px solid white;
-  transform: scale(0.5);
+  transform: scale(0.4);
   /* top: 13.8em; */
 }
 
@@ -159,21 +159,25 @@ export default {
 		height: 60%;
 		width: 100%;
 		display: flex;
-		align-items: center;
-		/* display: flex;
-		flex-flow: column nowrap; */
+		align-items: baseline;
+		flex-flow: column nowrap;
 	}
 
-	#hero div {
+	#hero > div {
 		display: block;
-		top: 0;
-		left: 0;
-		position: absolute;
+		margin: 40px auto 0 auto;
+		position: static;
 	}
 
 	.headline-clip {
+		position: absolute;
+		left: -42px;
 		transition: transform 0.2s ease;
 		transform: scale(0.4);
+	}
+
+	.name-container {
+		transform: scale(1.5);
 	}
 }
 
