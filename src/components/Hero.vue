@@ -14,22 +14,22 @@
 		</div>
 
 		<div class='name-container last'>
-		<div class='letters'>
-			<span class='letter'>s</span>
-			<span class='letter'>u</span>
-			<span class='letter'>n</span>
-		</div>
-		<div class="headline-clip">
-			<span class="headline-wrapper" :style="{ width: wrapWidth+'px' }">
-			<p ref="word"
-			v-for="word in words"
-			:key="words.indexOf(word)"
-			:class="showWord(words.indexOf(word))"
-			>
-			{{ word }}
-			</p>
-			</span>
-		</div>
+			<div class='letters'>
+				<span class='letter'>s</span>
+				<span class='letter'>u</span>
+				<span class='letter'>n</span>
+			</div>
+			<div class="headline-clip">
+				<span class="headline-wrapper" :style="{ width: wrapWidth+'px' }">
+				<p ref="word"
+				v-for="word in words"
+				:key="words.indexOf(word)"
+				:class="showWord(words.indexOf(word))"
+				>
+				{{ word }}
+				</p>
+				</span>
+			</div>
 		</div>
 	</div>
 </template>
@@ -69,7 +69,7 @@ export default {
 
         setTimeout(() => {
           this.wrapWidth = this.$refs.word[this.wordId].clientWidth;  
-        }, 1001)
+        }, 1200)
         
         
 			}, wait)
@@ -83,13 +83,16 @@ export default {
 
 <style scoped>
 
+#hero {
+	transition: transform .2s ease;
+}
+
 .name-container {
 	position: absolute;
 	left: 33%;
 	top: 150px;
 	background: transparent;
 	transform: scale(3);
-	/* order-bottom: 1px solid #5cd7e8; */
 }
 
 
@@ -138,6 +141,40 @@ export default {
 
 .word-hidden {
   opacity: 0;
+}
+
+@media screen and (max-width: 1300px) {
+	.name-container{
+		transition: transform 0.2s ease;
+		transform: scale(2);
+	}
+
+	.last {
+		top: 200px;
+	}
+}
+
+@media screen and (max-width: 920px) {
+	#hero {
+		height: 60%;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		/* display: flex;
+		flex-flow: column nowrap; */
+	}
+
+	#hero div {
+		display: block;
+		top: 0;
+		left: 0;
+		position: absolute;
+	}
+
+	.headline-clip {
+		transition: transform 0.2s ease;
+		transform: scale(0.4);
+	}
 }
 
 
