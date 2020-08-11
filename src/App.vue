@@ -1,8 +1,6 @@
 <template>
 	<div id="app">
 
-		<Hero id='hero'/>	
-
 		<router-view/>
 
 	</div>
@@ -10,13 +8,9 @@
 
 <script>
 
-import Hero from './components/Hero';
 
 export default {
 	name: 'app',
-	components: {
-		Hero,
-	},
 
 }
 
@@ -39,10 +33,6 @@ export default {
 	height: 100%;
 	overflow-y: scroll;
 	overflow-x: hidden;
-}
-
-#hero {
-	width: 100%;
 }
 
 </style>
