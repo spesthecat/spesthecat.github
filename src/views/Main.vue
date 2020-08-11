@@ -19,7 +19,7 @@ export default {
 			var increment = 0;
 			var drops = "";
 
-			while (increment < 100) {
+			while (increment < 80) {
 				//couple random numbers to use for various randomizations
 				//random number between 98 and 1
 				var randoHundo = (Math.floor(Math.random() * (130 - 1 + 1) + 1));
@@ -29,7 +29,7 @@ export default {
 				increment += randoFiver;
 				//add in a new raindrop with various randomizations to certain CSS properties
 				drops += '<div class="drop" style="left: ' + 
-				increment + '%; bottom: ' + 
+				increment*5/4 + '%; bottom: ' + 
 				(randoFiver + randoFiver - 1 + 100) + 
 				'%; animation-delay: 0.' + randoHundo + 
 				's; animation-duration: 2.' + randoHundo + 
@@ -67,7 +67,6 @@ export default {
 	bottom: 100%;
 	width: 15px;
 	height: 120px;
-	opacity: 70%;
 	pointer-events: none;
 	animation: drop 0.5s linear infinite;
 }
@@ -76,6 +75,7 @@ export default {
   width: 2px;
   height: 60%;
   margin-left: 7px;
+  opacity: 20%;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
   animation: stem 0.5s linear infinite;
 }
