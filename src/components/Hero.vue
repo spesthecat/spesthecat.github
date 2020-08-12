@@ -41,9 +41,11 @@ export default {
 		return {
 			words: [
 				"developer",
-				"student",
-        "procrastinator",
-        "cat lover",
+        "student",
+        "amatuer physicist",
+        "teenager",
+        "cats good",
+        "css bad",
 			],
       wordId: -1,
       wrapWidth: 0,
