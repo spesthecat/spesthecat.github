@@ -19,7 +19,7 @@ export default {
 			var increment = 0;
 			var drops = "";
 
-			while (increment < 80) {
+			while (increment < 51) {
 				//couple random numbers to use for various randomizations
 				//random number between 98 and 1
 				var randoHundo = (Math.floor(Math.random() * (130 - 1 + 1) + 1));
@@ -29,7 +29,7 @@ export default {
 				increment += randoFiver;
 				//add in a new raindrop with various randomizations to certain CSS properties
 				drops += '<div class="drop" style="left: ' + 
-				increment*5/4 + '%; bottom: ' + 
+				increment*2 + '%; bottom: ' + 
 				(randoFiver + randoFiver - 1 + 100) + 
 				'%; animation-delay: 0.' + randoHundo + 
 				's; animation-duration: 2.' + randoHundo + 
