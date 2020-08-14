@@ -1,16 +1,19 @@
 <template>
 	<div id='menu'>
 		<router-link class='nav-buttons' to="/about#bio">
-			About Me
+			about me
 		</router-link>
+		<a class='nav-buttons' href="#contact">
+			contact
+		</a>
 		<router-link class='nav-buttons' to="/projects">
-			Projects
+			projects
 		</router-link>
 		<router-link class='nav-buttons' to="/blog">
-			Blog
+			blog
 		</router-link>
 		<router-link class='nav-buttons' to="/about"> 
-			Resume
+			resume
 		</router-link>
 	</div>
 </template>

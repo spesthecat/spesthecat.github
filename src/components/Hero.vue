@@ -87,6 +87,7 @@ export default {
 
 #hero {
 	transition: transform .2s ease;
+  z-index: 2;
 }
 
 .name-container {

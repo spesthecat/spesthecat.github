@@ -1,25 +1,30 @@
 <template>
-	<div id='main'>
-		<div class='rain'/>
+	<div>
 
-		<Menu/>
+		<div class='site-wrapper'>
+			<div class='rain'/>
+			<Menu/>
+			<Hero id='hero'/>
+		</div>
 
-		<Hero id='hero'/>
+		<Contact id='contact' class='footer'/>
+
 		
-
 	</div>
 </template>
 
 <script>
 
 import Menu from '../components/menu.vue';
-import Hero from '../components/Hero';
+import Hero from '../components/Hero.vue';
+import Contact from '../components/contact.vue';
 
 export default {
 	name: 'main',
 	components: {
 		Hero,
 		Menu,
+		Contact,
 	},
 	methods: {
 		makeItRain() {
@@ -57,8 +62,25 @@ export default {
 
 <style>
 
-#main {
-	overflow: none;
+html, body {
+	height: 100%;
+}
+
+.site-wrapper {
+	min-height: 100%;
+}
+
+.site-wrapper:after {
+	content: "";
+	display: block;
+}
+
+.footer, .site-wrapper:after {
+	height: 142px;
+}
+
+.footer {
+	background: white;
 }
 
 #hero {
@@ -66,11 +88,11 @@ export default {
 }
 
 .rain {
-	position: absolute;
+	position: relative;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 2;
+	z-index: 0;
 }
 
 .drop {
