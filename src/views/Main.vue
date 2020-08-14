@@ -1,11 +1,11 @@
 <template>
 	<div id='main'>
+		<div class='rain'/>
 
 		<Menu/>
 
 		<Hero id='hero'/>
 		
-		<div class='rain'/>
 
 	</div>
 </template>
