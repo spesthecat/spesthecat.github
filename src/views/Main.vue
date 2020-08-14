@@ -1,18 +1,25 @@
 <template>
-	<div>
-		<div class='rain'/>
+	<div id='main'>
+
+		<Menu/>
 
 		<Hero id='hero'/>
+		
+		<div class='rain'/>
+
 	</div>
 </template>
 
 <script>
+
+import Menu from '../components/menu.vue';
 import Hero from '../components/Hero';
 
 export default {
 	name: 'main',
 	components: {
 		Hero,
+		Menu,
 	},
 	methods: {
 		makeItRain() {
@@ -49,6 +56,10 @@ export default {
 </script>
 
 <style>
+
+#main {
+	overflow: none;
+}
 
 #hero {
 	width: 100%;

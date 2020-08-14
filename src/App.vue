@@ -1,5 +1,7 @@
 <template>
 	<div id="app">
+		
+		<Sidebar/>
 
 		<router-view/>
 
@@ -8,10 +10,18 @@
 
 <script>
 
+import Sidebar from './components/sidebar.vue';
 
 export default {
 	name: 'app',
-
+	components: {
+		Sidebar,
+	},
+	data() {
+		return {
+			showSideBar: false,
+		}
+	}
 }
 
 </script>
@@ -31,8 +41,7 @@ export default {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	overflow-y: scroll;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 </style>
