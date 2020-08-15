@@ -3,7 +3,7 @@
 
 		<div class='site-wrapper'>
 			<div class='rain'/>
-			<Menu/>
+			<Menu id='menu-nav'/>
 			<Hero id='hero'/>
 		</div>
 
@@ -66,11 +66,6 @@ export default {
 	min-height: 100%;
 }
 
-.site-wrapper:after {
-	content: "";
-	display: block;
-}
-
 .footer, .site-wrapper:after {
 	height: 5%;
 	overflow: hidden;
@@ -78,6 +73,13 @@ export default {
 
 .footer {
 	background: white;
+}
+
+#menu-nav {
+	z-index: 2;
+	position: relative;
+	top: 15px;
+	right: 30px;
 }
 
 #hero {

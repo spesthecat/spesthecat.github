@@ -182,6 +182,7 @@ export default {
 	.name-container {
 		transform: scale(1.5);
 	}
+
 }
 
 
