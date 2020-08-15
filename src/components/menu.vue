@@ -1,21 +1,22 @@
 <template>
 	<div>
-		<router-link class='nav-buttons' to="/about#bio">
-			about me
-		</router-link>
-		<a class='nav-buttons' href="#contact">
-			contact
-		</a>
-		<router-link class='nav-buttons' to="/projects">
-			projects
-		</router-link>
-		<router-link class='nav-buttons' to="/blog">
-			blog
-		</router-link>
-		<router-link class='nav-buttons' to="/about"> 
-			resume
-		</router-link>
-
+		<div class='menu-not-slide'>
+			<router-link class='nav-buttons' to="/about#bio">
+				about me
+			</router-link>
+			<a class='nav-buttons' href="#contact">
+				contact
+			</a>
+			<router-link class='nav-buttons' to="/projects">
+				projects
+			</router-link>
+			<router-link class='nav-buttons' to="/blog">
+				blog
+			</router-link>
+			<router-link class='nav-buttons' to="/about"> 
+				resume
+			</router-link>
+		</div>
 		<div class='menu-slide'>
 			<div @click.prevent="toggleMenu" class='menu-icon'>
 				<div class='icon-part'/>
@@ -24,6 +25,21 @@
 			</div>
 
 			<div class='nav-menu' :class="{ 'show-nav-menu': showMenu }">
+				<router-link id='first' class='nav-buttons slide' to="/about#bio">
+					about me
+				</router-link>
+				<a class='nav-buttons slide' href="#contact">
+					contact
+				</a>
+				<router-link class='nav-buttons slide' to="/projects">
+					projects
+				</router-link>
+				<router-link class='nav-buttons slide' to="/blog">
+					blog
+				</router-link>
+				<router-link class='nav-buttons slide' to="/about"> 
+					resume
+				</router-link>
 			</div>
 		</div>
 
@@ -65,12 +81,31 @@ export default {
 	background-color: rgba(88, 88, 88, 0.801);
 }
 
+.slide {
+	text-align: center;
+	background-color: rgba(88, 88, 88, 0.601);
+	padding: 20px 0;
+	margin: 0;
+	border-radius: 0;
+}
+
+.slide:first-child {
+	margin-top: 50px;
+}
+
 .menu-slide {
+	display: none;
 	position: absolute;
 	height: 100vh;
-	width: 15%;
+	width: 200px;
 	top: -15px;
 	right: -30px;
+}
+
+.menu-not-slide {
+	position: absolute;
+	right: 0;
+	top: 15px;
 }
 
 .menu-icon {
@@ -101,6 +136,8 @@ export default {
 	height: 100%;
 	right: 0;
 	position: absolute;
+	display: flex;
+	flex-flow: column nowrap;
 }
 
 .show-nav-menu {
@@ -109,12 +146,24 @@ export default {
 
 @media screen and (max-width: 920px) {
 
-	.nav-buttons {
+	.menu-not-slide {
 		display: none;
 	}
 
 	.menu-slide {
 		display: block;
+	}
+
+}
+
+@media screen and (max-width: 650px) {
+
+	.menu-slide {
+		width: 100%;
+	}
+
+	.menu-slide > .nav-menu {
+		background-color: rgb(50, 50, 50);
 	}
 
 }
