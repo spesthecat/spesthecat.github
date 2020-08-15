@@ -62,10 +62,6 @@ export default {
 
 <style>
 
-html, body {
-	height: 100%;
-}
-
 .site-wrapper {
 	min-height: 100%;
 }
@@ -76,7 +72,8 @@ html, body {
 }
 
 .footer, .site-wrapper:after {
-	height: 142px;
+	height: 5%;
+	overflow: hidden;
 }
 
 .footer {
