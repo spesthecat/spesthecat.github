@@ -134,14 +134,16 @@ export default {
 	background-color: rgba(88, 88, 88, 0.601);
 	transition: width 0.5s ease;
 	width: 0;
-	height: 100%;
+	height: 100vh;
 	right: 0;
 	display: flex;
 	flex-flow: column nowrap;
+	position: fixed;
+	z-index: 0;
 }
 
 .show-nav-menu {
-	width: 200px;
+	width: inherit;
 }
 
 @media screen and (max-width: 920px) {

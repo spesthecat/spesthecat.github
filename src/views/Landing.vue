@@ -64,6 +64,7 @@ export default {
 
 .site-wrapper {
 	min-height: 100%;
+	position: relative;
 }
 
 .footer, .site-wrapper:after {
@@ -72,7 +73,9 @@ export default {
 }
 
 .footer {
+	z-index: 2;
 	background: white;
+	position: relative;
 }
 
 #menu-nav {
