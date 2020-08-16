@@ -87,7 +87,7 @@ export default {
 
 #hero {
 	transition: transform .2s ease;
-  z-index: 2;
+  z-index: 0;
 }
 
 .name-container {
@@ -159,7 +159,6 @@ export default {
 
 @media screen and (max-width: 920px) {
 	#hero {
-		height: 60%;
 		width: 100%;
 		display: flex;
 		align-items: baseline;

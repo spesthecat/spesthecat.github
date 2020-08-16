@@ -16,7 +16,7 @@
 <script>
 
 import Menu from '../components/menu.vue';
-import Hero from '../components/Hero.vue';
+import Hero from '../components/hero.vue';
 import Contact from '../components/contact.vue';
 
 export default {
@@ -83,6 +83,7 @@ export default {
 }
 
 #hero {
+	position: absolute;
 	width: 100%;
 }
 
@@ -91,7 +92,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 0;
+	z-index: 2;
 }
 
 .drop {

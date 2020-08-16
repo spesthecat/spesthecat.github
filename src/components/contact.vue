@@ -1,11 +1,11 @@
 <template>
 	<div class='contacts'>
-		<a href='https://github.com/spesthecat' target='_blank'>
+		<a class='social-link' href='https://github.com/spesthecat' target='_blank'>
 			<img class='social' alt='github'
 			src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"/>
 		</a>
-		<a href='mailto:spesthecat@gmail.com' target='_blank'>
-		<img id='email' class='social' alt='email'
+		<a class='social-link' href='mailto:spesthecat@gmail.com' target='_blank'>
+		<img class='social' alt='email'
 			src='http://clipartmag.com/images/transparent-email-icon-26.png'/>
 		</a>
 	</div>
@@ -35,6 +35,10 @@ export default {
 	width: 40px;
 	height: 40px;
 	cursor: pointer;
+}
+
+.social-link {
+	margin: 0 15px;
 }
 
 .social:hover {

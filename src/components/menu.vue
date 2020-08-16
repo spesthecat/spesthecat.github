@@ -87,6 +87,7 @@ export default {
 	padding: 20px 0;
 	margin: 0;
 	border-radius: 0;
+	position: relative;
 }
 
 .slide:first-child {
@@ -103,9 +104,9 @@ export default {
 }
 
 .menu-not-slide {
-	position: absolute;
-	right: 0;
-	top: 15px;
+	position: fixed;
+	right: 15px;
+	top: 30px;
 }
 
 .menu-icon {
@@ -118,7 +119,7 @@ export default {
 	cursor: pointer;
 	top: 15px;
 	right: 30px;
-	position: absolute;
+	position: fixed;
 }
 
 .menu-icon > .icon-part {
@@ -135,13 +136,12 @@ export default {
 	width: 0;
 	height: 100%;
 	right: 0;
-	position: absolute;
 	display: flex;
 	flex-flow: column nowrap;
 }
 
 .show-nav-menu {
-	width: 100%;
+	width: 200px;
 }
 
 @media screen and (max-width: 920px) {
