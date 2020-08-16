@@ -86,6 +86,7 @@ export default {
 <style scoped>
 
 #hero {
+  position: fixed;
 	transition: transform .2s ease;
   z-index: 0;
 }
@@ -163,7 +164,6 @@ export default {
 		display: flex;
 		align-items: baseline;
 		flex-flow: column nowrap;
-    position: fixed;
 	}
 
 	#hero > div {
