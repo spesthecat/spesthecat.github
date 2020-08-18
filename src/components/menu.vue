@@ -73,7 +73,7 @@ export default {
 	text-decoration: none;
 	font-weight: bold;
 	cursor: pointer;
-	color: #1f98b1;
+	color: var(--primary-text-color);
 	background-color: rgba(88, 88, 88, 0.401);
 }
 
@@ -83,7 +83,7 @@ export default {
 
 .slide {
 	text-align: center;
-	background-color: rgba(88, 88, 88, 0.601);
+	background-color: var(--secondary-bg-color);
 	padding: 20px 0;
 	margin: 0;
 	border-radius: 0;
@@ -131,7 +131,7 @@ export default {
 }
 
 .nav-menu {
-	background-color: rgba(88, 88, 88, 0.601);
+	background-color: var(--secondary-bg-color);
 	transition: width 0.5s ease;
 	width: 0;
 	height: 100vh;

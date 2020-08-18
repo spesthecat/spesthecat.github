@@ -28,6 +28,13 @@ export default {
 
 <style lang="scss">
 
+:root {
+	--primary-text-color: #1f98b1;
+	--secondary-text-color: rgb(92, 108, 255);
+	--primary-bg-color: rgba(0,0,0,0.911);
+	--secondary-bg-color: rgba(88,88,88,0.601);
+}
+
 * {
 	margin: 0;	
 }
