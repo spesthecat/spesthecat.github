@@ -1,14 +1,38 @@
 <template>
 	<div id='sidebar'>
 		<div class='title'> {{ options.title }} </div>
+
+		<div class='nav'>
+			<ul class='cat-list'>
+				<li class='cat' v-for="cat in catalog" :key="cat">
+					{{ cat.name }}
+					<ul class='item-list'>
+						<li class='item' v-for="item in getItemsInCat(cat.id)" :key="item.id">
+							{{ item.name }}
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 	</div>
 </template>
 
 <script>
+import api from '../utils/api.js';
 
 export default {
 	name: 'sidebar',
-	props: ['options']
+	props: ['options'],
+	data() {
+		return {
+			catalog: []
+		}
+	},
+	methods: {
+		getItemsInCat(id) {
+			api.getItemsInCat('page', this.options.title.toLowerCase(), id);
+		}
+	}
 }
 
 </script>
