@@ -7,7 +7,7 @@
 				<li class='cat' v-for="cat in catalog" :key="cat">
 					{{ cat.name }}
 					<ul class='item-list'>
-						<li class='item' v-for="item in getItemsInCat(cat.id)" :key="item.id">
+						<li class='item' v-for="item in getItemsInCat(cat.id)" :key="item._id">
 							{{ item.name }}
 						</li>
 					</ul>

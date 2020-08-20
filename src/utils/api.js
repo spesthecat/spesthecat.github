@@ -11,10 +11,10 @@ async function getItemsInCat(database, collection, id) {
 	// get catalog of all categories and items they contain
 	const catalog = await coll.findOne({ _catalog: { $exists: true } });
 
-	// query items based on catalog and return only title
+	// query items based on catalog and return only _id and title
 	let itemsCursor = coll.find(
 		{ _id: { $in: catalog[id].items } },
-		{ projection: { title: 1 } }
+		{ projection: { _id: 1, title: 1 } }
 	);
 	
 	const items = [];
@@ -23,17 +23,15 @@ async function getItemsInCat(database, collection, id) {
 	return items;
 }
 
-async function getCats(database, collection) {
+async function getCatalog(database, collection) {
 	await client.connect();
 
-	const db = client.db(database);
-	const coll = db.collection(collection);
-	const catalog = await coll.findOne({_catalog: {$exists: true}});
-
-	return catalog;
+	return await client.db(database)
+	.collection(collection)
+	.findOne({_catalog: {$exists: true}});
 }
 
 export default {
 	getItemsInCat,
-	getCats
+	getCatalog
 }
