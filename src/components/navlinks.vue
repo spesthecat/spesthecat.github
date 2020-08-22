@@ -49,7 +49,7 @@
 <script>
 
 export default {
-	name: 'menu',
+	name: 'navlinks',
 	data() {
 		return {
 			showMenu: false,

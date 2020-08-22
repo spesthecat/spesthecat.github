@@ -4,10 +4,11 @@
 
 		<div class='nav'>
 			<ul class='cat-list'>
-				<li class='cat' v-for="cat in catalog" :key="cat">
+				<li class='cat' v-for="cat in catalog" :key="cat.name">
 					{{ cat.name }}
 					<ul class='item-list'>
-						<li class='item' v-for="item in getItemsInCat(cat.id)" :key="item._id">
+						<li class='item' v-for="item in getItemsFromId(cat.items)" :key="item.id">
+							adwads
 							{{ item.name }}
 						</li>
 					</ul>
@@ -15,9 +16,10 @@
 			</ul>
 		</div>
 	</div>
-</template>
+</template> 
 
 <script>
+
 import api from '../utils/api.js';
 
 export default {
@@ -29,9 +31,25 @@ export default {
 		}
 	},
 	methods: {
-		getItemsInCat(id) {
-			api.getItemsInCat('page', this.options.title.toLowerCase(), id);
+		async getItemsFromId(IDs) {
+			const items = [];
+			for (let id of IDs) {
+				let item = await api.getDocByID(this.options.title.toLowerCase(), id);
+				items.push({ id, ...item });
+			}
+			return items;
 		}
+	},
+	async mounted() {
+		let catalog = await api.getCatalog(this.options.title.toLowerCase());
+		const catalogArray = [];
+		for (let cat of catalog.order) {
+			catalogArray.push({
+				name: cat, 
+				items: catalog[cat] 
+			});
+		}
+		this.catalog = catalogArray;
 	}
 }
 
@@ -57,5 +75,21 @@ export default {
 	padding-bottom: 30px;
 	box-shadow: 0 2px var(--primary-bg-color);
 }
+
+.cat-list {
+	list-style-type: none;
+}
+
+.cat {
+	margin: 50px 0;
+}
+
+.item-list {
+	list-style-type: none;
+}
+
+/* .nav {
+	height: 100%;
+} */
 
 </style>

@@ -1,37 +1,23 @@
-const MongoClient = require('mongodb').MongoClient;
-import uri from './uri.js';
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const firebase = require('firebase');
+require('firebase/auth');
+require('firebase/firestore');
+import firebaseConfig from './config.js';
 
-async function getItemsInCat(database, collection, id) {
-	await client.connect();
+firebase.initializeApp(firebaseConfig);
 
-	const db = client.db(database);
-	const coll = db.collection(collection);
+let db = firebase.firestore();
 
-	// get catalog of all categories and items they contain
-	const catalog = await coll.findOne({ _catalog: { $exists: true } });
-
-	// query items based on catalog and return only _id and title
-	let itemsCursor = coll.find(
-		{ _id: { $in: catalog[id].items } },
-		{ projection: { _id: 1, title: 1 } }
-	);
-	
-	const items = [];
-	await itemsCursor.forEach(items.push);
-
-	return items;
+async function getCatalog(collection) {
+	const catalog = await db.collection(collection).doc('_catalog').get();
+	return catalog.data();
 }
 
-async function getCatalog(database, collection) {
-	await client.connect();
-
-	return await client.db(database)
-	.collection(collection)
-	.findOne({_catalog: {$exists: true}});
+async function getDocByID(coll, id) {
+	let doc = await db.collection(coll).doc(id).get();
+	return doc.data();
 }
 
 export default {
-	getItemsInCat,
-	getCatalog
+	getCatalog,
+	getDocByID,
 }

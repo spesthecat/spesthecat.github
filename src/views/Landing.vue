@@ -15,12 +15,12 @@
 
 <script>
 
-import Menu from '../components/menu.vue';
+import Menu from '../components/navlinks.vue';
 import Hero from '../components/hero.vue';
 import Contact from '../components/contact.vue';
 
 export default {
-	name: 'main',
+	name: 'landing',
 	components: {
 		Hero,
 		Menu,
