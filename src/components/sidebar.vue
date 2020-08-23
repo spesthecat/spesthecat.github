@@ -44,13 +44,10 @@ export default {
 			for (let id of catalog[cat]) {
 				let item = await api.getDocByID(this.options.title.toLowerCase(), id);
 				itemsName.push({ id, ...item });
-				console.log(cat, id, item);
 			}
-			items[cat.name] = itemsName;
-			console.log(cat, itemsName);
+			items[cat] = itemsName;
 		}
 		
-		console.log(items);
 		this.items = items;
 		this.catalog = catalogArray;
 	}
