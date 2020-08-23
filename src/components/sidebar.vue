@@ -7,8 +7,7 @@
 				<li class='cat' v-for="cat in catalog" :key="cat.name">
 					{{ cat.name }}
 					<ul class='item-list'>
-						<li class='item' v-for="item in getItemsFromId(cat.items)" :key="item.id">
-							adwads
+						<li class='item' v-for="item in items[cat.name]" :key="item.id">
 							{{ item.name }}
 						</li>
 					</ul>
@@ -27,28 +26,32 @@ export default {
 	props: ['options'],
 	data() {
 		return {
-			catalog: []
-		}
-	},
-	methods: {
-		async getItemsFromId(IDs) {
-			const items = [];
-			for (let id of IDs) {
-				let item = await api.getDocByID(this.options.title.toLowerCase(), id);
-				items.push({ id, ...item });
-			}
-			return items;
+			catalog: [],
+			items: {}
 		}
 	},
 	async mounted() {
 		let catalog = await api.getCatalog(this.options.title.toLowerCase());
 		const catalogArray = [];
+		const items = {};
 		for (let cat of catalog.order) {
 			catalogArray.push({
 				name: cat, 
 				items: catalog[cat] 
 			});
+
+			let itemsName = [];
+			for (let id of catalog[cat]) {
+				let item = await api.getDocByID(this.options.title.toLowerCase(), id);
+				itemsName.push({ id, ...item });
+				console.log(cat, id, item);
+			}
+			items[cat.name] = itemsName;
+			console.log(cat, itemsName);
 		}
+		
+		console.log(items);
+		this.items = items;
 		this.catalog = catalogArray;
 	}
 }
@@ -82,6 +85,10 @@ export default {
 
 .cat {
 	margin: 50px 0;
+}
+
+.update {
+	display: none;
 }
 
 .item-list {
