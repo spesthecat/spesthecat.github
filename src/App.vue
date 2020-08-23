@@ -22,6 +22,7 @@ export default {
 	--secondary-text-color: rgb(92, 108, 255);
 	--primary-bg-color: rgba(0,0,0,0.911);
 	--secondary-bg-color: rgba(88,88,88,0.601);
+	--tertiary-bg-color: rgba(255, 250, 240, 0.911);
 }
 
 * {
@@ -52,4 +53,13 @@ html, body {
 	-webkit-scrollbar: none;
 }
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
 </style>

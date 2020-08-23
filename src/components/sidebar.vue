@@ -1,6 +1,6 @@
 <template>
 	<div id='sidebar'>
-		<div class='title'> {{ options.title }} </div>
+		<div class='title noselect'> {{ options.title }} </div>
 
 		<div class='nav'>
 			<ul class='cat-list'>
@@ -8,7 +8,9 @@
 					{{ cat.name }}
 					<ul class='item-list'>
 						<li class='item' v-for="item in items[cat.name]" :key="item.id">
-							{{ item.name }}
+							<router-link class='item-link' :to="'/projects/' + item.id">
+								{{ item.name }}
+							</router-link>
 						</li>
 					</ul>
 				</li>
@@ -62,7 +64,7 @@ export default {
 	width: 250px;
 	height: 100%;
 	left: 0;
-	background-color: var(--secondary-bg-color);
+	background-color: var(--tertiary-bg-color);
 }
 
 .title {
@@ -74,14 +76,32 @@ export default {
 	font-size: 24px;
 	padding-bottom: 30px;
 	box-shadow: 0 2px var(--primary-bg-color);
+	cursor: default;
 }
 
 .cat-list {
 	list-style-type: none;
+	margin-left: 20px;
+	padding: 0;
+	cursor: default;
 }
 
 .cat {
-	margin: 50px 0;
+	margin: 40px 0;
+	font-size: 20px;
+	text-align: left;
+	position: relative;
+	padding: 0;
+	font-weight: bold;
+}
+
+.cat::after {
+	content: '';
+	position: absolute;
+	top: 1em;
+	left: 4px;
+	border: 1px solid rgb(0, 0, 0);
+	height: calc(100% + 25px);
 }
 
 .update {
@@ -89,11 +109,31 @@ export default {
 }
 
 .item-list {
+	padding: 0;
 	list-style-type: none;
 }
 
-/* .nav {
-	height: 100%;
-} */
+.item {
+	margin-top: 20px;
+	padding-left: 20px;
+	font-size: 14px;
+	position: relative;
+	cursor: pointer;
+}
+
+.item::before {
+	content: '';
+	width: 15px;
+	height: 2px;
+	background-color: rgb(44, 42, 42);
+	left: 5px;
+	top: 8px;
+	position: absolute;
+}
+
+.item-link {
+	text-decoration: none;
+	color: black;
+}
 
 </style>
