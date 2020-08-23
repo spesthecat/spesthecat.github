@@ -4,10 +4,15 @@
 			<img class='social' alt='github'
 			src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"/>
 		</a>
+		<a class='social-link' href='https://www.linkedin.com/in/kenneth-sun-561b42193/' target='_blank'>
+			<img class='social' alt='linkedin'
+			src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"/>
+		</a>
 		<a class='social-link' href='mailto:spesthecat@gmail.com' target='_blank'>
 		<img class='social' alt='email'
 			src='http://clipartmag.com/images/transparent-email-icon-26.png'/>
 		</a>
+
 	</div>
 </template>
 
