@@ -10,9 +10,7 @@
 
 export default {
 	name: 'backarrow',
-	props: [
-		'link',
-	]
+	props: ['link']
 }
 
 </script>

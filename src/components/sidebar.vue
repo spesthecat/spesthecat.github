@@ -16,16 +16,22 @@
 				</li>
 			</ul>
 		</div>
+
+		<backarrow id='goback' :link="'/'"/>
 	</div>
 </template> 
 
 <script>
 
 import api from '../utils/api.js';
+import backarrow from '../components/backarrow.vue';
 
 export default {
 	name: 'sidebar',
 	props: ['options'],
+	components: {
+		backarrow
+	},
 	data() {
 		return {
 			catalog: [],
@@ -134,6 +140,12 @@ export default {
 .item-link {
 	text-decoration: none;
 	color: black;
+}
+
+#goback {
+	position: absolute;
+	bottom: 100px;
+	left: calc(50% - 10px);
 }
 
 </style>
