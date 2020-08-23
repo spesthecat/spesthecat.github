@@ -53,6 +53,10 @@ html, body {
 	-webkit-scrollbar: none;
 }
 
+#main-view::-webkit-scrollbar {
+	display: none;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

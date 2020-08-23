@@ -68,7 +68,7 @@ export default {
 }
 
 .footer, .site-wrapper:after {
-	height: 5%;
+	height: 8%;
 	overflow: hidden;
 }
 

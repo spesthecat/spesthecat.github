@@ -73,7 +73,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 
 #sidebar {
 	position: absolute;
@@ -92,7 +92,26 @@ export default {
 
 .actual-nav {
 	grid-row: 1;
-	overflow-y: scroll;
+	overflow: auto;
+	scrollbar-width: thin;
+	scrollbar-color: #606060 #393939;
+	border-radius: 10px;
+
+
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: #393939;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #606060;
+	border-radius: 10px;
 }
 
 .back {
