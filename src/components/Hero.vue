@@ -49,6 +49,7 @@ export default {
 			],
       wordId: -1,
       wrapWidth: 0,
+      interval: {}
 		}
 	},
 	methods: {
@@ -59,7 +60,7 @@ export default {
 			}
 		},
 		animateHeadline(wait) {
-			setInterval(() => {
+			this.interval = setInterval(() => {
         setTimeout(() => {
           this.wrapWidth = 0;
         }, 500)
@@ -70,7 +71,9 @@ export default {
         
 
         setTimeout(() => {
+
           this.wrapWidth = this.$refs.word[this.wordId].clientWidth;  
+          
         }, 1200)
         
         
@@ -79,7 +82,10 @@ export default {
 	},
 	mounted() {
 		this.animateHeadline(4500);
-	}
+  },
+  beforeDestroy() {
+    clearInterval(this.interval);
+  }
 }
 </script>
 
