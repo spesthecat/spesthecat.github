@@ -10,7 +10,7 @@
 			<router-link class='nav-buttons' to="/projects">
 				projects
 			</router-link>
-			<router-link class='nav-buttons' to="/blog">
+			<router-link class='nav-buttons' to="/blogs">
 				blog
 			</router-link>
 			<router-link class='nav-buttons' to="/about"> 
@@ -34,7 +34,7 @@
 				<router-link class='nav-buttons slide' to="/projects">
 					projects
 				</router-link>
-				<router-link class='nav-buttons slide' to="/blog">
+				<router-link class='nav-buttons slide' to="/blogs">
 					blog
 				</router-link>
 				<router-link class='nav-buttons slide' to="/about"> 

@@ -71,9 +71,7 @@ export default {
         
 
         setTimeout(() => {
-
           this.wrapWidth = this.$refs.word[this.wordId].clientWidth;  
-          
         }, 1200)
         
         
