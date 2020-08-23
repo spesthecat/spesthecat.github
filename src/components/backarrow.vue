@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<router-link :to="link">
+		<router-link class='link' :to="link">
 			<div class='arrow-left'/>
 		</router-link>
 	</div>
@@ -28,7 +28,7 @@ export default {
 	opacity: 0.7;
 }
 
-.arrow-left:hover {
+.link:hover .arrow-left {
 	opacity: 1;
 	transform: rotate(45deg) translate(-10px, 10px);
 }

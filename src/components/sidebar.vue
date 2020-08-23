@@ -3,21 +3,29 @@
 		<div class='title noselect'> {{ options.title }} </div>
 
 		<div class='nav'>
-			<ul class='cat-list'>
-				<li class='cat' v-for="cat in catalog" :key="cat.name">
-					{{ cat.name }}
-					<ul class='item-list'>
-						<li class='item' v-for="item in items[cat.name]" :key="item.id">
-							<router-link class='item-link' :to="'/projects/' + item.id">
-								{{ item.name }}
-							</router-link>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
 
-		<backarrow id='goback' :link="'/'"/>
+			<div class='actual-nav'>
+				<ul v-if="!(loading)" class='list'>
+					<li class='cat' v-for="cat in catalog" :key="cat.name">
+						{{ cat.name }}
+						<ul class='inner-item'>
+							<li class='item' v-for="item in items[cat.name]" :key="item.id">
+								<router-link class='item-link' :to="'/projects/' + item.id">
+									{{ item.name }}
+								</router-link>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul v-else class='placeholder-outer list'>
+					<li class='placehol'/>
+				</ul>
+			</div>
+
+			<div class='back'>
+				<backarrow id='goback' :link="'/'"/>
+			</div>
+		</div>
 	</div>
 </template> 
 
@@ -35,7 +43,8 @@ export default {
 	data() {
 		return {
 			catalog: [],
-			items: {}
+			items: {},
+			loading: true
 		}
 	},
 	async mounted() {
@@ -58,6 +67,7 @@ export default {
 		
 		this.items = items;
 		this.catalog = catalogArray;
+		this.loading = false;
 	}
 }
 
@@ -73,6 +83,28 @@ export default {
 	background-color: var(--tertiary-bg-color);
 }
 
+.nav {
+	display: grid;
+	grid-template-rows: auto 100px;
+	height: calc(100% - 120px);
+	overflow: hidden;
+}
+
+.actual-nav {
+	grid-row: 1;
+	overflow-y: scroll;
+}
+
+.back {
+	grid-row: 2;
+}
+
+#goback {
+	position: relative;
+	left: calc(50% - 10px);
+	top: 40%;
+}
+
 .title {
 	width: 80%;
 	margin: 30px auto;
@@ -85,7 +117,7 @@ export default {
 	cursor: default;
 }
 
-.cat-list {
+.list {
 	list-style-type: none;
 	margin-left: 20px;
 	padding: 0;
@@ -99,29 +131,31 @@ export default {
 	position: relative;
 	padding: 0;
 	font-weight: bold;
+	z-index: 2;
 }
 
 .cat::after {
 	content: '';
 	position: absolute;
 	top: 1em;
-	left: 4px;
+	left: 5px;
 	border: 1px solid rgb(0, 0, 0);
 	height: calc(100% + 25px);
+	opacity: 0.8;
 }
 
 .update {
 	display: none;
 }
 
-.item-list {
+.inner-item {
 	padding: 0;
 	list-style-type: none;
 }
 
 .item {
 	margin-top: 20px;
-	padding-left: 20px;
+	padding-left: 30px;
 	font-size: 14px;
 	position: relative;
 	cursor: pointer;
@@ -140,12 +174,6 @@ export default {
 .item-link {
 	text-decoration: none;
 	color: black;
-}
-
-#goback {
-	position: absolute;
-	bottom: 100px;
-	left: calc(50% - 10px);
 }
 
 </style>
