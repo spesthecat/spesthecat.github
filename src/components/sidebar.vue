@@ -62,26 +62,50 @@ export default {
 		}
 	},
 	async mounted() {
-		let catalog = await api.getCatalog(this.options.title.toLowerCase());
-		const catalogArray = [];
-		const items = {};
-		for (let cat of catalog.order) {
-			catalogArray.push({
-				name: cat, 
-				items: catalog[cat] 
-			});
-
-			let itemsName = [];
-			for (let id of catalog[cat]) {
-				let item = await api.getDocByID(this.options.title.toLowerCase(), id);
-				itemsName.push({ id, ...item });
-			}
-			items[cat] = itemsName;
+		if (localStorage.catalog) {
+			this.items = JSON.parse(localStorage.items);
+			let catalog = JSON.parse(localStorage.catalog);
+			this.catalog = catalog.data;
 		}
-		
-		this.items = items;
-		this.catalog = catalogArray;
+		else {
+			let catalog = await api.getCatalog(this.options.title.toLowerCase());
+			const catalogArray = [];
+			const items = {};
+			for (let cat of catalog.order) {
+				catalogArray.push({
+					name: cat, 
+					items: catalog[cat] 
+				});
+
+				let itemsName = [];
+				for (let id of catalog[cat]) {
+					let item = await api.getDocByID(this.options.title.toLowerCase(), id);
+					itemsName.push({ id, ...item });
+				}
+				items[cat] = itemsName;
+			}
+
+			this.catalog = catalogArray;
+			this.items = items;
+			localStorage.items = JSON.stringify(items);
+			localStorage.catalog = JSON.stringify({data: catalogArray});
+		}
+
 		this.loading = false;
+	},
+	watch: {
+		catalog: {
+			handler() {
+				localStorage.catalog = JSON.stringify({data: this.catalog});
+			},
+			deep: true
+		},
+		items: {
+			handler() {
+				localStorage.items = JSON.stringify(this.items);
+			},
+			deep: true
+		}
 	}
 }
 
