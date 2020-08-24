@@ -17,8 +17,16 @@
 						</ul>
 					</li>
 				</ul>
-				<ul v-else class='placeholder-outer list'>
-					<li class='placehol'/>
+
+				<ul v-else class='list'>
+					<li class='cat' v-for="cat in placeholder" :key="cat.name">
+						<span class='placeholder-outer'> {{ cat.name }} </span>
+						<ul class='list'>
+							<li class='item' v-for="item in cat.items" :key="item">
+								<span class='placeholder-inner'> {{ item }} </span>
+							</li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 
@@ -44,6 +52,12 @@ export default {
 		return {
 			catalog: [],
 			items: {},
+			placeholder: [
+				{name: 'aaaaaaaa', items: ['aaaaa', 'a'.repeat(20)]},
+				{name: 'a'.repeat(10), items: ['a'.repeat(15), 'a'.repeat(13), 'a'.repeat(14)]},
+				{name: 'a'.repeat(7), items: ['aaaaaaaaaa']},
+				{name: 'a'.repeat(15), items: ['a'.repeat(7)]}
+			],
 			loading: true
 		}
 	},
@@ -93,11 +107,10 @@ export default {
 .actual-nav {
 	grid-row: 1;
 	overflow: auto;
+	overflow-x: hidden;
 	scrollbar-width: thin;
 	scrollbar-color: #606060 #393939;
 	border-radius: 10px;
-
-
 }
 
 ::-webkit-scrollbar {
@@ -178,6 +191,8 @@ export default {
 	font-size: 14px;
 	position: relative;
 	cursor: pointer;
+	opacity: 0.7;
+	transition: transform 0.3s ease;
 }
 
 .item::before {
@@ -190,9 +205,28 @@ export default {
 	position: absolute;
 }
 
+.item:hover {
+	transform: translateX(20px);
+	opacity: 1;
+}
+
 .item-link {
 	text-decoration: none;
 	color: black;
+}
+
+.placeholder-outer {
+	color: rgb(170, 170, 170);
+	background-color: rgb(170, 170, 170);
+	border-radius: 10px;
+	position: relative;
+	left: 4px;
+}
+
+.placeholder-inner {
+	color: rgb(212, 212, 212);
+	background-color: rgb(212, 212, 212);
+	border-radius: 10px;
 }
 
 </style>
