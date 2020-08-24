@@ -61,10 +61,18 @@ export default {
 			loading: true
 		}
 	},
+	computed: {
+		currCatalog() {
+			return this.options.title + 'catalog';
+		},
+		currItems() {
+			return this.options.title + 'items';
+		}
+	},
 	async mounted() {
-		if (localStorage.catalog) {
-			this.items = JSON.parse(localStorage.items);
-			let catalog = JSON.parse(localStorage.catalog);
+		if (localStorage[this.currCatalog]) {
+			this.items = JSON.parse(localStorage[this.currItems]);
+			let catalog = JSON.parse(localStorage[this.currCatalog]);
 			this.catalog = catalog.data;
 		}
 		else {
@@ -87,8 +95,8 @@ export default {
 
 			this.catalog = catalogArray;
 			this.items = items;
-			localStorage.items = JSON.stringify(items);
-			localStorage.catalog = JSON.stringify({data: catalogArray});
+			localStorage[this.currItems] = JSON.stringify(items);
+			localStorage[this.currCatalog] = JSON.stringify({data: catalogArray});
 		}
 
 		this.loading = false;
@@ -96,13 +104,13 @@ export default {
 	watch: {
 		catalog: {
 			handler() {
-				localStorage.catalog = JSON.stringify({data: this.catalog});
+				localStorage[this.currCatalog] = JSON.stringify({data: this.catalog});
 			},
 			deep: true
 		},
 		items: {
 			handler() {
-				localStorage.items = JSON.stringify(this.items);
+				localStorage[this.currItems] = JSON.stringify(this.items);
 			},
 			deep: true
 		}
