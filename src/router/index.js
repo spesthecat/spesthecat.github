@@ -24,18 +24,32 @@ const routes = [
 		}
 	},
 	{
-		name: 'projects',
+		name: 'projectsLanding',
 		path: '/projects',
 		components: {
 			default: Projects
 		}
 	},
 	{
-		name: 'blogs',
+		name: 'projectsView',
+		path: '/projects/:id',
+		components: {
+			default: Projects
+		}	
+	},
+	{
+		name: 'blogsLanding',
 		path: '/blogs',
 		components: {
 			default: Blogs
 		}
+	},
+	{
+		name: 'blogsView',
+		path: '/blogs/:id',
+		components: {
+			default: Blogs
+		}	
 	}
 ];
 

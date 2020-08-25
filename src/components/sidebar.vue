@@ -1,5 +1,5 @@
 <template>
-	<div id='sidebar'>
+	<div id='sidebar' :class="{ 'slide-left': !nav }">
 		<div class='title noselect'> {{ options.title }} </div>
 
 		<div class='nav'>
@@ -9,7 +9,7 @@
 					<li class='cat' v-for="cat in catalog" :key="cat.name">
 						{{ cat.name }}
 						<ul class='inner-item'>
-							<li class='item' v-for="item in items[cat.name]" :key="item.id">
+							<li @click.prevent="nav = false" class='item' v-for="item in items[cat.name]" :key="item.id">
 								<router-link class='item-link' :to="'/projects/' + item.id">
 									{{ item.name }}
 								</router-link>
@@ -58,7 +58,8 @@ export default {
 				{name: 'a'.repeat(7), items: ['aaaaaaaaaa']},
 				{name: 'a'.repeat(15), items: ['a'.repeat(7)]}
 			],
-			loading: true
+			loading: true,
+			nav: true
 		}
 	},
 	computed: {
@@ -259,6 +260,21 @@ export default {
 	color: rgb(212, 212, 212);
 	background-color: rgb(212, 212, 212);
 	border-radius: 10px;
+}
+
+@media screen and (max-width: 500px) {
+	#sidebar {
+		width: 100%;
+		transition: transform 0.5s ease;
+	}
+
+	.slide-left {
+		transform: translateX(-100%);
+	}
+
+	.list {
+		margin-left: 50px;
+	}
 }
 
 </style>
