@@ -31,34 +31,60 @@
 				</span>
 			</div>
 		</div>
+
+    <div v-if="authenticated" class='editor'>
+      <ul class='words'>
+        <li v-for="word in words" @click.prevent="removeWord(word)" class='word' :key="word"> {{ word }} </li>
+      </ul>
+      <input v-model="word" @keyup.enter="addWord"/>
+      <button @click.prevent="push"> push </button>
+    </div>
 	</div>
 </template>
 
 <script>
+import api from '../utils/api.js';
+import { mapGetters } from 'vuex';
+
 export default {
 	name: 'Hero',
 	data() {
 		return {
-			words: [
-				"developer",
-        "student",
-        "amatuer physicist",
-        "teenager",
-        "cats good",
-        "css bad",
-			],
+      word: '',
+			words: [],
       wordId: -1,
       wrapWidth: 0,
       interval: {}
 		}
-	},
+  },
+  computed: {
+    ...mapGetters(['authenticated'])
+  },
 	methods: {
 		showWord(id) {
 			return {
 				'word-visible': id == this.wordId,
 				'word-hidden': !(id == this.wordId),
 			}
-		},
+    },
+    randomID() {
+      let r = Math.floor(Math.random() * this.words.length);
+      if (this.wordId === r) {
+        return r === this.words.length-1 ? r - 1 : r + 1;
+      }
+      return r;
+    },
+    addWord() {
+      this.words.push(this.word);
+      this.word = '';
+    },
+    removeWord(word) {
+      this.words = this.words.filter(w => w !== word);
+    },
+    async push() {
+      console.log('pushing hero to firebase');
+      await api.editDoc('static', 'hero', { words: this.words });
+    },
 		animateHeadline(wait) {
 			this.interval = setInterval(() => {
         setTimeout(() => {
@@ -66,7 +92,7 @@ export default {
         }, 500)
 
         setTimeout(() => {
-          this.wordId = this.wordId === this.words.length-1 ? 0 : this.wordId + 1;
+          this.wordId = this.randomID();
         }, 1000)
         
 
@@ -78,16 +104,19 @@ export default {
 			}, wait)
 		}
 	},
-	mounted() {
-		this.animateHeadline(4500);
+	async mounted() {
+    let resp = await api.getDocByID('static', 'hero');
+    this.words = resp.words;
+    this.animateHeadline(4500);
   },
-  beforeDestroy() {
+  async beforeDestroy() {
+    await this.push();
     clearInterval(this.interval);
   }
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 
 #hero {
   position: fixed;
@@ -103,7 +132,20 @@ export default {
 	transform: scale(2.6);
 }
 
+.editor {
+  color: white;
 
+  .words {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .word:hover {
+    text-decoration: line-through;
+    cursor: pointer;
+  }
+
+}
 
 /* animated headline */
 

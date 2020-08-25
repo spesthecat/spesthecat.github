@@ -1,6 +1,6 @@
 <template>
 	<div id='admin'>
-		<div v-if="!authenticated" class='login wrapper'>
+		<div class='login wrapper'>
 			<input @keyup.enter="submit" class='password' v-model="password" type="password"/>
 			<div class='error' v-show="error"> {{ error }} </div>
 			<backarrow @click.native='submit' :link="'/admin'" class='submit'/>
