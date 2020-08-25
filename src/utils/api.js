@@ -1,10 +1,9 @@
 const firebase = require('firebase');
 require('firebase/auth');
 require('firebase/firestore');
-import firebaseConfig from './config.js';
-import authConfig from './authConfig.js';
+import config from './config.js';
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(config.firebase);
 
 let db = firebase.firestore();
 
@@ -21,7 +20,7 @@ export default {
 	},
 
 	async authRequest(password) {
-		await firebase.auth().signInWithEmailAndPassword(authConfig.email, password);
+		await firebase.auth().signInWithEmailAndPassword(config.email, password);
 	},
 
 	async editDoc(coll, docId, data) {
