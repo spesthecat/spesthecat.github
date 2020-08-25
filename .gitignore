@@ -21,3 +21,4 @@ pnpm-debug.log*
 *.sw?
 src/utils/config.js
 src/assets/firebaseCreds.json
+src/utils/authConfig.js

@@ -2,6 +2,7 @@ const firebase = require('firebase');
 require('firebase/auth');
 require('firebase/firestore');
 import firebaseConfig from './config.js';
+import authConfig from './authConfig.js';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -17,7 +18,21 @@ async function getDocByID(coll, id) {
 	return doc.data();
 }
 
+async function authRequest(password) {
+	await firebase.auth().signInWithEmailAndPassword(authConfig.email, password);
+}
+
+async function logout() {
+	firebase.auth().signOut().then(() => {
+		return true;
+	}).catch(err => {
+		return err;
+	})
+}
+
 export default {
 	getCatalog,
 	getDocByID,
+	authRequest,
+	logout
 }

@@ -5,6 +5,7 @@ import Main from '../views/Landing.vue';
 import About from '../views/About.vue';
 import Projects from '../views/Projects.vue';
 import Blogs from '../views/Blogs.vue';
+import Admin from '../views/Admin.vue';
 
 Vue.use(VueRouter);
 
@@ -50,6 +51,13 @@ const routes = [
 		components: {
 			default: Blogs
 		}	
+	},
+	{
+		name: 'admin',
+		path: '/admin',
+		components: {
+			default: Admin
+		}
 	}
 ];
 
