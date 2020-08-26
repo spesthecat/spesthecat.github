@@ -10,7 +10,7 @@
 						{{ cat.name }}
 						<ul class='inner-item'>
 							<li @click.prevent="nav = false" class='item noselect' v-for="item in items[cat.name]" :key="item.id">
-								<router-link class='item-link' :to="'/projects/' + item.id">
+								<router-link class='item-link' :to="`/projects/${item.name.replace(/ /g,'-')}-${item.id}`">
 									{{ item.name }}
 								</router-link>
 							</li>
@@ -90,55 +90,60 @@ export default {
 			this.newCat = '';
 		},
 		async addItem(name) {
-			let id = await api.createDoc(this.scope, { name: this.newItem[name] }).id;
+			let id = (await api.createDoc(this.scope, { name: this.newItem[name] })).id;
 			this.catalog.forEach(cat => {
 				if (cat.name === name) {
 					cat.items.push(id);
 				}
 			});
-			await api.editDoc(this.scope, '_catalog', { arr: this.catalog });
+			this.items[name] = this.items[name] || [];
+			this.items[name].push({ id, name: this.newItem[name] });
+			await api.addToDoc(this.scope, '_catalog', { arr: this.catalog });
 			this.newItem = ''
 		}
 	},
 	async mounted() {
-		if (localStorage[this.currCatalog]) {
+		if (await api.hasUpdate()) {
 			this.items = JSON.parse(localStorage[this.currItems]);
 			let catalog = JSON.parse(localStorage[this.currCatalog]);
 			this.catalog = catalog.data;
 		}
 		else {
-			let catalog = (await api.getCatalog(this.scope)).arr;
+			let catalog = (await api.getCatalog(this.scope)).arr || [];
 			const items = new Object();
-			for (let cat of catalog) {
-				let itemsName = [];
-				for (let id of cat.items) {
-					let item = await api.getDocByID(this.scope, id);
-					itemsName.push({ id, ...item });
+			if (catalog) {
+				for (let cat of catalog) {
+					let itemsName = [];
+					for (let id of cat.items) {
+						let item = await api.getDocByID(this.scope, id);
+						itemsName.push({ id, ...item });
+					}
+					items[cat.name] = itemsName;
 				}
-				items[cat.name] = itemsName;
-			}
 
+
+				localStorage[this.currItems] = JSON.stringify(items);
+				localStorage[this.currCatalog] = JSON.stringify({data: catalog});
+			}
 			this.catalog = catalog;
 			this.items = items;
-			localStorage[this.currItems] = JSON.stringify(items);
-			localStorage[this.currCatalog] = JSON.stringify({data: catalog});
 		}
 
 		this.loading = false;
 	},
 	watch: {
-		catalog: {
-			handler() {
-				localStorage[this.currCatalog] = JSON.stringify({data: this.catalog});
-			},
-			deep: true
-		},
-		items: {
-			handler() {
-				localStorage[this.currItems] = JSON.stringify(this.items);
-			},
-			deep: true
-		}
+		// catalog: {
+		// 	handler() {
+		// 		localStorage[this.currCatalog] = JSON.stringify({data: this.catalog});
+		// 	},
+		// 	deep: true
+		// },
+		// items: {
+		// 	handler() {
+		// 		localStorage[this.currItems] = JSON.stringify(this.items);
+		// 	},
+		// 	deep: true
+		// }
 	}
 }
 
