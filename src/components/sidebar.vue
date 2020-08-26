@@ -1,6 +1,8 @@
 <template>
 	<div id='sidebar' :class="{ 'slide-left': !nav }">
-		<div class='title noselect'> {{ options.title }} </div>
+		<div class='title noselect'> 
+			<router-link class='link' :to="'/'+options.title.toLowerCase()"> {{ options.title }} </router-link>
+		</div>
 
 		<div class='nav'>
 
@@ -208,12 +210,15 @@ export default {
 	width: 80%;
 	margin: 30px auto;
 	text-align: center;
-	color: var(--secondary-text-color);
 	font-weight: bold;
 	font-size: 24px;
 	padding-bottom: 30px;
 	box-shadow: 0 2px var(--primary-bg-color);
-	cursor: default;
+
+	.link {
+		text-decoration: none;
+		color: var(--secondary-text-color);
+	}
 }
 
 .list {
