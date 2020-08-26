@@ -9,8 +9,10 @@
 					<li class='cat' v-for="cat in catalog" :key="cat.name">
 						{{ cat.name }}
 						<ul class='inner-item'>
-							<li @click.prevent="nav = false" class='item noselect' v-for="item in items[cat.name]" :key="item.id">
-								<router-link class='item-link' :to="`/projects/${item.name.replace(/ /g,'-')}-${item.id}`">
+							<li @click.prevent="nav = false" 
+							class='noselect' :class="{ current: path.includes(item.id), item: !path.includes(item.id) }"
+							v-for="item in items[cat.name]" :key="item.id">
+								<router-link class='item-link' :to="`/projects/${item.name.replace(/ /g,'_')}-${item.id}`">
 									{{ item.name }}
 								</router-link>
 							</li>
@@ -81,6 +83,9 @@ export default {
 		},
 		scope() {
 			return this.options.title.toLowerCase();
+		},
+		path() {
+			return this.$route.path;
 		},
 		...mapGetters(['authenticated'])
 	},
@@ -247,7 +252,7 @@ export default {
 	list-style-type: none;
 }
 
-.item {
+.item, .current {
 	margin-top: 20px;
 	padding-left: 30px;
 	font-size: 14px;
@@ -277,6 +282,21 @@ export default {
 .item:hover {
 	transform: translateX(20px);
 	opacity: 1;
+}
+
+.current {
+	transform: translateX(20px);
+	opacity: 1;
+}
+
+.current::before {
+	content: '';
+	width: 30px;
+	left: -15px;
+	top: 8px;
+	position: absolute;
+	height: 2px;
+	background-color: rgb(44, 42, 42);
 }
 
 .item-link {

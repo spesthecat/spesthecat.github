@@ -33,7 +33,7 @@ const routes = [
 	},
 	{
 		name: 'projectsView',
-		path: '/projects/:id',
+		path: '/projects/*-:id',
 		components: {
 			default: Projects
 		}	
@@ -47,7 +47,7 @@ const routes = [
 	},
 	{
 		name: 'blogsView',
-		path: '/blogs/:id',
+		path: '/blogs/*-:id',
 		components: {
 			default: Blogs
 		}	
