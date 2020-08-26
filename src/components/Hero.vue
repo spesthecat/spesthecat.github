@@ -82,7 +82,6 @@ export default {
       this.words = this.words.filter(w => w !== word);
     },
     async push() {
-      console.log('pushing hero to firebase');
       await api.editDoc('static', 'hero', { words: this.words });
     },
 		animateHeadline(wait) {
@@ -134,6 +133,7 @@ export default {
 
 .editor {
   color: white;
+  z-index: 4;
 
   .words {
     list-style-type: none;

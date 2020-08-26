@@ -9,12 +9,18 @@
 					<li class='cat' v-for="cat in catalog" :key="cat.name">
 						{{ cat.name }}
 						<ul class='inner-item'>
-							<li @click.prevent="nav = false" class='item' v-for="item in items[cat.name]" :key="item.id">
+							<li @click.prevent="nav = false" class='item noselect' v-for="item in items[cat.name]" :key="item.id">
 								<router-link class='item-link' :to="'/projects/' + item.id">
 									{{ item.name }}
 								</router-link>
 							</li>
+							<li class='item add'>
+								<input type='text' @keyup.enter="addItem(cat.name)" class='add' v-model="newItem[cat.name]"/>
+							</li>
 						</ul>
+					</li>
+					<li class='cat add'>
+						<input type='text' @keyup.enter="addCat" class='add' v-model="newCat"/>
 					</li>
 				</ul>
 
@@ -22,7 +28,7 @@
 					<li class='cat' v-for="cat in placeholder" :key="cat.name">
 						<span class='placeholder-outer'> {{ cat.name }} </span>
 						<ul class='list'>
-							<li class='item' v-for="item in cat.items" :key="item">
+							<li class='item add' v-for="item in cat.items" :key="item">
 								<span class='placeholder-inner'> {{ item }} </span>
 							</li>
 						</ul>
@@ -42,6 +48,8 @@
 import api from '../utils/api.js';
 import backarrow from '../components/backarrow.vue';
 
+import { mapGetters } from 'vuex';
+
 export default {
 	name: 'sidebar',
 	props: ['options'],
@@ -59,7 +67,9 @@ export default {
 				{name: 'a'.repeat(15), items: ['a'.repeat(7)]}
 			],
 			loading: true,
-			nav: true
+			nav: true,
+			newItem: new Object(),
+			newCat: ''
 		}
 	},
 	computed: {
@@ -68,6 +78,26 @@ export default {
 		},
 		currItems() {
 			return this.options.title + 'items';
+		},
+		scope() {
+			return this.options.title.toLowerCase();
+		},
+		...mapGetters(['authenticated'])
+	},
+	methods: {
+		addCat() {
+			this.catalog.push({ name: this.newCat, items: [] });
+			this.newCat = '';
+		},
+		async addItem(name) {
+			let id = await api.createDoc(this.scope, { name: this.newItem[name] }).id;
+			this.catalog.forEach(cat => {
+				if (cat.name === name) {
+					cat.items.push(id);
+				}
+			});
+			await api.editDoc(this.scope, '_catalog', { arr: this.catalog });
+			this.newItem = ''
 		}
 	},
 	async mounted() {
@@ -77,27 +107,21 @@ export default {
 			this.catalog = catalog.data;
 		}
 		else {
-			let catalog = await api.getCatalog(this.options.title.toLowerCase());
-			const catalogArray = [];
-			const items = {};
-			for (let cat of catalog.order) {
-				catalogArray.push({
-					name: cat, 
-					items: catalog[cat] 
-				});
-
+			let catalog = (await api.getCatalog(this.scope)).arr;
+			const items = new Object();
+			for (let cat of catalog) {
 				let itemsName = [];
-				for (let id of catalog[cat]) {
-					let item = await api.getDocByID(this.options.title.toLowerCase(), id);
+				for (let id of cat.items) {
+					let item = await api.getDocByID(this.scope, id);
 					itemsName.push({ id, ...item });
 				}
-				items[cat] = itemsName;
+				items[cat.name] = itemsName;
 			}
 
-			this.catalog = catalogArray;
+			this.catalog = catalog;
 			this.items = items;
 			localStorage[this.currItems] = JSON.stringify(items);
-			localStorage[this.currCatalog] = JSON.stringify({data: catalogArray});
+			localStorage[this.currCatalog] = JSON.stringify({data: catalog});
 		}
 
 		this.loading = false;
@@ -199,7 +223,7 @@ export default {
 	z-index: 2;
 }
 
-.cat::after {
+.cat:not(.add)::after {
 	content: '';
 	position: absolute;
 	top: 1em;
@@ -236,6 +260,13 @@ export default {
 	left: 5px;
 	top: 8px;
 	position: absolute;
+	transition: all 0.3s ease;
+}
+
+.item:not(.add):hover::before {
+	transition: all 0.3s ease;
+	left: -15px;
+	width: 30px;
 }
 
 .item:hover {
@@ -260,6 +291,14 @@ export default {
 	color: rgb(212, 212, 212);
 	background-color: rgb(212, 212, 212);
 	border-radius: 10px;
+}
+
+.add:hover {
+	transform: none;
+}
+
+.add {
+	border: none;
 }
 
 @media screen and (max-width: 500px) {
