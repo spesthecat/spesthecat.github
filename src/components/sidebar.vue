@@ -15,15 +15,15 @@
 							class='noselect' :class="{ current: path.includes(item.id), item: !path.includes(item.id) }"
 							v-for="item in items[cat.name]" :key="item.id">
 								<router-link class='item-link' :to="`/projects/${item.name.replace(/ /g,'_')}-${item.id}`">
-									{{ item.name }}
+									<div class='clickable'> {{ item.name }} </div>
 								</router-link>
 							</li>
-							<li class='item add'>
+							<li v-if="authenticated" class='item add'>
 								<input type='text' @keyup.enter="addItem(cat.name)" class='add' v-model="newItem[cat.name]"/>
 							</li>
 						</ul>
 					</li>
-					<li class='cat add'>
+					<li v-if="authenticated" class='cat add'>
 						<input type='text' @keyup.enter="addCat" class='add' v-model="newCat"/>
 					</li>
 				</ul>
@@ -137,20 +137,6 @@ export default {
 		}
 
 		this.loading = false;
-	},
-	watch: {
-		// catalog: {
-		// 	handler() {
-		// 		localStorage[this.currCatalog] = JSON.stringify({data: this.catalog});
-		// 	},
-		// 	deep: true
-		// },
-		// items: {
-		// 	handler() {
-		// 		localStorage[this.currItems] = JSON.stringify(this.items);
-		// 	},
-		// 	deep: true
-		// }
 	}
 }
 
@@ -259,6 +245,7 @@ export default {
 
 .item, .current {
 	margin-top: 20px;
+	padding-right: 25px;
 	padding-left: 30px;
 	font-size: 14px;
 	position: relative;
