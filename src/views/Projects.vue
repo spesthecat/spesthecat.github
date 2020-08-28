@@ -6,7 +6,13 @@
 		<div class='project-display'>
 			<div class='title'> 
 				{{ project.name }} 
-				<div class='date'> 2020-06-15 / 15:23 </div>
+				<div class='date'> {{ project.timestamp }} </div>
+				<div @click='edit=true' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
+				<div @click="confirmDelete" class='delete'> 
+					<img src='https://docs.qgis.org/2.14/en/_images/mActionDeleteSelected.png' alt='edit'/> 
+					<div class='confirm' v-show="deleteConfirm === 2"> sure? </div>
+					<div class='confirm' v-show="deleteConfirm === 1"> sure sure? </div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -21,7 +27,19 @@ export default {
 	name: 'projects',
 	data() {
 		return {
-			project: {}
+			project: {},
+			edit: false,
+			deleteConfirm: 3,
+			deleteTimer: {}
+		}
+	},
+	methods: {
+		confirmDelete() {
+			clearTimeout(this.deleteTimer);
+			this.deleteConfirm = this.deleteConfirm - 1;
+			this.deleteTimer = setTimeout(() => {
+				this.deleteConfirm = 3;
+			}, 3000);
 		}
 	},
 	computed: {
@@ -34,7 +52,13 @@ export default {
 	},
 	watch: {
 		async pID() {
+			this.deleteConfirm = 3;
 			this.project = await api.getDocByID('projects', this.pID);
+		},
+		async deleteConfirm() {
+			if (this.deleteConfirm === 0) {
+				console.log('deleting ' + this.pID);
+			}
 		}
 	},
 	async mounted() {
@@ -46,7 +70,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 
 .project-display {
 	position: absolute;
@@ -69,6 +93,47 @@ export default {
 
 	padding-bottom: 40px;
 	border-bottom: 1px solid rgb(185, 185, 185);
+}
+
+.edit-title {
+	position: absolute;
+	right: 25px;
+	top: -10px;
+	
+	img {
+		width: 16px;
+		height: 16px;
+		filter: invert(100%);
+	}
+
+	:hover {
+		cursor: pointer;
+	}
+}
+
+.delete {
+	position: absolute;
+	right: 0;
+	top: -8px;
+
+	:hover {
+		cursor: pointer;
+	}
+
+	img {
+		width: 20px;
+		height: 20px;
+	}
+
+	.confirm {
+		position: absolute;
+		font-size: 14px;
+		color: rgb(226, 27, 27);
+		top: 14px;
+		left: 20px;
+		width: 100px;
+		text-align: left;
+	}
 }
 
 .date {

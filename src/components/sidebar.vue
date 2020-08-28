@@ -97,7 +97,14 @@ export default {
 			this.newCat = '';
 		},
 		async addItem(name) {
-			let id = (await api.createDoc(this.scope, { name: this.newItem[name] })).id;
+			let now = new Date();
+			function pad (num) {
+				return num.toString().length < 2 ? '0' + num : num.toString();
+			}
+			let id = (await api.createDoc(this.scope, { 
+				name: this.newItem[name],
+				timestamp: `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} / ${pad(now.getHours())}:${pad(now.getMinutes())}` 
+			})).id;
 			this.catalog.forEach(cat => {
 				if (cat.name === name) {
 					cat.items.push(id);
@@ -105,7 +112,7 @@ export default {
 			});
 			this.items[name] = this.items[name] || [];
 			this.items[name].push({ id, name: this.newItem[name] });
-			await api.addToDoc(this.scope, '_catalog', { arr: this.catalog });
+			await api.editDoc(this.scope, '_catalog', { arr: this.catalog });
 			this.newItem = ''
 		}
 	},

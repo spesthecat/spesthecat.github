@@ -20,6 +20,7 @@ export default {
 
 	async getCatalog(collection) {
 		const catalog = await db.collection(collection).doc('_catalog').get();
+		await db.collection(collection).doc('_flag').update({ update: false });
 		return catalog.data();
 	},
 
@@ -28,22 +29,22 @@ export default {
 		return doc.data();
 	},
 
+	async getItemData(scope, id) {
+		let coll = await db.collection(scope).doc(id).collection('data').get();
+		return coll.data();
+	},
+
 	async authRequest(password) {
 		await firebase.auth().signInWithEmailAndPassword(config.email, password);
 	},
 
 	async editDoc(coll, docId, data) {
-		await db.collection(coll).doc('_flag').set({ update: true });
-		return await db.collection(coll).doc(docId).set(data);
-	},
-
-	async addToDoc(coll, docId, data) {
-		await db.collection(coll).doc('_flag').set({ update: true });
-		return await db.collection(coll).doc(docId).set(data, { merge: true });
+		await db.collection(coll).doc('_flag').update({ update: true });
+		return await db.collection(coll).doc(docId).update(data);
 	},
 
 	async createDoc(coll, data) {
-		await db.collection(coll).doc('_flag').set({ update: true });
+        await db.collection(coll).doc('_flag').update({ update: true });
 		return await db.collection(coll).add(data);
 	},
 
