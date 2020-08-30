@@ -23,5 +23,5 @@ pnpm-debug.log*
 *.sln
 *.sw?
 src/utils/config.js
-src/assets/firebaseCreds.json
 src/utils/authConfig.js
+deploy.bat

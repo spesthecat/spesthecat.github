@@ -109,7 +109,9 @@ export default {
     this.animateHeadline(4500);
   },
   async beforeDestroy() {
-    await this.push();
+    if (this.authenticated) {
+      await this.push();
+    }
     clearInterval(this.interval);
   }
 }
