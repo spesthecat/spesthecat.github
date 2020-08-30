@@ -117,7 +117,7 @@ export default {
 		}
 	},
 	async mounted() {
-		if (await api.hasUpdate()) {
+		if (!await api.hasUpdate() && localStorage[this.currCatalog] && localStorage[this.currItems]) {
 			this.items = JSON.parse(localStorage[this.currItems]);
 			let catalog = JSON.parse(localStorage[this.currCatalog]);
 			this.catalog = catalog.data;
