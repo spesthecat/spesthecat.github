@@ -122,6 +122,7 @@ export default {
 				let ind = cat.items.indexOf(id);
 				if (ind > -1) {
 					cat.items.splice(ind, 1);
+					this.items[cat.name] = this.items[cat.name].filter(item => id != item.id);
 				}
 			});
 			await api.editDoc(this.scope, '_catalog', { arr: this.catalog });
@@ -131,11 +132,12 @@ export default {
 		async options() {
 			if (this.options.deleteID) {
 				await this.removeItem(this.options.deleteID);
+				this.$router.replace('/projects').catch(()=>{});
 			}
 		}
 	},
 	async mounted() {
-		if (localStorage[this.currCatalog] && await api.hasUpdate(this.scope, JSON.parse(localStorage[this.currCatalog]).version)) {
+		if (localStorage[this.currCatalog] && !(await api.hasUpdate(this.scope, JSON.parse(localStorage[this.currCatalog]).version))) {
 			this.items = JSON.parse(localStorage[this.currItems]);
 			let catalog = JSON.parse(localStorage[this.currCatalog]);
 			this.catalog = catalog.data;

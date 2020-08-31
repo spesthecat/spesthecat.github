@@ -12,7 +12,7 @@ export default {
 	async hasUpdate(scope, v) {
 		try {
 			let flag = await db.collection(scope).doc('_flag').get();
-			return flag.version > v;
+			return flag.data().version != v;
 		} catch (e) {
 			return false;
 		}

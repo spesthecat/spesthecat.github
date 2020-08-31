@@ -3,17 +3,20 @@
 
 		<sidebar :options="{ title: 'Projects', deleteID }"/>
 
-		<div class='project-display'>
+		<div v-if="pID" class='project-display'>
 			<div class='title'> 
 				{{ project.name }} 
 				<div class='date'> {{ project.timestamp }} </div>
-				<div @click='edit=true' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
-				<div @click="confirmDelete" class='delete'> 
+				<div v-if="authenticated" @click='edit=true' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
+				<div v-if="authenticated" @click="confirmDelete" class='delete'> 
 					<img src='https://docs.qgis.org/2.14/en/_images/mActionDeleteSelected.png' alt='edit'/> 
 					<div class='confirm' v-show="deleteConfirm === 2"> sure? </div>
 					<div class='confirm' v-show="deleteConfirm === 1"> sure sure? </div>
 				</div>
 			</div>
+		</div>
+		<div class='background'> 
+		
 		</div>
 	</div>
 </template>
@@ -55,13 +58,16 @@ export default {
 		sidebar
 	},
 	watch: {
-		async pID() {
+		async pID(n) {
 			this.deleteConfirm = 3;
-			this.project = await api.getDocByID('projects', this.pID);
+			if (n) {
+				this.project = await api.getDocByID('projects', this.pID);
+			}
 		},
 		async deleteConfirm() {
 			if (this.deleteConfirm === 0) {
 				this.deleteID = this.pID;
+				this.project = new Object();
 			}
 		}
 	},
