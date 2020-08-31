@@ -1,7 +1,7 @@
 <template>
 	<div> 
 
-		<sidebar :options="{ title: 'Projects' }"/>
+		<sidebar :options="{ title: 'Projects', deleteID }"/>
 
 		<div class='project-display'>
 			<div class='title'> 
@@ -23,6 +23,8 @@
 import api from '../utils/api.js';
 import sidebar from '../components/sidebar.vue';
 
+import { mapGetters } from 'vuex';
+
 export default {
 	name: 'projects',
 	data() {
@@ -30,7 +32,8 @@ export default {
 			project: {},
 			edit: false,
 			deleteConfirm: 3,
-			deleteTimer: {}
+			deleteTimer: {},
+			deleteID: ''
 		}
 	},
 	methods: {
@@ -45,7 +48,8 @@ export default {
 	computed: {
 		pID() {
 			return this.$route.params.id;
-		}
+		},
+		...mapGetters(['authenticated'])
 	},
 	components: {
 		sidebar
@@ -57,7 +61,7 @@ export default {
 		},
 		async deleteConfirm() {
 			if (this.deleteConfirm === 0) {
-				console.log('deleting ' + this.pID);
+				this.deleteID = this.pID;
 			}
 		}
 	},

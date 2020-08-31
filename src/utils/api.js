@@ -12,7 +12,7 @@ export default {
 	async hasUpdate(scope, v) {
 		try {
 			let flag = await db.collection(scope).doc('_flag').get();
-			return flag.version != v;
+			return flag.version > v;
 		} catch (e) {
 			return false;
 		}
@@ -38,17 +38,24 @@ export default {
 	},
 
 	async editDoc(coll, docId, data) {
-		await db.collection(coll).doc('_flag').update({ 
-			version: firebase.firestore.FieldValue.increment(1)
-		});
+		await this.newVersion(coll);
 		return await db.collection(coll).doc(docId).update(data);
 	},
 
 	async createDoc(coll, data) {
+		await this.newVersion(coll);
+		return await db.collection(coll).add(data);
+	},
+
+	async deleteDoc(coll, id) {
+		await this.newVersion(coll);
+		await db.collection(coll).doc(id).delete();
+	},
+
+	async newVersion(coll) {
         await db.collection(coll).doc('_flag').update({ 
 			version: firebase.firestore.FieldValue.increment(1)
 		});
-		return await db.collection(coll).add(data);
 	},
 
 	async logout() {

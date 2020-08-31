@@ -92,9 +92,10 @@ export default {
 		...mapGetters(['authenticated'])
 	},
 	methods: {
-		addCat() {
+		async addCat() {
 			this.catalog.push({ name: this.newCat, items: [] });
 			this.newCat = '';
+			await api.editDoc(this.scope, '_catalog', { arr: this.catalog });
 		},
 		async addItem(name) {
 			let now = new Date();
@@ -110,10 +111,27 @@ export default {
 					cat.items.push(id);
 				}
 			});
+			await api.editDoc(this.scope, '_catalog', { arr: this.catalog });
 			this.items[name] = this.items[name] || [];
 			this.items[name].push({ id, name: this.newItem[name] });
+			this.newItem = new Object();
+		},
+		async removeItem(id) {
+			api.deleteDoc(this.scope, id);
+			this.catalog.forEach(cat => {
+				let ind = cat.items.indexOf(id);
+				if (ind > -1) {
+					cat.items.splice(ind, 1);
+				}
+			});
 			await api.editDoc(this.scope, '_catalog', { arr: this.catalog });
-			this.newItem = ''
+		}
+	},
+	watch: {
+		async options() {
+			if (this.options.deleteID) {
+				await this.removeItem(this.options.deleteID);
+			}
 		}
 	},
 	async mounted() {
