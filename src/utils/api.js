@@ -9,10 +9,10 @@ let db = firebase.firestore();
 
 export default {
 
-	async hasUpdate(collection) {
+	async hasUpdate(scope, v) {
 		try {
-			let flag = await db.colleciton(collection).doc('_flag').get();
-			return flag.update;
+			let flag = await db.collection(scope).doc('_flag').get();
+			return flag.version != v;
 		} catch (e) {
 			return false;
 		}
@@ -20,7 +20,6 @@ export default {
 
 	async getCatalog(collection) {
 		const catalog = await db.collection(collection).doc('_catalog').get();
-		await db.collection(collection).doc('_flag').update({ update: false });
 		return catalog.data();
 	},
 
@@ -39,12 +38,16 @@ export default {
 	},
 
 	async editDoc(coll, docId, data) {
-		await db.collection(coll).doc('_flag').update({ update: true });
+		await db.collection(coll).doc('_flag').update({ 
+			version: firebase.firestore.FieldValue.increment(1)
+		});
 		return await db.collection(coll).doc(docId).update(data);
 	},
 
 	async createDoc(coll, data) {
-        await db.collection(coll).doc('_flag').update({ update: true });
+        await db.collection(coll).doc('_flag').update({ 
+			version: firebase.firestore.FieldValue.increment(1)
+		});
 		return await db.collection(coll).add(data);
 	},
 

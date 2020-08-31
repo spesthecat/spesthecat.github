@@ -117,7 +117,7 @@ export default {
 		}
 	},
 	async mounted() {
-		if (!await api.hasUpdate() && localStorage[this.currCatalog] && localStorage[this.currItems]) {
+		if (localStorage[this.currCatalog] && await api.hasUpdate(this.scope, JSON.parse(localStorage[this.currCatalog]).version)) {
 			this.items = JSON.parse(localStorage[this.currItems]);
 			let catalog = JSON.parse(localStorage[this.currCatalog]);
 			this.catalog = catalog.data;
@@ -135,9 +135,9 @@ export default {
 					items[cat.name] = itemsName;
 				}
 
-
+				let version = (await api.getDocByID(this.scope, '_flag')).version;
 				localStorage[this.currItems] = JSON.stringify(items);
-				localStorage[this.currCatalog] = JSON.stringify({data: catalog});
+				localStorage[this.currCatalog] = JSON.stringify({data: catalog, version});
 			}
 			this.catalog = catalog;
 			this.items = items;
