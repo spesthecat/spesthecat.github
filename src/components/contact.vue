@@ -9,8 +9,8 @@
 			src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"/>
 		</a>
 		<a class='social-link' href='mailto:spesthecat@gmail.com' target='_blank'>
-		<img class='social' alt='email'
-			src='http://clipartmag.com/images/transparent-email-icon-26.png'/>
+		<img id='email' class='social' alt='email'
+			src='https://cdn.onlinewebfonts.com/svg/img_420677.png'/>
 		</a>
 
 	</div>
@@ -49,6 +49,10 @@ export default {
 .social:hover {
 	transform: scale(1.2);
 	opacity: 1;
+}
+
+#email {
+	height: 30px;
 }
 
 </style>
