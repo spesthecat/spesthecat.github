@@ -13,10 +13,10 @@
     "express": "^4.17.1",
     "firebase": "^7.18.0",
     "firebase-admin": "^9.1.0",
-    "simplemde": "^1.11.2",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vue-scrollto": "^2.18.2",
+    "vue-simplemde": "^1.1.2",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

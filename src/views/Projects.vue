@@ -14,9 +14,19 @@
 					<div class='confirm' v-show="deleteConfirm === 1"> sure sure? </div>
 				</div>
 			</div>
-		</div>
-		<div class='background'> 
-		
+
+			<vue-simplemde 
+			:configs="{ 
+				tabsize: 4
+			}"
+			:value="project.content"
+			v-show="edit" 
+			class='editor' ref="markdownEditor"/>
+			<div v-if="!edit" class='content' v-html="project.content"/>
+			<p>{{ project.content + "        blah "}}</p>
+
+			<button style="z-idnex: 3" @click.prevent='submit'> submit </button>
+			<button style="z-index: 3" @click.prevent='edit = !edit'> show edit </button>
 		</div>
 	</div>
 </template>
@@ -25,6 +35,7 @@
 
 import api from '../utils/api.js';
 import sidebar from '../components/sidebar.vue';
+import VueSimplemde from 'vue-simplemde';
 
 import { mapGetters } from 'vuex';
 
@@ -46,16 +57,24 @@ export default {
 			this.deleteTimer = setTimeout(() => {
 				this.deleteConfirm = 3;
 			}, 3000);
+		},
+		submit() {
+			console.log(this.project.content);
+			this.$set(this.project, 'content', this.simplemde.markdown(this.simplemde.value()));
 		}
 	},
 	computed: {
 		pID() {
 			return this.$route.params.id;
 		},
-		...mapGetters(['authenticated'])
+		...mapGetters(['authenticated']),
+		simplemde() {
+			return this.$refs.markdownEditor.simplemde;
+		}
 	},
 	components: {
-		sidebar
+		sidebar,
+		VueSimplemde
 	},
 	watch: {
 		async pID(n) {
@@ -82,12 +101,22 @@ export default {
 
 <style lang='scss' scoped>
 
+@import "~simplemde/dist/simplemde.min.css";
+
 .project-display {
 	position: absolute;
 	left: 250px;
 	width: calc(100% - 250px);
 	height: 100%;
 	overflow: auto;
+	white-space: normal;
+}
+
+.editor, .content {
+	width: 60%;
+	position: absolute;
+	left: 20%;
+	margin-top: 100px;
 }
 
 .title {
@@ -119,6 +148,10 @@ export default {
 	:hover {
 		cursor: pointer;
 	}
+}
+
+.content {
+	color: white;
 }
 
 .delete {

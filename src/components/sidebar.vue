@@ -323,6 +323,11 @@ export default {
 	color: black;
 }
 
+// .clickable {
+// 	position: absolute;
+// 	left: 25px;
+// }
+
 .placeholder-outer {
 	color: rgb(170, 170, 170);
 	background-color: rgb(170, 170, 170);
