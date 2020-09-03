@@ -85,7 +85,7 @@ export default {
 	width: 50px;
 	margin: auto;
 	top: 50%;
-	transform: rotate(180deg)
+	transform: rotate(180deg);
 }
 
 </style>

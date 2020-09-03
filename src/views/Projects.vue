@@ -17,16 +17,16 @@
 
 			<vue-simplemde 
 			:configs="{ 
-				tabsize: 4
+				tabsize: 4,
+				spellChecker: false
 			}"
 			:value="project.content"
 			v-show="edit" 
 			class='editor' ref="markdownEditor"/>
-			<div v-if="!edit" class='content' v-html="project.content"/>
-			<p>{{ project.content + "        blah "}}</p>
 
-			<button style="z-idnex: 3" @click.prevent='submit'> submit </button>
-			<button style="z-index: 3" @click.prevent='edit = !edit'> show edit </button>
+			<div v-if="!edit" class='content' v-html="project.content"/>
+
+			<backarrow @click.native="submit" class='submit' :disabled="true"/>
 		</div>
 	</div>
 </template>
@@ -35,6 +35,7 @@
 
 import api from '../utils/api.js';
 import sidebar from '../components/sidebar.vue';
+import backarrow from '../components/backarrow.vue';
 import VueSimplemde from 'vue-simplemde';
 
 import { mapGetters } from 'vuex';
@@ -58,8 +59,8 @@ export default {
 				this.deleteConfirm = 3;
 			}, 3000);
 		},
-		submit() {
-			console.log(this.project.content);
+		async submit() {
+			this.edit = false;
 			this.$set(this.project, 'content', this.simplemde.markdown(this.simplemde.value()));
 		}
 	},
@@ -74,7 +75,8 @@ export default {
 	},
 	components: {
 		sidebar,
-		VueSimplemde
+		VueSimplemde,
+		backarrow
 	},
 	watch: {
 		async pID(n) {
@@ -109,7 +111,6 @@ export default {
 	width: calc(100% - 250px);
 	height: 100%;
 	overflow: auto;
-	white-space: normal;
 }
 
 .editor, .content {
@@ -117,6 +118,7 @@ export default {
 	position: absolute;
 	left: 20%;
 	margin-top: 100px;
+	white-space: pre-wrap;
 }
 
 .title {
@@ -186,6 +188,14 @@ export default {
 	bottom: 10px;
 	padding-right: 10px;
 	color: var(--primary-text-color);
+}
+
+.submit {
+	position: absolute;
+	margin: auto;
+	left: 50%;
+	bottom: 50px;
+	transform: rotate(180deg);
 }
 
 </style>

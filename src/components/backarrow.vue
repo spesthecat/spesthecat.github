@@ -1,8 +1,9 @@
 <template>
 	<div>
-		<router-link class='link' :to="link">
+		<router-link v-if="!disabled" class='link' :to="link">
 			<div class='arrow-left'/>
 		</router-link>
+		<div v-if="disabled" class='arrow-left'/>
 	</div>
 </template>
 
@@ -10,7 +11,15 @@
 
 export default {
 	name: 'backarrow',
-	props: ['link']
+	props: {
+		link: {
+			required: false
+		},
+		disabled: {
+			required: false,
+			default: false
+		}
+	}
 }
 
 </script>
@@ -28,7 +37,7 @@ export default {
 	opacity: 0.7;
 }
 
-.link:hover .arrow-left {
+.link:hover .arrow-left, .arrow-left:hover {
 	opacity: 1;
 	transform: rotate(45deg) translate(-10px, 10px);
 }
