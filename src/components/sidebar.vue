@@ -227,6 +227,7 @@ export default {
 	font-size: 24px;
 	padding-bottom: 30px;
 	box-shadow: 0 2px var(--primary-bg-color);
+	text-transform: capitalize;
 
 	.link {
 		text-decoration: none;

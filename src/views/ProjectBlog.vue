@@ -1,33 +1,35 @@
 <template>
 	<div> 
+		<div v-if="acceptPaths.includes(scope)">
+			<sidebar :options="{ title: scope, deleteID }"/>
 
-		<sidebar :options="{ title: 'Projects', deleteID }"/>
-
-		<div v-if="pID" class='project-display'>
-			<div class='title'> 
-				{{ project.name }} 
-				<div class='date'> {{ project.timestamp }} </div>
-				<div v-if="authenticated" @click='edit=true' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
-				<div v-if="authenticated" @click="confirmDelete" class='delete'> 
-					<img src='https://docs.qgis.org/2.14/en/_images/mActionDeleteSelected.png' alt='edit'/> 
-					<div class='confirm' v-show="deleteConfirm === 2"> sure? </div>
-					<div class='confirm' v-show="deleteConfirm === 1"> sure sure? </div>
+			<div v-if="pID" class='content-display'>
+				<div class='title'> 
+					{{ content.name }}
+					<div class='date'> {{ content.timestamp }} </div>
+					<div v-if="authenticated" @click='edit=true' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
+					<div v-if="authenticated" @click="confirmDelete" class='delete'> 
+						<img src='https://docs.qgis.org/2.14/en/_images/mActionDeleteSelected.png' alt='edit'/> 
+						<div class='confirm' v-show="deleteConfirm === 2"> sure? </div>
+						<div class='confirm' v-show="deleteConfirm === 1"> sure sure? </div>
+					</div>
 				</div>
+
+				<vue-simplemde 
+				:configs="{ 
+					tabsize: 4,
+					spellChecker: false
+				}"
+				:value="scope.content"
+				v-show="edit" 
+				class='editor' ref="markdownEditor"/>
+
+				<div v-if="!edit" class='content' v-html="content.content"/>
+
+				<backarrow @click.native="submit" class='submit' :disabled="true"/>
 			</div>
-
-			<vue-simplemde 
-			:configs="{ 
-				tabsize: 4,
-				spellChecker: false
-			}"
-			:value="project.content"
-			v-show="edit" 
-			class='editor' ref="markdownEditor"/>
-
-			<div v-if="!edit" class='content' v-html="project.content"/>
-
-			<backarrow @click.native="submit" class='submit' :disabled="true"/>
 		</div>
+		<notfound v-else/>
 	</div>
 </template>
 
@@ -36,19 +38,21 @@
 import api from '../utils/api.js';
 import sidebar from '../components/sidebar.vue';
 import backarrow from '../components/backarrow.vue';
+import notfound from '../components/notfound.vue';
 import VueSimplemde from 'vue-simplemde';
 
 import { mapGetters } from 'vuex';
 
 export default {
-	name: 'projects',
+	name: 'project-blog',
 	data() {
 		return {
-			project: {},
+			content: {},
 			edit: false,
 			deleteConfirm: 3,
 			deleteTimer: {},
-			deleteID: ''
+			deleteID: '',
+			acceptPaths: ['projects', 'blogs']
 		}
 	},
 	methods: {
@@ -60,14 +64,17 @@ export default {
 			}, 3000);
 		},
 		async submit() {
-			api.editDoc('projects', this.pID, this.project);
 			this.edit = false;
-			this.$set(this.project, 'content', this.simplemde.markdown(this.simplemde.value()));
+			this.$set(this.content, 'content', this.simplemde.markdown(this.simplemde.value()));
+			api.editDoc(this.scope, this.pID, this.content);
 		}
 	},
 	computed: {
 		pID() {
 			return this.$route.params.id;
+		},
+		scope() {
+			return this.$route.params.scope.toLowerCase();
 		},
 		...mapGetters(['authenticated']),
 		simplemde() {
@@ -77,25 +84,26 @@ export default {
 	components: {
 		sidebar,
 		VueSimplemde,
-		backarrow
+		backarrow,
+		notfound
 	},
 	watch: {
 		async pID(n) {
 			this.deleteConfirm = 3;
 			if (n) {
-				this.project = await api.getDocByID('projects', this.pID);
+				this.content = await api.getDocByID(this.scope, this.pID);
 			}
 		},
 		async deleteConfirm() {
 			if (this.deleteConfirm === 0) {
 				this.deleteID = this.pID;
-				this.project = new Object();
+				this.content = new Object();
 			}
 		}
 	},
 	async mounted() {
 		if (this.pID) {
-			this.project = await api.getDocByID('projects', this.pID);
+			this.content = await api.getDocByID(this.scope, this.pID);
 		}
 	}
 }
@@ -106,7 +114,7 @@ export default {
 
 @import "~simplemde/dist/simplemde.min.css";
 
-.project-display {
+.content-display {
 	position: absolute;
 	left: 250px;
 	width: calc(100% - 250px);

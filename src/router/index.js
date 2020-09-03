@@ -1,20 +1,21 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Main from '../views/Landing.vue';
+import Landing from '../views/Landing.vue';
 import About from '../views/About.vue';
-import Projects from '../views/Projects.vue';
-import Blogs from '../views/Blogs.vue';
+import ProjectBlog from '../views/ProjectBlog.vue';
 import Admin from '../views/Admin.vue';
+
+import notfound from '../components/notfound.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
 	{
-		name: 'main',
+		name: 'landing',
 		path: '/',
 		components: {
-			default: Main
+			default: Landing
 		}
 	},
 	{
@@ -25,38 +26,31 @@ const routes = [
 		}
 	},
 	{
-		name: 'projectsLanding',
-		path: '/projects',
-		components: {
-			default: Projects
-		}
-	},
-	{
-		name: 'projectsView',
-		path: '/projects/*-:id',
-		components: {
-			default: Projects
-		}	
-	},
-	{
-		name: 'blogsLanding',
-		path: '/blogs',
-		components: {
-			default: Blogs
-		}
-	},
-	{
-		name: 'blogsView',
-		path: '/blogs/*-:id',
-		components: {
-			default: Blogs
-		}	
-	},
-	{
 		name: 'admin',
 		path: '/admin',
 		components: {
 			default: Admin
+		}
+	},
+	{
+		name: 'pbLanding',
+		path: '/:scope/',
+		components: {
+			default: ProjectBlog
+		}
+	},
+	{
+		name: 'pbLandingContent',
+		path: '/:scope/*-:id',
+		components: {
+			default: ProjectBlog
+		}	
+	},
+	{
+		name: 'notfound',
+		path: '/*',
+		components: {
+			default: notfound
 		}
 	}
 ];
