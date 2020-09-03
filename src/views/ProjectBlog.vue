@@ -5,9 +5,9 @@
 
 			<div v-if="pID" class='content-display'>
 				<div class='title'> 
-					{{ content.name }}
-					<div class='date'> {{ content.timestamp }} </div>
-					<div v-if="authenticated" @click='edit=true' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
+					{{ data.name }}
+					<div class='date'> {{ data.timestamp }} </div>
+					<div v-if="authenticated" @click='edit=!edit' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
 					<div v-if="authenticated" @click="confirmDelete" class='delete'> 
 						<img src='https://docs.qgis.org/2.14/en/_images/mActionDeleteSelected.png' alt='edit'/> 
 						<div class='confirm' v-show="deleteConfirm === 2"> sure? </div>
@@ -20,11 +20,11 @@
 					tabsize: 4,
 					spellChecker: false
 				}"
-				:value="scope.content"
+				:value="data.md"
 				v-show="edit" 
 				class='editor' ref="markdownEditor"/>
 
-				<div v-if="!edit" class='content' v-html="content.content"/>
+				<div v-if="!edit" class='content' v-html="data.content"/>
 
 				<backarrow @click.native="submit" class='submit' :disabled="true"/>
 			</div>
@@ -47,7 +47,7 @@ export default {
 	name: 'project-blog',
 	data() {
 		return {
-			content: {},
+			data: {},
 			edit: false,
 			deleteConfirm: 3,
 			deleteTimer: {},
@@ -65,8 +65,10 @@ export default {
 		},
 		async submit() {
 			this.edit = false;
-			this.$set(this.content, 'content', this.simplemde.markdown(this.simplemde.value()));
-			api.editDoc(this.scope, this.pID, this.content);
+			let v = this.simplemde.value()
+			this.$set(this.data, 'content', this.simplemde.markdown(v));
+			this.$set(this.data, 'md', v);
+			await api.editDoc(this.scope, this.pID, this.data);
 		}
 	},
 	computed: {
@@ -91,19 +93,19 @@ export default {
 		async pID(n) {
 			this.deleteConfirm = 3;
 			if (n) {
-				this.content = await api.getDocByID(this.scope, this.pID);
+				this.data = await api.getDocByID(this.scope, this.pID);
 			}
 		},
 		async deleteConfirm() {
 			if (this.deleteConfirm === 0) {
 				this.deleteID = this.pID;
-				this.content = new Object();
+				this.data = new Object();
 			}
 		}
 	},
 	async mounted() {
 		if (this.pID) {
-			this.content = await api.getDocByID(this.scope, this.pID);
+			this.data = await api.getDocByID(this.scope, this.pID);
 		}
 	}
 }
