@@ -60,6 +60,7 @@ export default {
 			}, 3000);
 		},
 		async submit() {
+			api.editDoc('projects', this.pID, this.project);
 			this.edit = false;
 			this.$set(this.project, 'content', this.simplemde.markdown(this.simplemde.value()));
 		}
