@@ -68,8 +68,8 @@ export default {
 			let v = this.simplemde.value()
 			this.$set(this.data, 'content', this.simplemde.markdown(v));
 			this.$set(this.data, 'md', v);
-			// setTimeout(() => { // https://stackoverflow.com/questions/779379/why-is-settimeoutfn-0-sometimes-useful
-			// 	this.$refs.content.children.forEach(el => {
+			setTimeout(() => { // https://stackoverflow.com/questions/779379/why-is-settimeoutfn-0-sometimes-useful
+				// this.$refs.content.children.forEach(el => {
 			// 		if (el.tagName === 'H1') {
 			// 			let parent = el.parentNode;
 			// 			let anchor = document.createElement('a');
@@ -77,9 +77,16 @@ export default {
 			// 			parent.replaceChild(anchor, el);
 			// 			anchor.appendChild(el);
 			// 		}
-			// 	});
-			// 	this.$set(this.data, 'content', this.$refs.content.innerHTML);
-			// }); 
+				// });
+				this.$refs.content.getElementsByTagName('A').forEach(a => {
+					a.className = 'external-link';
+					a.target = '_blank';
+				});
+				this.$refs.content.getElementsByTagName('IMG').forEach(img => {
+					img.parentNode.className = 'img-wrapper';
+				});
+				this.$set(this.data, 'content', this.$refs.content.innerHTML);
+			}); 
 			await api.editDoc(this.scope, this.pID, this.data);
 		}
 	},
@@ -235,16 +242,34 @@ export default {
 <style lang='scss'>
 
 .content {
-	// a {
-	// 	color: white;
-	// 	text-decoration: none;
-	// }
 
-	// h1 {
-	// 	cursor: pointer;
-	// 	padding-bottom: 15px;
-	// 	border-bottom: 1px solid rgba(255, 255, 255, 0.247);
-	// }
+	p {
+
+		a.external-link {
+		text-decoration: underline;
+		color: var(--primary-text-color);
+		}
+
+		img {
+			position: relative;
+			max-width: 100%;
+			height: auto;
+			margin: auto;
+			display: block;
+		}
+	}
+
+	p.img-wrapper {
+		width: 120%;
+		left: -10%;
+		position: relative;
+	}
+
+	h1 {
+		// cursor: pointer;
+		padding-bottom: 15px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.247);
+	}
 
 	h1:before {
 		content: '#';
