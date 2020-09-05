@@ -7,7 +7,7 @@
 				<div class='title'> 
 					{{ data.name }}
 					<div class='date'> {{ data.timestamp }} </div>
-					<div v-if="authenticated" @click='edit=!edit' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
+					<div v-if="true" @click='edit=!edit' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
 					<div v-if="authenticated" @click="confirmDelete" class='delete'> 
 						<img src='https://docs.qgis.org/2.14/en/_images/mActionDeleteSelected.png' alt='edit'/> 
 						<div class='confirm' v-show="deleteConfirm === 2"> sure? </div>
@@ -24,9 +24,9 @@
 				v-show="edit" 
 				class='editor' ref="markdownEditor"/>
 
-				<div v-if="!edit" class='content' v-html="data.content"/>
+				<div v-if="!edit" ref='content' class='content' v-html="data.content"/>
 
-				<backarrow @click.native="submit" class='submit' :disabled="true"/>
+				<backarrow v-if='edit' @click.native="submit" class='submit' :disabled="true"/>
 			</div>
 		</div>
 		<notfound v-else/>
@@ -68,6 +68,18 @@ export default {
 			let v = this.simplemde.value()
 			this.$set(this.data, 'content', this.simplemde.markdown(v));
 			this.$set(this.data, 'md', v);
+			// setTimeout(() => { // https://stackoverflow.com/questions/779379/why-is-settimeoutfn-0-sometimes-useful
+			// 	this.$refs.content.children.forEach(el => {
+			// 		if (el.tagName === 'H1') {
+			// 			let parent = el.parentNode;
+			// 			let anchor = document.createElement('a');
+			// 			anchor.href = `#${this.path}/${el.id}`
+			// 			parent.replaceChild(anchor, el);
+			// 			anchor.appendChild(el);
+			// 		}
+			// 	});
+			// 	this.$set(this.data, 'content', this.$refs.content.innerHTML);
+			// }); 
 			await api.editDoc(this.scope, this.pID, this.data);
 		}
 	},
@@ -81,6 +93,9 @@ export default {
 		...mapGetters(['authenticated']),
 		simplemde() {
 			return this.$refs.markdownEditor.simplemde;
+		},
+		path() {
+			return this.$route.path;
 		}
 	},
 	components: {
@@ -91,6 +106,7 @@ export default {
 	},
 	watch: {
 		async pID(n) {
+			console.log(n);
 			this.deleteConfirm = 3;
 			if (n) {
 				this.data = await api.getDocByID(this.scope, this.pID);
@@ -130,6 +146,11 @@ export default {
 	left: 20%;
 	margin-top: 100px;
 	white-space: pre-wrap;
+}
+
+.editor {
+	height: 70%;
+	overflow-x: auto;
 }
 
 .title {
@@ -207,6 +228,31 @@ export default {
 	left: 50%;
 	bottom: 50px;
 	transform: rotate(180deg);
+}
+
+</style>
+
+<style lang='scss'>
+
+.content {
+	// a {
+	// 	color: white;
+	// 	text-decoration: none;
+	// }
+
+	// h1 {
+	// 	cursor: pointer;
+	// 	padding-bottom: 15px;
+	// 	border-bottom: 1px solid rgba(255, 255, 255, 0.247);
+	// }
+
+	h1:before {
+		content: '#';
+		position: absolute;
+		left: -25px;
+		font-weight: normal;
+		color: var(--primary-text-color);
+	}
 }
 
 </style>
