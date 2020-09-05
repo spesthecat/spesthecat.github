@@ -7,7 +7,7 @@
 				<div class='title'> 
 					{{ data.name }}
 					<div class='date'> {{ data.timestamp }} </div>
-					<div v-if="true" @click='edit=!edit' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
+					<div v-if="authenticated" @click='edit=!edit' class='edit-title'> <img src='https://image.flaticon.com/icons/png/512/84/84380.png' alt='edit'/> </div>
 					<div v-if="authenticated" @click="confirmDelete" class='delete'> 
 						<img src='https://docs.qgis.org/2.14/en/_images/mActionDeleteSelected.png' alt='edit'/> 
 						<div class='confirm' v-show="deleteConfirm === 2"> sure? </div>
