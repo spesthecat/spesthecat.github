@@ -27,6 +27,10 @@
 				<div v-if="!edit" ref='content' class='content' v-html="data.content"/>
 
 				<backarrow v-if='edit' @click.native="submit" class='submit' :disabled="true"/>
+
+				<div ref='background' class='background'>
+					<li/>
+				</div>
 			</div>
 		</div>
 		<notfound v-else/>
@@ -103,6 +107,9 @@ export default {
 		},
 		path() {
 			return this.$route.path;
+		},
+		contentHeight() {
+			return this.$refs.content.clientHeight;
 		}
 	},
 	components: {
@@ -113,10 +120,13 @@ export default {
 	},
 	watch: {
 		async pID(n) {
-			console.log(n);
 			this.deleteConfirm = 3;
 			if (n) {
 				this.data = await api.getDocByID(this.scope, this.pID);
+				setTimeout(() => {
+					this.$refs.background.style.height = this.$refs.content.clientHeight+'px';
+				})
+				
 			}
 		},
 		async deleteConfirm() {
@@ -129,6 +139,9 @@ export default {
 	async mounted() {
 		if (this.pID) {
 			this.data = await api.getDocByID(this.scope, this.pID);
+			setTimeout(() => {
+				this.$refs.background.style.height = this.$refs.content.clientHeight+'px';
+			}, 500);
 		}
 	}
 }
@@ -147,7 +160,7 @@ export default {
 	overflow: auto;
 }
 
-.editor, .content {
+.editor, .content, .background {
 	width: 60%;
 	position: absolute;
 	left: 20%;
@@ -237,12 +250,45 @@ export default {
 	transform: rotate(180deg);
 }
 
+
+.background {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	// height: 100%;
+	z-index: 1;
+	overflow: hidden;
+
+	li {
+		position: absolute;
+		list-style: none;
+		display: block;
+		width: 40px;
+		height: 40px;
+		background-color: rgba(255, 255, 255, 0.15);
+		bottom: -10%;
+		animation: square 25s linear alternate infinite;
+	}
+}
+
+
+@keyframes square {
+	0% {
+		top: -10%;
+	}
+	100% {
+		-webkit-transform: rotate(600deg);
+		transform: rotate(600deg);
+		top: 110%;
+	}
+}
+
 </style>
 
 <style lang='scss'>
 
 .content {
-
+	z-index: 2;
 	p {
 
 		a.external-link {
@@ -260,8 +306,8 @@ export default {
 	}
 
 	p.img-wrapper {
-		width: 120%;
-		left: -10%;
+		width: 140%;
+		left: -20%;
 		position: relative;
 	}
 
@@ -278,6 +324,7 @@ export default {
 		font-weight: normal;
 		color: var(--primary-text-color);
 	}
+
 }
 
 </style>
