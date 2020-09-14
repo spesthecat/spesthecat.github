@@ -29,7 +29,7 @@
 				<backarrow v-if='edit' @click.native="submit" class='submit' :disabled="true"/>
 
 				<div ref='background' class='background'>
-					<li/>
+					<backgroundShapes :amount="40"/>
 				</div>
 			</div>
 		</div>
@@ -43,6 +43,7 @@ import api from '../utils/api.js';
 import sidebar from '../components/sidebar.vue';
 import backarrow from '../components/backarrow.vue';
 import notfound from '../components/notfound.vue';
+import backgroundShapes from '../components/backgroundShapes.vue';
 import VueSimplemde from 'vue-simplemde';
 
 import { mapGetters } from 'vuex';
@@ -116,7 +117,8 @@ export default {
 		sidebar,
 		VueSimplemde,
 		backarrow,
-		notfound
+		notfound,
+		backgroundShapes
 	},
 	watch: {
 		async pID(n) {
@@ -125,8 +127,7 @@ export default {
 				this.data = await api.getDocByID(this.scope, this.pID);
 				setTimeout(() => {
 					this.$refs.background.style.height = this.$refs.content.clientHeight+'px';
-				})
-				
+				}, 500);
 			}
 		},
 		async deleteConfirm() {
@@ -259,28 +260,6 @@ export default {
 	z-index: 1;
 	overflow: hidden;
 
-	li {
-		position: absolute;
-		list-style: none;
-		display: block;
-		width: 40px;
-		height: 40px;
-		background-color: rgba(255, 255, 255, 0.15);
-		bottom: -10%;
-		animation: square 25s linear alternate infinite;
-	}
-}
-
-
-@keyframes square {
-	0% {
-		top: -10%;
-	}
-	100% {
-		-webkit-transform: rotate(600deg);
-		transform: rotate(600deg);
-		top: 110%;
-	}
 }
 
 </style>
