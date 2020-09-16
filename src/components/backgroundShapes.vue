@@ -1,10 +1,12 @@
 <template>
 	<div>
+
+		<!-- this whole system sucks, should rework it to just generate new shapes and delete old ones -->
 		<li v-for="i of amount" :key="i" 
 		:style="{ 
 			left: i*200/amount-50+'%', 
-			'animation-delay': Math.floor(Math.random()*time)+2+'s',
-			'animation-duration': time+'s',
+			'animation-delay': Math.floor(Math.random()*(time-3))+'s',
+			'animation-duration': (time*4)+'s',
 			transform: 'scale('+biasedGen()+')',
 		}"
 		:class="{
@@ -71,9 +73,9 @@ li {
 	position: absolute;
 	list-style: none;
 	display: block;
-	background-color: rgba(255, 255, 255, 0.15);
-	bottom: -50%;
-	animation: linear alternate infinite;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	top: -50%;
+	animation: linear normal infinite;
 }
 
 .one {
@@ -101,21 +103,48 @@ li {
 }
 
 .square {
-	position: absolute;
 	height: 40px;
 	width: 40px;
 }
 
 .circle {
-	position: absolute;
 	height: 80px;
 	width: 80px;
 	border-radius: 40px;
 }
 
+// .triangle {
+//     width: 0;
+//     height: 0;
+// 	border-top: none;
+//     border-left: 40px solid transparent;
+//     border-right: 40px solid transparent;
+//     border-bottom: 80px solid  rgba(255, 255, 255, 0.15);
+// 	box-shadow: 2px 2px white;
+// }
+
+.triangle {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.15);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+	border: none;
+}
+
+.triangle:after {
+	content: '';
+	position: absolute;
+	width: 40px;
+    height: 40px;
+	top: 2px;
+    background: var(--primary-bg-color);
+	transform: scale(0.8);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
 @keyframes drift1 {
 	0% {
-		top: -10%;
+		top: -40%;
 	}
 	100% {
 		-webkit-transform: rotate(600deg);
@@ -126,56 +155,56 @@ li {
 
 @keyframes drift2 {
 	0% {
-		top: -10%;
+		top: -40%;
 	}
 	100% {
 		-webkit-transform: rotate(-600deg);
 		transform: rotate(-600deg);
-		top: 100%;
+		top: 140%;
 	}
 }
 
 @keyframes drift3 {
 	0% {
-		top: -10%;
+		top: -40%;
 	}
 	100% {
 		-webkit-transform: rotate(450deg);
 		transform: rotate(450deg);
-		top: 100%;
+		top: 120%;
 	}
 }
 
 @keyframes drift4 {
 	0% {
-		top: -10%;
+		top: -40%;
 	}
 	100% {
 		-webkit-transform: rotate(1200deg);
 		transform: rotate(1200deg);
-		top: 100%;
+		top: 110%;
 	}
 }
 
 @keyframes drift5 {
 	0% {
-		top: -10%;
+		top: -40%;
 	}
 	100% {
 		-webkit-transform: rotate(300deg);
 		transform: rotate(300deg);
-		top: 100%;
+		top: 105%;
 	}
 }
 
 @keyframes drift6 {
 	0% {
-		top: -10%;
+		top: -40%;
 	}
 	100% {
 		-webkit-transform: rotate(-800deg);
 		transform: rotate(-800deg);
-		top: 100%;
+		top: 160%;
 	}
 }
 </style>

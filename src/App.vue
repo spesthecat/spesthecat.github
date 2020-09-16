@@ -23,7 +23,7 @@ export default {
 :root {
 	--primary-text-color: #1f98b1;
 	--secondary-text-color: rgb(92, 108, 255);
-	--primary-bg-color: rgba(0,0,0,0.911);
+	--primary-bg-color: #171717;
 	--secondary-bg-color: rgba(88,88,88,0.601);
 	--tertiary-bg-color: rgba(255, 250, 240, 0.911);
 }
@@ -40,7 +40,7 @@ html, body {
 	font-family: 'Open Sans', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: rgba(0, 0, 0, 0.911);
+	background-color: var(--primary-bg-color);
 	position: absolute;
 	width: 100%;
 	height: 100%;
