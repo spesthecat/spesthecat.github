@@ -29,7 +29,7 @@
 				<backarrow v-if='edit' @click.native="submit" class='submit' :disabled="true"/>
 
 				<div ref='background' class='background'>
-					<backgroundShapes :amount="20"/>
+					<backgroundShapes :amount="50"/>
 				</div>
 			</div>
 		</div>

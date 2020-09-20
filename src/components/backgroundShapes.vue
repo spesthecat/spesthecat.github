@@ -1,26 +1,10 @@
 <template>
-	<div>
+	<div id='background-shapes-container'>
 
 		<!-- this whole system sucks, should rework it to just generate new shapes and delete old ones -->
-		<li v-for="i of amount" :key="i" 
-		:style="{ 
-			left: i*200/amount-50+'%', 
-			'animation-delay': Math.floor(Math.random()*(time-3))+'s',
-			'animation-duration': (time*4)+'s',
-			transform: 'scale('+biasedGen()+')',
-		}"
-		:class="{
-			square: i%3==0,
-			circle: (i+1)%3==0,
-			triangle: (i+2)%3==0,
-			one: 1==$options.b,
-			two: 2==$options.b,
-			three: 3==$options.b,
-			four: 4==$options.b,
-			five: 5==$options.b,
-			six: 6==$options.b
-		}"
-		/>
+
+		<!-- ok so basically run loop in mounted and append li elements to this div with infinite animation -->
+
 	</div>
 </template>
 
@@ -38,38 +22,82 @@ export default {
 		biasedGen() {
 			let ub = Math.floor(Math.random()*100)+1;
 			if (ub < 40) {
-				this.$options.b = 1;
 				return 1;
 			}else if (ub < 60) {
-				this.$options.b = 2;
 				return 2;
 			}else if (ub < 70) {
-				this.$options.b = 3;
 				return 3;
 			}else if (ub < 80) {
-				this.$options.b = 4;
 				return 4;
 			}else if (ub < 90) {
-				this.$options.b = 5;
 				return 5;
 			}
-			this.b = 6;
 			return 6;
 		}
 	},
-	mounted() {
-		setTimeout(() => {
-			this.time = Math.floor(document.getElementsByClassName('content')[0].clientHeight/100);
-		}, 1000);
+	async mounted() {
+		function wait(ms) {
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					resolve(ms);
+				}, ms )
+			});
+		}  
+
+		await wait(1500);
+
+		this.time = Math.floor(document.getElementsByClassName('content')[0].clientHeight/35); 
+		// going directly to page has shorter time (assumed inaccurate) than nav from side
+		// console.log(this.time);
+
+		let container = document.getElementById('background-shapes-container');
+		let c = 0;
+		while (c < this.amount) {
+			await wait(Math.random()*(4000)+3000);
+			let li = document.createElement('li');
+
+			switch(Math.floor(Math.random()*3)) {
+				case 0:
+					li.className = 'square';
+					break;
+				case 1:
+					li.className = 'circle';
+					break;
+				case 2:
+					li.className = 'triangle';
+					break;
+			}
+
+			li.style.transform = `scale(${this.biasedGen()})`;
+
+			if(Math.random() >= 0.5) {
+				li.classList.add('drift');
+				li.style.animationName='drift';
+			}else {
+				li.classList.add('drift-reverse');
+				li.style.animationName='drift2';
+			}
+
+			if(Math.random() >= 0.5) {
+				li.style.right = Math.random()*30-5+'%';
+			}else {
+				li.style.left = Math.random()*30-5+'%';
+			}
+
+			li.style.animationDuration = Math.random()*(this.time*2)+this.time+'s';
+
+			container.appendChild(li);
+			c++;
+		}
 	}
 	
 }
 
 </script>
 
-<style lang='scss' scoped>
+<style>
 
-li {
+#background-shapes-container li {
 	position: absolute;
 	list-style: none;
 	display: block;
@@ -78,28 +106,12 @@ li {
 	animation: linear normal infinite;
 }
 
-.one {
-	animation-name: drift1;
+.drift {
+	animation-name: drift;
 }
 
-.two {
+.drift-reverse {
 	animation-name: drift2;
-}
-
-.three {
-	animation-name: drift3;
-}
-
-.four {
-	animation-name: drift4;
-}
-
-.five {
-	animation-name: drift5;
-}
-
-.six {
-	animation-name: drift6;
 }
 
 .square {
@@ -113,7 +125,7 @@ li {
 	border-radius: 40px;
 }
 
-// .triangle {
+/* // .triangle {
 //     width: 0;
 //     height: 0;
 // 	border-top: none;
@@ -121,7 +133,7 @@ li {
 //     border-right: 40px solid transparent;
 //     border-bottom: 80px solid  rgba(255, 255, 255, 0.15);
 // 	box-shadow: 2px 2px white;
-// }
+// } */
 
 .triangle {
     width: 40px;
@@ -142,69 +154,26 @@ li {
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
-@keyframes drift1 {
+@keyframes drift {
 	0% {
-		top: -40%;
+		top: -25%;
 	}
 	100% {
 		-webkit-transform: rotate(600deg);
 		transform: rotate(600deg);
-		top: 110%;
+		top: 125%;
 	}
 }
 
 @keyframes drift2 {
 	0% {
-		top: -40%;
+		top: -25%;
 	}
 	100% {
 		-webkit-transform: rotate(-600deg);
 		transform: rotate(-600deg);
-		top: 140%;
+		top: 125%;
 	}
 }
 
-@keyframes drift3 {
-	0% {
-		top: -40%;
-	}
-	100% {
-		-webkit-transform: rotate(450deg);
-		transform: rotate(450deg);
-		top: 120%;
-	}
-}
-
-@keyframes drift4 {
-	0% {
-		top: -40%;
-	}
-	100% {
-		-webkit-transform: rotate(1200deg);
-		transform: rotate(1200deg);
-		top: 110%;
-	}
-}
-
-@keyframes drift5 {
-	0% {
-		top: -40%;
-	}
-	100% {
-		-webkit-transform: rotate(300deg);
-		transform: rotate(300deg);
-		top: 105%;
-	}
-}
-
-@keyframes drift6 {
-	0% {
-		top: -40%;
-	}
-	100% {
-		-webkit-transform: rotate(-800deg);
-		transform: rotate(-800deg);
-		top: 160%;
-	}
-}
 </style>
