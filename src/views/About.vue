@@ -8,9 +8,19 @@
 		</div>
 
 		<div class='content'>
-			<div class='bio'>
+			<div id='bio'>
 				<p class='title'> bio </p>
-				<p> {{ bio }} </p>
+				<p v-for='para of bio' :key='para' class='medium'>
+					{{ para }}
+				</p>
+				<p class='medium'> dadwa </p>
+				<div class='scroll-down'>
+					<!-- add jump to the below element with nuxt -->
+					<backarrow :disabled='true'/> 
+				</div>
+			</div>
+			<div id='education'>
+				test
 			</div>
 		</div>
 	</div>
@@ -20,12 +30,16 @@
 
 import api from '../utils/api.js';
 import { mapGetters } from 'vuex';
+import backarrow from '../components/backarrow.vue';
 
 export default {
 	name: 'About',
+	components: {
+		backarrow
+	},
 	data() {
 		return {
-			bio: ''
+			bio: []
 		}
 	},
 	computed: {
@@ -39,23 +53,34 @@ export default {
 			// let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
 			let height = content.scrollHeight - content.clientHeight;
 			let scrolled = (content.scrollTop / height) * 100;
-			document.getElementById('bar').style.height = scrolled + '%';
+			if (this.extended) {
+				document.getElementById('bar').style.height=scrolled+'%';
+			}else {
+				setTimeout(() => {
+					document.getElementById('bar').style.height=scrolled+'%';
+				}, 1500);
+			}
 
 			if (scrolled > 0 && content.style.left!=='20%'){
 				content.style.left='20%';
 				bar.style.left='0';
-			}
-			else if (scrolled === 0) {
+				setTimeout(() => {
+					this.extended = true;
+				}, 2000);
+			} else if (scrolled === 0) {
 				content.style.left='12.5%';
 				bar.style.left='-20%';
+				setTimeout(() => {
+					this.extended = false;
+				}, 2001);
 			}
 		}
 	},
 	async mounted() {
 		let bio = await api.getDocByID('static', 'bio');
-		this.bio = bio.text;
+		this.bio = bio.paragraphs;
 		// setTimeout(() => {
-		document.getElementsByClassName('bio')[0].style.opacity=1;
+		document.getElementById('bio').style.opacity=1;
 		// })
 		
 		(document.getElementsByClassName('content')[0]).addEventListener('scroll', this.onscroll);
@@ -106,29 +131,52 @@ export default {
 	left: 12.5%;
 	position: absolute;
 	color: white;
-	font-size: 50px;
 	transition: left 2s ease;
 
+
+	.title {
+		text-align: center;
+		width: 100%;
+		margin: 60px 0;
+		color: var(--primary-text-color);
+		font-weight: bold;
+		font-size: 40px;
+	}
+
+	.medium {
+		font-size: 25px;
+		font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+		letter-spacing: 0.63px;
+		line-height: 40px;
+		overflow-wrap: break-word;
+		word-break: break-word;
+		margin-top: 40px;
+	}
+
+	#bio {
+		height: 100%;
+
+		.scroll-down {
+			// width: 40px;
+			transform: rotate(-90deg);
+			position: absolute;
+			left: 50%;
+			bottom: 60px;
+		}
+	}
+
+	// lazy load effect
+	&>* {
+		opacity: 0;
+		transition: opacity 1.5s ease, margin-top 1.5s ease;
+	}
+	
 	&::-webkit-scrollbar {
 		display: none;
 	}
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 	// background-color: green;
-
-	&>* {
-		opacity: 0;
-		transition: opacity 1.5s ease, margin-top 1.5s ease;
-	}
-	
-	.title {
-		text-align: center;
-		width: 100%;
-		margin: 40px 0;
-		color: var(--primary-text-color);
-		font-weight: bold;
-		font-size: 40px;
-	}
 
 }
 
