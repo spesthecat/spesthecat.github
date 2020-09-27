@@ -8,19 +8,21 @@
 		</div>
 
 		<div class='content'>
-			<div id='bio'>
+			<div id='bio' class='lazy'>
 				<p class='title'> bio </p>
 				<p v-for='para of bio' :key='para' class='medium'>
 					{{ para }}
 				</p>
-				<p class='medium'> dadwa </p>
 				<div class='scroll-down'>
 					<!-- add jump to the below element with nuxt -->
 					<backarrow :disabled='true'/> 
 				</div>
 			</div>
-			<div id='education'>
-				test
+			<div id='education' class='lazy'>
+				<p class='title'> education </p>
+				<p v-for='para of bio' :key='para' class='medium'>
+					{{ para }}
+				</p>
 			</div>
 		</div>
 	</div>
@@ -39,49 +41,81 @@ export default {
 	},
 	data() {
 		return {
-			bio: []
+			bio: [],
 		}
 	},
 	computed: {
 		...mapGetters(['authenticated'])
 	},
 	methods: {
-		onscroll() {
+		wait(ms) {
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					resolve(ms);
+				}, ms )
+			});
+		},
+		async onscroll() {
 			let content = document.getElementsByClassName('content')[0];
 			let bar = document.getElementsByClassName('side-scroll')[0];
 
-			// let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+			// progress bar
+
 			let height = content.scrollHeight - content.clientHeight;
 			let scrolled = (content.scrollTop / height) * 100;
 			if (this.extended) {
 				document.getElementById('bar').style.height=scrolled+'%';
 			}else {
-				setTimeout(() => {
+				// makes bar go straight to progress point
+				clearTimeout(this.scrollTime);
+				this.scrollTime = setTimeout(() => {
 					document.getElementById('bar').style.height=scrolled+'%';
 				}, 1500);
+
+				// is there a better way to do this? 
 			}
+
+			// lazy load effect & category filling
+			for (let i=this.lazies.length; i-- > 0;){
+				if (content.scrollTop + content.clientHeight > this.lazies[i].offset) { // if this thing is visible
+					document.getElementById(this.lazies[i].id).style="opacity: 1; padding-top: 0";
+				}
+			}
+				// content.scrollTop + content.clientHeight > el.offsetTop
+
+			// handle side scroll sliding
 
 			if (scrolled > 0 && content.style.left!=='20%'){
 				content.style.left='20%';
 				bar.style.left='0';
 				setTimeout(() => {
 					this.extended = true;
-				}, 2000);
+				}, 1500);
 			} else if (scrolled === 0) {
-				content.style.left='12.5%';
-				bar.style.left='-20%';
 				setTimeout(() => {
+					content.style.left='12.5%';
+					bar.style.left='-20%';
+				}, 500);
+				setTimeout(() => {
+
 					this.extended = false;
-				}, 2001);
+				}, 1501);
 			}
 		}
 	},
 	async mounted() {
 		let bio = await api.getDocByID('static', 'bio');
+		let lazyEls = document.getElementsByClassName('lazy');
+
 		this.bio = bio.paragraphs;
 		// setTimeout(() => {
 		document.getElementById('bio').style.opacity=1;
 		// })
+		this.lazies=[];
+		lazyEls.forEach((el) => {
+			this.lazies.push({offset: el.offsetTop, id: el.id});
+			// todo add categories to progress bar accordingly
+		});
 		
 		(document.getElementsByClassName('content')[0]).addEventListener('scroll', this.onscroll);
 	},
@@ -121,6 +155,7 @@ export default {
 		background: var(--primary-text-color);
 		height: 0;
 		width: 100%;
+		transition: height 0.5s ease;
 	}
 }
 
@@ -137,7 +172,7 @@ export default {
 	.title {
 		text-align: center;
 		width: 100%;
-		margin: 60px 0;
+		padding: 60px 0;
 		color: var(--primary-text-color);
 		font-weight: bold;
 		font-size: 40px;
@@ -155,6 +190,9 @@ export default {
 
 	#bio {
 		height: 100%;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
 
 		.scroll-down {
 			// width: 40px;
@@ -163,12 +201,6 @@ export default {
 			left: 50%;
 			bottom: 60px;
 		}
-	}
-
-	// lazy load effect
-	&>* {
-		opacity: 0;
-		transition: opacity 1.5s ease, margin-top 1.5s ease;
 	}
 	
 	&::-webkit-scrollbar {
@@ -180,10 +212,11 @@ export default {
 
 }
 
-/* #goback {
-	position: absolute;
-	left: 50%;
-	bottom: 200px;
-} */
+.lazy {
+	opacity: 0;
+	// margin-top: 10%;
+	padding-top: 30%;
+	transition: opacity 1.5s cubic-bezier(0.165, 0.84, 0.44, 1), padding-top 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
 
 </style>
