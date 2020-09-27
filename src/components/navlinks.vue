@@ -1,21 +1,21 @@
 <template>
 	<div>
 		<div class='menu-not-slide'>
-			<router-link class='nav-buttons' to="/about#bio">
-				about me
+			<router-link class='nav-buttons' to="/about">
+				/about
 			</router-link>
 			<a class='nav-buttons' href="#contact">
-				contact
+				#contact
 			</a>
 			<router-link class='nav-buttons' to="/projects">
-				projects
+				/projects
 			</router-link>
 			<router-link class='nav-buttons' to="/blogs">
-				blog
+				/blogs
 			</router-link>
-			<router-link class='nav-buttons' to="/about"> 
+			<!-- <router-link class='nav-buttons' to="/about"> 
 				resume
-			</router-link>
+			</router-link> -->
 		</div>
 		<div class='menu-slide'>
 			<div @click.prevent="toggleMenu" class='menu-icon'>
@@ -25,8 +25,8 @@
 			</div>
 
 			<div class='nav-menu' :class="{ 'show-nav-menu': showMenu }">
-				<router-link id='first' class='nav-buttons slide' to="/about#bio">
-					about me
+				<router-link id='first' class='nav-buttons slide' to="/about">
+					about
 				</router-link>
 				<a class='nav-buttons slide' href="#contact">
 					contact
@@ -36,9 +36,6 @@
 				</router-link>
 				<router-link class='nav-buttons slide' to="/blogs">
 					blog
-				</router-link>
-				<router-link class='nav-buttons slide' to="/about"> 
-					resume
 				</router-link>
 			</div>
 		</div>
