@@ -34,10 +34,21 @@ export default {
 	methods: {
 		onscroll() {
 			let content = document.getElementsByClassName('content')[0];
+			let bar = document.getElementsByClassName('side-scroll')[0];
+
 			// let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
 			let height = content.scrollHeight - content.clientHeight;
 			let scrolled = (content.scrollTop / height) * 100;
 			document.getElementById('bar').style.height = scrolled + '%';
+
+			if (scrolled > 0 && content.style.left!=='20%'){
+				content.style.left='20%';
+				bar.style.left='0';
+			}
+			else if (scrolled === 0) {
+				content.style.left='12.5%';
+				bar.style.left='-20%';
+			}
 		}
 	},
 	async mounted() {
@@ -67,8 +78,10 @@ export default {
 	top: 5%;
 	width: 20%;
 	height: 90%;
+	left: -20%;
 	// background-color: green;
 	position: fixed;
+	transition: left 2s ease, opacity 2s ease;
 }
 
 .bar-container {
@@ -90,10 +103,11 @@ export default {
 	overflow-y: auto;
 	height: 100%;
 	width: 75%;
-	left: 20%;
+	left: 12.5%;
 	position: absolute;
 	color: white;
 	font-size: 50px;
+	transition: left 2s ease;
 
 	&::-webkit-scrollbar {
 		display: none;
