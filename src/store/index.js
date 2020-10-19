@@ -23,6 +23,9 @@ export default new Vuex.Store({
 		},
 		auth_error (state, err) {
 			state.auth_status = err;
+		},
+		set_auth (state, auth) {
+			state.auth = auth;
 		}
 	},
 	actions: {

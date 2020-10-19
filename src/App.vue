@@ -7,12 +7,21 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
+import api from './utils/api.js'
 
 export default {
 	name: 'app',
 	computed: {
 		...mapGetters(['authenticated'])
+	},
+	methods: {
+		...mapMutations(['set_auth'])
+	},
+	mounted() {
+		if (api.isAuth()) {
+			this.set_auth(true);
+		}
 	}
 }
 
