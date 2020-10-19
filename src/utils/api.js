@@ -37,8 +37,8 @@ export default {
 		await firebase.auth().signInWithEmailAndPassword(config.email, password);
 	},
 
-	isAuth() {
-		return  firebase.auth().currentUser;
+	async isAuth() { // not sure why this has to be async
+		return firebase.auth().currentUser;
 	},
 
 	async editDoc(coll, docId, data) {

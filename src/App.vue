@@ -19,9 +19,13 @@ export default {
 		...mapMutations(['set_auth'])
 	},
 	mounted() {
-		if (api.isAuth()) {
-			this.set_auth(true);
-		}
+		setTimeout(() => {
+			let auth = !!api.isAuth();
+			console.log(auth);
+			if (auth) {
+				this.set_auth(true);
+			}
+		}, 0);
 	}
 }
 
