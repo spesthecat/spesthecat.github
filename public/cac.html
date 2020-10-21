@@ -1,0 +1,57 @@
+<p>Wear A Mask (WAM for short) is <a href="https://github.com/AidanJSmith">Aidan Smith</a>, Lisa Chai, and I’s submission for the 2020 Congressional App Challenge (<a href="https://congressionalappchallenge.us/">CaC</a>).</p>
+<iframe src="https://www.youtube.com/embed/yM01CnoMRLM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" width="560" height="315" frameborder="0"></iframe>
+<p><em>This is our demo video for CaC</em></p>
+<h1>Overview</h1>
+<p>WAM is an online platform which enables the community to leave covid related reviews on public buildings. We initially wanted to have a covid heatmap and a maximum capacity recommendation (calculated from building size and social-distancing recommendations), but those were not achievable as we only had 3 weeks to build the entire project.</p>
+<p>The app is not live but the source code for both the client and the server can be found on Aidan’s GitHub:</p>
+<h1>Tech Stack</h1>
+<p>There was little debate over what to use for the frontend, as Aidan is an avid Vue fan and I didn’t have experience with anything else (although admittedly, it would’ve been a good learning experience). We chose Google’s Firebase for hosting the Vue app, which was apparently unneeded for the challenge.<br>
+The map actually seen is Mapbox, while the searchbar implements Google’s various APIs (which were a pain to add).</p>
+<p>As for the backend, we used Flask to build a simple, RESTful server that could handle authentication and writing/retrieving reviews from a database. The API was hosted on a free Heroku account, which conveniently had PostgreSQL plugins that made it extremely easy to hook up the API to.</p>
+<h1>Highlights</h1>
+<h3>First up: this incredibly satisfying loading animation</h3>
+<p><img src="./load.gif" alt="loading-animation"></p>
+<p>Pretty neat, right?<br>
+This was achieved using just a <code>setInterval</code> for the timing and a style binding for the effect <code>clip-path</code>.</p>
+<pre><code class="language-js">setInterval(() =&gt; { this.loadpercent += 1; }, 4.5);
+
+&lt;img
+class="fill"
+:style="`clip-path:polygon(0 0, ${loadpercent}% 0, ${loadpercent}% 100%, 0% 100%);`"
+:src="require('@/assets/maskfull.svg')"&gt;
+</code></pre>
+<p>Apparently mapbox’s loading slows the entire stack, so the loading time of the animation actually accurately reflects the loading of the site.</p>
+<h3>Next up: an equally satisfying transition</h3>
+<p><img src="./marker.gif" alt="transition"></p>
+<p>To get this transition, the marker used everywhere else on the map is scaled up and positioned, and the <code>::after</code> psuedo-element which contains text is visible.</p>
+<pre><code class="language-js">left: 10% !important;
+top: 40% !important;
+transform: scale(4.2) !important;
+transition: 1s all;
+
+&amp;::after {
+  opacity: 1;
+}
+</code></pre>
+<p>Then when the user is authenticated, several things happen to return control of the marker to mapbox.</p>
+<pre><code class="language-js">// first the app redirects the user to the root route
+this.$router.push({ path: '/' });
+
+// a route watcher detects this and sets a 1s timeout which sets this.small to true
+setTimeout(() =&gt; { this.small = true; }, 1000);
+
+// this computed object will start out with fixed, then transition for 1s, then small
+getClass() {
+  if (this.$route.path === '/login') {
+    return 'fixed';
+  }
+  if (this.boring) {
+    return 'small';
+  }
+  return 'transition';
+},
+</code></pre>
+<p>The marker will start with a fixed position due to the override from <code>.fixed</code>, then whatever style from <code>.transition</code> is applied, then <code>.small</code> is applied which removes all the styles from the other classes.</p>
+<h1>Wrapping Up</h1>
+<p>Overall, this was a very fun project to work on with Aidan, although we did of course run into annoying issues like CORS headers, redeploying the API over and over again, and eslint somehow broke for me which was not fun at all.<br>
+We’re probably going to do this again next year, and we already have some ideas. Just have to wait until everyone is less busy…</p>

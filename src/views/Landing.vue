@@ -20,7 +20,7 @@ import Hero from '../components/hero.vue';
 import Contact from '../components/contact.vue';
 
 export default {
-	name: 'landing',
+	name: 'Landing',
 	components: {
 		Hero,
 		Menu,
