@@ -57,6 +57,7 @@ export default {
   name: 'project-blog',
   data() {
     return {
+      showFooter: false,
       meta: {},
       content: '',
       acceptPaths: ['projects', 'blogs']

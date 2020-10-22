@@ -1,3 +1,6 @@
+<template>
+  <div/>
+</template>
 <script>
 import axios from 'axios'
 // import VueMarkdown from 'vue-markdown';

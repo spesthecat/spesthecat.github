@@ -37,7 +37,7 @@ export default {
 		await firebase.auth().signInWithEmailAndPassword(config.email, password);
 	},
 
-	async isAuth() { // not sure why this has to be async
+	async isAuth() {
 		return firebase.auth().currentUser;
 	},
 

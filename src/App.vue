@@ -18,14 +18,12 @@ export default {
 	methods: {
 		...mapMutations(['set_auth'])
 	},
-	mounted() {
-		setTimeout(() => {
-			let auth = !!api.isAuth();
-			console.log(auth);
-			if (auth) {
-				this.set_auth(true);
-			}
-		}, 0);
+	async mounted() {
+		let auth = await api.isAuth();
+		console.log(auth);
+		if (auth) {
+			this.set_auth(true);
+		}
 	}
 }
 
