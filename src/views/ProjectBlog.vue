@@ -14,7 +14,7 @@
         <file-viewer
         class='file'
         :src="asset('content.html')"
-        @data="content=$event"/>
+        @data="content=$event; showFooter=true"/>
       </div>
 
       <div class='content-display'>
