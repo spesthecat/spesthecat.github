@@ -13,7 +13,7 @@
 						{{ cat.name }}
 						<ul class='inner-item'>
 							<li @click.prevent="nav=false" 
-							class='noselect' :class="{ current: path.includes(item), item: !path.includes(item)}"
+							class='noselect' :class="{ current: (id === item), item: !(id === item)}"
 							v-for="item of cat.items" :key="item">
 								<router-link class='item-link' :to="`/${scope}/${item}`">
 									<div class='clickable'> {{ item }} </div>
@@ -78,8 +78,8 @@ export default {
 		scope() {
 			return this.options.title.toLowerCase();
 		},
-		path() {
-			return this.$route.path;
+		id() {
+			return this.$route.params.id;
 		},
 		...mapGetters(['authenticated'])
 	},
