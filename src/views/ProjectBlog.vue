@@ -1,21 +1,23 @@
 <template>
   <div> 
-    <div v-if="acceptPaths.includes(scope)">
-      <file-viewer
-      src='cac.json'
-      @data="meta=$event"/>
-      <file-viewer
-      class='file'
-      src='cac.html'
-      @data="content=$event"/>
+    <file-viewer 
+		:src="scope + '/catalog.json'"
+		@data="catalog=$event.catalog"/>
 
-      <sidebar class='sidebar' :options="{ title: scope}"/>
+    <sidebar class='sidebar' :options="{ title: scope, catalog }"/>
+
+    <div v-if="postExists">
+      <div v-if="id !== undefined">
+        <file-viewer
+        :src="asset('meta.json')"
+        @data="meta=$event"/>
+        <file-viewer
+        class='file'
+        :src="asset('content.html')"
+        @data="content=$event"/>
+      </div>
 
       <div class='content-display'>
-        <!-- <div class='title'> 
-          {{ data.name }}
-          <div class='date'> {{ data.timestamp }} </div>
-        </div> -->
 
         <div class='header'>
           <div class='meta'>
@@ -25,20 +27,24 @@
             <div class='date'> {{ meta.date }} </div>
           </div>
 
-          <img :src="meta.image"/>
+          <img :src="asset('header.png')"/>
         </div>
 
         <div class='content'>
           <div @onload="showFooter=true" v-html="content"/>
           <contact v-if="showFooter" class='footer'/>	
         </div>
+
         <!-- <div ref='background' class='background'>
           <backgroundShapes :amount="50"/>
         </div> -->
 
       </div>
-
     </div>
+
+    <div v-else-if="id === undefined">
+    </div>
+
     <not-found v-else/>
   </div>
 </template>
@@ -51,13 +57,12 @@ import FileViewer from '../components/fileviewer.vue';
 import Contact from '../components/contact.vue';
 // import backgroundShapes from '../components/backgroundShapes.vue';
 
-// temporary import
-
 export default {
   name: 'project-blog',
   data() {
     return {
       showFooter: false,
+      catalog: [],
       meta: {},
       content: '',
       acceptPaths: ['projects', 'blogs']
@@ -67,8 +72,32 @@ export default {
     scope() {
       return this.$route.params.scope.toLowerCase();
     },
+    id() {
+      return this.$route.params.id;
+    },
     contentHeight() {
       return this.$refs.content.clientHeight;
+    },
+    postExists() {
+      for (let cat of this.catalog) {
+        if (cat.items.includes(this.id)) {
+          return true;
+        }
+      }
+      return false;
+    },
+  },
+  methods: {
+    asset(asset) {
+      return this.scope + '/' + this.id + '/' + asset;
+    },
+  },
+  watch: {
+    id() {
+      if (this.id === undefined) {
+        this.content = '';
+        this.meta = {};
+      }
     }
   },
   components: {

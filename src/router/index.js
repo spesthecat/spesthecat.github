@@ -41,7 +41,7 @@ const routes = [
 	},
 	{
 		name: 'pbLandingContent',
-		path: '/:scope/*-:id',
+		path: '/:scope/:id',
 		components: {
 			default: ProjectBlog
 		}	

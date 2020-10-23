@@ -8,12 +8,29 @@ import axios from 'axios'
 export default {
   name: 'file-viewer',
   props: ["src"],
-  mounted()
-  {
-      axios.get(this.src).then(response => {
+  data() {
+    return {
+      data: '',
+    }
+  },
+  methods: {
+    fetchFile(src) {
+      axios.get(src).then(response => {
         this.$emit('data', response.data);
+        this.data = response.data;
         // document.getElementsByClassName('file')[0].innerHTML = this.text;
       });
-  }
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.fetchFile(this.src);
+    }, 0);
+  },
+  watch: {
+    src() {
+      this.fetchFile(this.src);
+    }
+  },
 }
 </script>
