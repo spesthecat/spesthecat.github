@@ -1,10 +1,12 @@
 <template>
   <div> 
-    <file-viewer 
+    <file-viewer
+    v-if="acceptPaths.includes(scope)"
 		:src="scope + '/catalog.json'"
 		@data="catalog=$event.catalog"/>
+    <not-found v-else/>
 
-    <sidebar class='sidebar' :options="{ title: scope, catalog }"/>
+    <sidebar v-if="acceptPaths.includes(scope)" class='sidebar' :options="{ title: scope, catalog }"/>
 
     <div v-if="postExists">
       <div v-if="id !== undefined">
@@ -97,6 +99,7 @@ export default {
       if (this.id === undefined) {
         this.content = '';
         this.meta = {};
+        this.showFooter = false;
       }
     }
   },
