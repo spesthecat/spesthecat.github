@@ -1,5 +1,5 @@
 <template>
-	<div id='sidebar' :class="{ 'slide-left': !nav }">
+	<div id='sidebar' :class="{'slide-left': !nav}">
 
 		<div class='title noselect'> 
 			<router-link class='link' :to="'/'+options.title.toLowerCase()"> {{ options.title }} </router-link>
@@ -13,7 +13,7 @@
 						{{ cat.name }}
 						<ul class='inner-item'>
 							<li @click.prevent="nav=false" 
-							class='noselect' :class="{ current: (id === item), item: !(id === item)}"
+							class='noselect' :class="{current: (id === item), item: !(id === item)}"
 							v-for="item of cat.items" :key="item">
 								<router-link class='item-link' :to="`/${scope}/${item}`">
 									<div class='clickable'> {{ item }} </div>
@@ -50,44 +50,44 @@ import backarrow from '../components/backarrow.vue';
 import { mapGetters } from 'vuex';
 
 export default {
-	name: 'sidebar',
-	props: ['options'],
-	components: {
-		backarrow,
-	},
-	data() {
-		return {
-			catalog: [],
-			placeholder: [
-				{name: 'aaaaaaaa', items: ['aaaaa', 'a'.repeat(20)]},
-				{name: 'a'.repeat(10), items: ['a'.repeat(15), 'a'.repeat(13), 'a'.repeat(14)]},
-				{name: 'a'.repeat(7), items: ['aaaaaaaaaa']},
-				{name: 'a'.repeat(15), items: ['a'.repeat(7)]}
-			],
-			loading: true,
-			nav: true,
-		}
-	},
-	computed: {
-		currCatalog() {
-			return this.options.title + 'catalog';
-		},
-		currItems() {
-			return this.options.title + 'items';
-		},
-		scope() {
-			return this.options.title.toLowerCase();
-		},
-		id() {
-			return this.$route.params.id;
-		},
-		...mapGetters(['authenticated'])
-	},
-	async mounted() {
-		// load catalog here
+  name: 'Sidebar',
+  props: ['options'],
+  components: {
+    backarrow,
+  },
+  data() {
+    return {
+      catalog: [],
+      placeholder: [
+        {name: 'aaaaaaaa', items: ['aaaaa', 'a'.repeat(20)]},
+        {name: 'a'.repeat(10), items: ['a'.repeat(15), 'a'.repeat(13), 'a'.repeat(14)]},
+        {name: 'a'.repeat(7), items: ['aaaaaaaaaa']},
+        {name: 'a'.repeat(15), items: ['a'.repeat(7)]}
+      ],
+      loading: true,
+      nav: true,
+    }
+  },
+  computed: {
+    currCatalog() {
+      return this.options.title + 'catalog';
+    },
+    currItems() {
+      return this.options.title + 'items';
+    },
+    scope() {
+      return this.options.title.toLowerCase();
+    },
+    id() {
+      return this.$route.params.id;
+    },
+    ...mapGetters(['authenticated'])
+  },
+  async mounted() {
+    // load catalog here
 
-		this.loading = false;
-	}
+    this.loading = false;
+  }
 }
 
 </script>

@@ -1,31 +1,48 @@
 <template>
-	<div class='about'>
+  <div class="about">
+    <div class="side-scroll">
+      <div class="bar-container">
+        <div id="bar" />
+      </div>
+    </div>
 
-		<div class='side-scroll'>
-			<div class='bar-container'>
-				<div id='bar'/>
-			</div>
-		</div>
-
-		<div class='content'>
-			<div id='bio' class='lazy'>
-				<p class='title'> bio </p>
-				<p v-for='para of bio' :key='para' class='medium'>
-					{{ para }}
-				</p>
-				<div class='scroll-down'>
-					<!-- add jump to the below element with nuxt -->
-					<backarrow :disabled='true'/> 
-				</div>
-			</div>
-			<div id='education' class='lazy'>
-				<p class='title'> education </p>
-				<p v-for='para of bio' :key='para' class='medium'>
-					{{ para }}
-				</p>
-			</div>
-		</div>
-	</div>
+    <div class="content">
+      <div
+        id="bio"
+        class="lazy"
+      >
+        <p class="title">
+          bio
+        </p>
+        <p
+          v-for="para of bio"
+          :key="para"
+          class="medium"
+        >
+          {{ para }}
+        </p>
+        <div class="scroll-down">
+          <!-- add jump to the below element with nuxt -->
+          <backarrow :disabled="true" /> 
+        </div>
+      </div>
+      <div
+        id="education"
+        class="lazy"
+      >
+        <p class="title">
+          education
+        </p>
+        <p
+          v-for="para of bio"
+          :key="para"
+          class="medium"
+        >
+          {{ para }}
+        </p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -35,93 +52,93 @@ import { mapGetters } from 'vuex';
 import backarrow from '../components/backarrow.vue';
 
 export default {
-	name: 'About',
-	components: {
-		backarrow
-	},
-	data() {
-		return {
-			bio: [],
-		}
-	},
-	computed: {
-		...mapGetters(['authenticated'])
-	},
-	methods: {
-		wait(ms) {
-			return new Promise((resolve) => {
-				setTimeout(() => {
-					resolve(ms);
-				}, ms )
-			});
-		},
-		async onscroll() {
-			let content = document.getElementsByClassName('content')[0];
-			let bar = document.getElementsByClassName('side-scroll')[0];
+  name: 'About',
+  components: {
+    backarrow
+  },
+  data() {
+    return {
+      bio: [],
+    }
+  },
+  computed: {
+    ...mapGetters(['authenticated'])
+  },
+  methods: {
+    wait(ms) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(ms);
+        }, ms )
+      });
+    },
+    async onscroll() {
+      let content = document.getElementsByClassName('content')[0];
+      let bar = document.getElementsByClassName('side-scroll')[0];
 
-			// progress bar
+      // progress bar
 
-			let height = content.scrollHeight - content.clientHeight;
-			let scrolled = (content.scrollTop / height) * 100;
-			if (this.extended) {
-				document.getElementById('bar').style.height=scrolled+'%';
-			}else {
-				// makes bar go straight to progress point
-				clearTimeout(this.scrollTime);
-				this.scrollTime = setTimeout(() => {
-					document.getElementById('bar').style.height=scrolled+'%';
-				}, 1500);
+      let height = content.scrollHeight - content.clientHeight;
+      let scrolled = (content.scrollTop / height) * 100;
+      if (this.extended) {
+        document.getElementById('bar').style.height=scrolled+'%';
+      }else {
+        // makes bar go straight to progress point
+        clearTimeout(this.scrollTime);
+        this.scrollTime = setTimeout(() => {
+          document.getElementById('bar').style.height=scrolled+'%';
+        }, 1500);
 
-				// is there a better way to do this? 
-			}
+        // is there a better way to do this? 
+      }
 
-			// lazy load effect & category filling
-			for (let i=this.lazies.length; i-- > 0;){
-				if (content.scrollTop + content.clientHeight > this.lazies[i].offset) { // if this thing is visible
-					document.getElementById(this.lazies[i].id).style="opacity: 1; padding-top: 0";
-				}
-			}
-				// content.scrollTop + content.clientHeight > el.offsetTop
+      // lazy load effect & category filling
+      for (let i=this.lazies.length; i-- > 0;){
+        if (content.scrollTop + content.clientHeight > this.lazies[i].offset) { // if this thing is visible
+          document.getElementById(this.lazies[i].id).style="opacity: 1; padding-top: 0";
+        }
+      }
+      // content.scrollTop + content.clientHeight > el.offsetTop
 
-			// handle side scroll sliding
+      // handle side scroll sliding
 
-			if (scrolled > 0 && content.style.left!=='20%'){
-				content.style.left='20%';
-				bar.style.left='0';
-				setTimeout(() => {
-					this.extended = true;
-				}, 1500);
-			} else if (scrolled === 0) {
-				setTimeout(() => {
-					content.style.left='12.5%';
-					bar.style.left='-20%';
-				}, 500);
-				setTimeout(() => {
+      if (scrolled > 0 && content.style.left!=='20%'){
+        content.style.left='20%';
+        bar.style.left='0';
+        setTimeout(() => {
+          this.extended = true;
+        }, 1500);
+      } else if (scrolled === 0) {
+        setTimeout(() => {
+          content.style.left='12.5%';
+          bar.style.left='-20%';
+        }, 500);
+        setTimeout(() => {
 
-					this.extended = false;
-				}, 1501);
-			}
-		}
-	},
-	async mounted() {
-		let bio = await api.getDocByID('static', 'bio');
-		let lazyEls = document.getElementsByClassName('lazy');
+          this.extended = false;
+        }, 1501);
+      }
+    }
+  },
+  async mounted() {
+    let bio = await api.getDocByID('static', 'bio');
+    let lazyEls = document.getElementsByClassName('lazy');
 
-		this.bio = bio.paragraphs;
-		// setTimeout(() => {
-		document.getElementById('bio').style.opacity=1;
-		// })
-		this.lazies=[];
-		lazyEls.forEach((el) => {
-			this.lazies.push({offset: el.offsetTop, id: el.id});
-			// todo add categories to progress bar accordingly
-		});
+    this.bio = bio.paragraphs;
+    // setTimeout(() => {
+    document.getElementById('bio').style.opacity=1;
+    // })
+    this.lazies=[];
+    lazyEls.forEach((el) => {
+      this.lazies.push({offset: el.offsetTop, id: el.id});
+      // todo add categories to progress bar accordingly
+    });
 		
-		(document.getElementsByClassName('content')[0]).addEventListener('scroll', this.onscroll);
-	},
-	destroyed() {
-		(document.getElementsByClassName('content')[0]).removeEventListener('scroll', this.onscroll);
-	}
+    (document.getElementsByClassName('content')[0]).addEventListener('scroll', this.onscroll);
+  },
+  destroyed() {
+    (document.getElementsByClassName('content')[0]).removeEventListener('scroll', this.onscroll);
+  }
 }
 
 </script>

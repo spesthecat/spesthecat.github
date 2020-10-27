@@ -1,9 +1,7 @@
 <template>
-	<div id="app">
-		
-		<router-view id='main-view'/>
-
-	</div>
+  <div id="app">
+    <router-view id="main-view" />
+  </div>
 </template>
 
 <script>
@@ -12,20 +10,20 @@ import { mapGetters, mapMutations } from 'vuex'
 import api from './utils/api.js'
 
 export default {
-	name: 'app',
-	computed: {
-		...mapGetters(['authenticated'])
-	},
-	methods: {
-		...mapMutations(['set_auth'])
-	},
-	async mounted() {
-		let auth = await api.isAuth();
-		console.log(auth);
-		if (auth) {
-			this.set_auth(true);
-		}
-	}
+  name: 'App',
+  computed: {
+    ...mapGetters(['authenticated'])
+  },
+  methods: {
+    ...mapMutations(['set_auth'])
+  },
+  async mounted() {
+    let auth = await api.isAuth();
+    console.log(auth);
+    if (auth) {
+      this.set_auth(true);
+    }
+  }
 }
 
 </script>

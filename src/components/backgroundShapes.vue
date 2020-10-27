@@ -11,85 +11,85 @@
 <script>
 
 export default {
-	name: 'backgroundShapes',
-	props: ['amount'],
-	data() {
-		return {
-			time: 0
-		}
-	},
-	methods: {
-		biasedGen() {
-			let ub = Math.floor(Math.random()*100)+1;
-			if (ub < 40) {
-				return 1;
-			}else if (ub < 60) {
-				return 2;
-			}else if (ub < 70) {
-				return 3;
-			}else if (ub < 80) {
-				return 4;
-			}else if (ub < 90) {
-				return 5;
-			}
-			return 6;
-		}
-	},
-	async mounted() {
-		function wait(ms) {
-			return new Promise((resolve) => {
-				setTimeout(() => {
-					resolve(ms);
-				}, ms )
-			});
-		}  
+  name: 'BackgroundShapes',
+  props: ['amount'],
+  data() {
+    return {
+      time: 0
+    }
+  },
+  methods: {
+    biasedGen() {
+      let ub = Math.floor(Math.random()*100)+1;
+      if (ub < 40) {
+        return 1;
+      }else if (ub < 60) {
+        return 2;
+      }else if (ub < 70) {
+        return 3;
+      }else if (ub < 80) {
+        return 4;
+      }else if (ub < 90) {
+        return 5;
+      }
+      return 6;
+    }
+  },
+  async mounted() {
+    function wait(ms) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(ms);
+        }, ms )
+      });
+    }  
 
-		await wait(1500);
+    await wait(1500);
 
-		this.time = Math.floor(document.getElementsByClassName('content')[0].clientHeight/35); 
-		// going directly to page has shorter time (assumed inaccurate) than nav from side
-		// console.log(this.time);
+    this.time = Math.floor(document.getElementsByClassName('content')[0].clientHeight/35); 
+    // going directly to page has shorter time (assumed inaccurate) than nav from side
+    // console.log(this.time);
 
-		let container = document.getElementById('background-shapes-container');
-		let c = 0;
-		while (c < this.amount) {
-			await wait(Math.random()*(4000)+3000);
-			let li = document.createElement('li');
+    let container = document.getElementById('background-shapes-container');
+    let c = 0;
+    while (c < this.amount) {
+      await wait(Math.random()*(4000)+3000);
+      let li = document.createElement('li');
 
-			switch(Math.floor(Math.random()*3)) {
-				case 0:
-					li.className = 'square';
-					break;
-				case 1:
-					li.className = 'circle';
-					break;
-				case 2:
-					li.className = 'triangle';
-					break;
-			}
+      switch(Math.floor(Math.random()*3)) {
+      case 0:
+        li.className = 'square';
+        break;
+      case 1:
+        li.className = 'circle';
+        break;
+      case 2:
+        li.className = 'triangle';
+        break;
+      }
 
-			li.style.transform = `scale(${this.biasedGen()})`;
+      li.style.transform = `scale(${this.biasedGen()})`;
 
-			if(Math.random() >= 0.5) {
-				li.classList.add('drift');
-				li.style.animationName='drift';
-			}else {
-				li.classList.add('drift-reverse');
-				li.style.animationName='drift2';
-			}
+      if(Math.random() >= 0.5) {
+        li.classList.add('drift');
+        li.style.animationName='drift';
+      }else {
+        li.classList.add('drift-reverse');
+        li.style.animationName='drift2';
+      }
 
-			if(Math.random() >= 0.5) {
-				li.style.right = Math.random()*30-5+'%';
-			}else {
-				li.style.left = Math.random()*30-5+'%';
-			}
+      if(Math.random() >= 0.5) {
+        li.style.right = Math.random()*30-5+'%';
+      }else {
+        li.style.left = Math.random()*30-5+'%';
+      }
 
-			li.style.animationDuration = Math.random()*(this.time*2)+this.time+'s';
+      li.style.animationDuration = Math.random()*(this.time*2)+this.time+'s';
 
-			container.appendChild(li);
-			c++;
-		}
-	}
+      container.appendChild(li);
+      c++;
+    }
+  }
 	
 }
 

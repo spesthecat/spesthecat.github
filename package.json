@@ -12,17 +12,12 @@
     "babel-runtime": "^6.26.0",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "firebase": "^7.18.0",
-    "firebase-admin": "^9.1.0",
+    "marked": "^1.2.2",
     "prismjs": "^1.22.0",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.3",
-    "vue-markdown": "^2.2.4",
-    "vue-md-loader": "^1.1.4",
     "vue-router": "^3.2.0",
     "vue-scrollto": "^2.18.2",
-    "vue-simplemde": "^1.1.2",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
@@ -51,7 +46,19 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "vue/arrow-spacing": "warn",
+      "vue/brace-style": "warn",
+      "vue/camelcase": "warn",
+      "vue/comma-dangle": "warn",
+      "vue/component-definition-name-casing": "warn",
+      "vue/component-name-in-template-casing": "warn",
+      "vue/dot-location": "warn",
+      "vue/eqeqeq": "warn",
+      "vue/no-irregular-whitespace": "warn",
+      "vue/object-curly-spacing": "warn",
+      "vue/script-indent": "warn"
+    }
   },
   "browserslist": [
     "> 1%",

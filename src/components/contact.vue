@@ -19,7 +19,7 @@
 <script>
 
 export default {
-	name: 'contact',
+  name: 'Contact',
 }
 
 </script>

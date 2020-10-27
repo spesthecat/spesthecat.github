@@ -6,7 +6,7 @@ import axios from 'axios'
 // import VueMarkdown from 'vue-markdown';
 
 export default {
-  name: 'file-viewer',
+  name: 'FileViewer',
   props: ["src"],
   data() {
     return {

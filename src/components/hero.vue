@@ -20,7 +20,7 @@
 				<span class='letter'>n</span>
 			</div>
 			<div class="headline-clip">
-				<span class="headline-wrapper" :style="{ width: wrapWidth+'px' }">
+				<span class="headline-wrapper" :style="{width: wrapWidth+'px'}">
 				<p ref="word"
 				v-for="word in words"
 				:key="words.indexOf(word)"
@@ -47,25 +47,25 @@ import api from '../utils/api.js';
 import { mapGetters } from 'vuex';
 
 export default {
-	name: 'Hero',
-	data() {
-		return {
+  name: 'Hero',
+  data() {
+    return {
       word: '',
-			words: [],
+      words: [],
       wordId: -1,
       wrapWidth: 0,
       interval: {}
-		}
+    }
   },
   computed: {
     ...mapGetters(['authenticated'])
   },
-	methods: {
-		showWord(id) {
-			return {
-				'word-visible': id == this.wordId,
-				'word-hidden': !(id == this.wordId),
-			}
+  methods: {
+    showWord(id) {
+      return {
+        'word-visible': id == this.wordId,
+        'word-hidden': !(id == this.wordId),
+      }
     },
     randomID() {
       let r = Math.floor(Math.random() * this.words.length);
@@ -84,8 +84,8 @@ export default {
     async push() {
       await api.editDoc('static', 'hero', { words: this.words });
     },
-		animateHeadline(wait) {
-			this.interval = setInterval(() => {
+    animateHeadline(wait) {
+      this.interval = setInterval(() => {
         setTimeout(() => {
           this.wrapWidth = 0;
         }, 500)
@@ -100,10 +100,10 @@ export default {
         }, 1200)
         
         
-			}, wait)
-		}
-	},
-	async mounted() {
+      }, wait)
+    }
+  },
+  async mounted() {
     let resp = await api.getDocByID('static', 'hero');
     this.words = resp.words;
     this.animateHeadline(4500);

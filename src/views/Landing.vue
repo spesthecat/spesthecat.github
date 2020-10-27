@@ -1,16 +1,16 @@
 <template>
-	<div>
+  <div>
+    <div class="site-wrapper">
+      <div class="rain" />
+      <Menu id="menu-nav" />
+      <Hero id="hero" />
+    </div>
 
-		<div class='site-wrapper'>
-			<div class='rain'/>
-			<Menu id='menu-nav'/>
-			<Hero id='hero'/>
-		</div>
-
-		<Contact id='contact' class='footer'/>
-
-		
-	</div>
+    <Contact
+      id="contact"
+      class="footer"
+    />
+  </div>
 </template>
 
 <script>
@@ -20,43 +20,43 @@ import Hero from '../components/hero.vue';
 import Contact from '../components/contact.vue';
 
 export default {
-	name: 'Landing',
-	components: {
-		Hero,
-		Menu,
-		Contact,
-	},
-	methods: {
-		makeItRain() {
-			var increment = 0;
-			var drops = "";
+  name: 'Landing',
+  components: {
+    Hero,
+    Menu,
+    Contact,
+  },
+  methods: {
+    makeItRain() {
+      var increment = 0;
+      var drops = "";
 
-			while (increment < 51) {
-				//couple random numbers to use for various randomizations
-				//random number between 98 and 1
-				var randoHundo = (Math.floor(Math.random() * (130 - 1 + 1) + 1));
-				//random number between 5 and 2
-				var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
-				//increment
-				increment += randoFiver;
-				//add in a new raindrop with various randomizations to certain CSS properties
-				drops += '<div class="drop" style="left: ' + 
-				increment*2 + '%; bottom: ' + 
-				(randoFiver + randoFiver - 1 + 100) + 
-				'%; animation-delay: 0.' + randoHundo + 
-				's; animation-duration: 2.' + randoHundo + 
-				's;"><div class="stem" style="animation-delay: 0.' + 
-				randoHundo + 's; animation-duration: 2.' + randoHundo + 
-				's;"></div><div class="splat" style="animation-delay: 0.' + 
-				randoHundo + 's; animation-duration: 2.' + randoHundo + 's;"></div></div>';
-			}
+      while (increment < 51) {
+        //couple random numbers to use for various randomizations
+        //random number between 98 and 1
+        var randoHundo = (Math.floor(Math.random() * (130 - 1 + 1) + 1));
+        //random number between 5 and 2
+        var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+        //increment
+        increment += randoFiver;
+        //add in a new raindrop with various randomizations to certain CSS properties
+        drops += '<div class="drop" style="left: ' + 
+          increment*2 + '%; bottom: ' + 
+          (randoFiver + randoFiver - 1 + 100) + 
+          '%; animation-delay: 0.' + randoHundo + 
+          's; animation-duration: 2.' + randoHundo + 
+          's;"><div class="stem" style="animation-delay: 0.' + 
+          randoHundo + 's; animation-duration: 2.' + randoHundo + 
+          's;"></div><div class="splat" style="animation-delay: 0.' + 
+          randoHundo + 's; animation-duration: 2.' + randoHundo + 's;"></div></div>';
+      }
 
-			document.getElementsByClassName('rain')[0].innerHTML += drops.trim();
-		}
-	},
-	mounted() {
-		this.makeItRain();
-	}
+      document.getElementsByClassName('rain')[0].innerHTML += drops.trim();
+    }
+  },
+  mounted() {
+    this.makeItRain();
+  }
 }
 </script>
 

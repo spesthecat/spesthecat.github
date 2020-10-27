@@ -17,10 +17,10 @@
 import backarrow from './backarrow.vue';
 
 export default {
-	name: 'notfound',
-	components: {
-		backarrow
-	}
+  name: 'Notfound',
+  components: {
+    backarrow
+  }
 }
 
 </script>

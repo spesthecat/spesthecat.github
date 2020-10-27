@@ -24,7 +24,7 @@
 				<div class='icon-part'/>
 			</div>
 
-			<div class='nav-menu' :class="{ 'show-nav-menu': showMenu }">
+			<div class='nav-menu' :class="{'show-nav-menu': showMenu}">
 				<router-link id='first' class='nav-buttons slide' to="/about">
 					about
 				</router-link>
@@ -46,17 +46,17 @@
 <script>
 
 export default {
-	name: 'navlinks',
-	data() {
-		return {
-			showMenu: false,
-		}
-	},
-	methods: {
-		toggleMenu() {
-			this.showMenu = !this.showMenu;
-		}
-	}
+  name: 'Navlinks',
+  data() {
+    return {
+      showMenu: false,
+    }
+  },
+  methods: {
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+    }
+  }
 }
 
 </script>

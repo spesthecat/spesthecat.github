@@ -1,12 +1,26 @@
 <template>
-	<div id='admin'>
-		<div class='login wrapper'>
-			<input ref='input' @keyup.enter="submit" class='password' v-model="password" type="password"/>
-			<div class='error' v-show="error"> {{ error }} </div>
-			<backarrow @click.native='submit' :link="'/admin'" class='submit'/>
-		</div>
-
-	</div>
+  <div id="admin">
+    <div class="login wrapper">
+      <input
+        ref="input"
+        @keyup.enter="submit"
+        class="password"
+        v-model="password"
+        type="password"
+      >
+      <div
+        class="error"
+        v-show="error"
+      >
+        {{ error }}
+      </div>
+      <backarrow
+        @click.native="submit"
+        :link="'/admin'"
+        class="submit"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -15,39 +29,39 @@ import backarrow from '../components/backarrow.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-	name: 'admin',
-	data() {
-		return {
-			password: ''
-		}
-	},
-	components: {
-		backarrow
-	},
-	computed: {
-		...mapGetters(['authenticated', 'authStatus']),
-		error() {
-			if (this.authStatus.code === 'auth/wrong-password') {
-				return 'Incorrect Password';
-			}
-			if (this.authStatus.code === 'auth/too-many-requests') {
-				return 'Try again later';
-			}
-			return ''
-		}
-	},
-	methods: {
-		...mapActions(['login', 'logout']),
-		async submit() {
-			let resp = await this.$store.dispatch('login', this.password);
-			if (resp) {
-				this.$router.replace('/');
-			}
-		}
-	},
-	mounted() {
-		this.$refs.input.focus();
-	}
+  name: 'Admin',
+  data() {
+    return {
+      password: ''
+    }
+  },
+  components: {
+    backarrow
+  },
+  computed: {
+    ...mapGetters(['authenticated', 'authStatus']),
+    error() {
+      if (this.authStatus.code === 'auth/wrong-password') {
+        return 'Incorrect Password';
+      }
+      if (this.authStatus.code === 'auth/too-many-requests') {
+        return 'Try again later';
+      }
+      return ''
+    }
+  },
+  methods: {
+    ...mapActions(['login', 'logout']),
+    async submit() {
+      let resp = await this.$store.dispatch('login', this.password);
+      if (resp) {
+        this.$router.replace('/');
+      }
+    }
+  },
+  mounted() {
+    this.$refs.input.focus();
+  }
 }
 
 </script>

@@ -1,53 +1,71 @@
 <template>
   <div> 
-    <file-viewer
-    v-if="acceptPaths.includes(scope)"
-		:src="scope + '/catalog.json'"
-		@data="catalog=$event.catalog"/>
-    <not-found v-else/>
+    <FileViewer
+      v-if="acceptPaths.includes(scope)"
+      :src="scope + '/catalog.json'"
+      @data="catalog=$event.catalog"
+    />
+    <NotFound v-else />
 
-    <sidebar v-if="acceptPaths.includes(scope)" class='sidebar' :options="{ title: scope, catalog }"/>
+    <sidebar
+      v-if="acceptPaths.includes(scope)"
+      class="sidebar"
+      :options="{title: scope, catalog}"
+    />
 
     <div v-if="postExists">
       <div v-if="id !== undefined">
-        <file-viewer
-        :src="asset('meta.json')"
-        @data="meta=$event"/>
-        <file-viewer
-        class='file'
-        :src="asset('content.html')"
-        @data="content=$event; showFooter=true"/>
+        <FileViewer
+          :src="asset('meta.json')"
+          @data="meta=$event"
+        />
+        <FileViewer
+          class="file"
+          :src="asset('content.html')"
+          @data="content=$event; showFooter=true"
+        />
       </div>
 
-      <div class='content-display'>
-
-        <div class='header'>
-          <div class='meta'>
-            <div class='type'> {{ scope.slice(0, -1) }} </div>
-            <div class='title'> {{ meta.title }} </div>
-            <div class='updated'> Last Updated </div>
-            <div class='date'> {{ meta.date }} </div>
+      <div class="content-display">
+        <div class="header">
+          <div class="meta">
+            <div class="type">
+              {{ scope.slice(0, -1) }}
+            </div>
+            <div class="title">
+              {{ meta.title }}
+            </div>
+            <div class="updated">
+              Last Updated
+            </div>
+            <div class="date">
+              {{ meta.date }}
+            </div>
           </div>
 
-          <img :src="asset('header.png')"/>
+          <img :src="asset('header.png')">
         </div>
 
-        <div class='content'>
-          <div @onload="showFooter=true" v-html="content"/>
-          <contact v-if="showFooter" class='footer'/>	
+        <div class="content">
+          <div
+            @onload="showFooter=true"
+            v-html="content"
+          />
+          <Contact
+            v-if="showFooter"
+            class="footer"
+          />	
         </div>
 
         <!-- <div ref='background' class='background'>
           <backgroundShapes :amount="50"/>
         </div> -->
-
       </div>
     </div>
 
-    <div v-else-if="id === undefined">
-    </div>
+    <div v-else-if="id === undefined" />
 
-    <not-found v-else/>
+    <NotFound v-else />
   </div>
 </template>
 
@@ -60,7 +78,7 @@ import Contact from '../components/contact.vue';
 // import backgroundShapes from '../components/backgroundShapes.vue';
 
 export default {
-  name: 'project-blog',
+  name: 'ProjectBlog',
   data() {
     return {
       showFooter: false,
