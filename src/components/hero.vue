@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import api from '../utils/api.js';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -81,9 +80,6 @@ export default {
     removeWord(word) {
       this.words = this.words.filter(w => w !== word);
     },
-    async push() {
-      await api.editDoc('static', 'hero', { words: this.words });
-    },
     animateHeadline(wait) {
       this.interval = setInterval(() => {
         setTimeout(() => {
@@ -104,8 +100,7 @@ export default {
     }
   },
   async mounted() {
-    let resp = await api.getDocByID('static', 'hero');
-    this.words = resp.words;
+    this.words = ['big brain']; // TODO use static
     this.animateHeadline(4500);
   },
   async beforeDestroy() {

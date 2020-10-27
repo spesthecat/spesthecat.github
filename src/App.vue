@@ -7,7 +7,6 @@
 <script>
 
 import { mapGetters, mapMutations } from 'vuex'
-import api from './utils/api.js'
 
 export default {
   name: 'App',
@@ -17,13 +16,6 @@ export default {
   methods: {
     ...mapMutations(['set_auth'])
   },
-  async mounted() {
-    let auth = await api.isAuth();
-    console.log(auth);
-    if (auth) {
-      this.set_auth(true);
-    }
-  }
 }
 
 </script>

@@ -47,7 +47,6 @@
 
 <script>
 
-import api from '../utils/api.js';
 import { mapGetters } from 'vuex';
 import backarrow from '../components/backarrow.vue';
 
@@ -121,7 +120,7 @@ export default {
     }
   },
   async mounted() {
-    let bio = await api.getDocByID('static', 'bio');
+    let bio = 'yes'; // TODO add this
     let lazyEls = document.getElementsByClassName('lazy');
 
     this.bio = bio.paragraphs;
