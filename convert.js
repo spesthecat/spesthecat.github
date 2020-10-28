@@ -6,6 +6,7 @@ const Prism = require('prismjs');
 
 function getInput(categories) {
   categories.push("New Category");
+
   const questions = [
     {
       name: "md_path",
@@ -16,7 +17,7 @@ function getInput(categories) {
     {
       name: "category",
       type: "list",
-      message: "Choose a category",
+      message: "Choose category",
       choices: categories,
     },
     {
@@ -49,10 +50,18 @@ function getInput(categories) {
 }
 
 async function run() {
-  let catalog = JSON.parse(fs.readFileSync('./public/posts/catalog.json')).catalog;
+  const types = ["projects", "blogs"];
+  const { type } = await inquirer.prompt({
+    name: "type",
+    type: "list",
+    message: "Type of post",
+    choices: types,
+  });
+
+  let catalog = JSON.parse(fs.readFileSync(`./public/${type}/catalog.json`)).catalog;
   let { md_path, category, new_category, brief, title, header_img } = await getInput(catalog.map(cat => cat.name));
   brief = brief.replace(/ /g,'-').toLowerCase();
-  const dir = `./public/posts/${brief}`;
+  const dir = `./public/${type}/${brief}`;
   const t = new Date();
   
   if (new_category) {
@@ -118,7 +127,7 @@ async function run() {
             console.log(err);
           }
         });
-        images[i].src = `./posts/${brief}/${filename}`;
+        images[i].src = `./${type}/${brief}/${filename}`;
       }
       
       console.log('Creating html file...');

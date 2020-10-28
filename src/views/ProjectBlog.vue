@@ -2,7 +2,7 @@
   <div> 
     <FileViewer
       v-if="acceptPaths.includes(scope)"
-      src='posts/catalog.json'
+      :src="scope + '/catalog.json'"
       @data="catalog=$event.catalog"
     />
     <NotFound v-else />
@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     asset(asset) {
-      return 'posts/' + this.id + '/' + asset;
+      return this.scope + '/' + this.id + '/' + asset;
     },
   },
   watch: {
