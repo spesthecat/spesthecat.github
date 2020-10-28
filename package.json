@@ -56,7 +56,7 @@
       "vue/component-name-in-template-casing": "warn",
       "vue/dot-location": "warn",
       "vue/eqeqeq": "warn",
-      "vue/no-irregular-whitespace": "warn",
+      "vue/no-irregular-whitespace": "error",
       "vue/object-curly-spacing": "warn",
       "vue/script-indent": "warn"
     }

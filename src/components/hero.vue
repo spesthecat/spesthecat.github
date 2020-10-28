@@ -37,12 +37,14 @@
 
 <script>
 
+const words = require('../static/hero.json');
+
 export default {
   name: 'Hero',
   data() {
     return {
       word: '',
-      words: [],
+      words: words.words,
       wordId: -1,
       wrapWidth: 0,
       interval: {}
@@ -62,13 +64,6 @@ export default {
       }
       return r;
     },
-    addWord() {
-      this.words.push(this.word);
-      this.word = '';
-    },
-    removeWord(word) {
-      this.words = this.words.filter(w => w !== word);
-    },
     animateHeadline(wait) {
       this.interval = setInterval(() => {
         setTimeout(() => {
@@ -81,15 +76,16 @@ export default {
         
 
         setTimeout(() => {
-          this.wrapWidth = this.$refs.word[this.wordId].clientWidth;  
+          try {
+            this.wrapWidth = this.$refs.word[this.wordId].clientWidth;  
+          } catch (e) {
+            return;
+          }
         }, 1200)
-        
-        
       }, wait)
     }
   },
   async mounted() {
-    this.words = ['big brain']; // TODO use static
     this.animateHeadline(4500);
   },
 }
