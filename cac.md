@@ -27,11 +27,12 @@ Pretty neat, right?
 This was achieved using just a `setInterval` for the timing and a style binding for the effect `clip-path`. 
 ```js
 setInterval(() => { this.loadpercent += 1; }, 4.5);
-```
+
 <img
 class="fill"
 :style="`clip-path:polygon(0 0, ${loadpercent}% 0, ${loadpercent}% 100%, 0% 100%);`"
 :src="require('@/assets/maskfull.svg')">
+```
 
 Apparently mapbox's loading slows the entire stack, so the loading time of the animation actually accurately reflects the loading of the site.
 

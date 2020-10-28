@@ -2,7 +2,7 @@
   <div> 
     <FileViewer
       v-if="acceptPaths.includes(scope)"
-      :src="scope + '/catalog.json'"
+      src='posts/catalog.json'
       @data="catalog=$event.catalog"
     />
     <NotFound v-else />
@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     asset(asset) {
-      return this.scope + '/' + this.id + '/' + asset;
+      return 'posts/' + this.id + '/' + asset;
     },
   },
   watch: {
@@ -131,6 +131,10 @@ export default {
 }
 
 </script>
+
+<style>
+@import '../styles/prism.css';
+</style>
 
 <style lang='scss' scoped>
 
@@ -215,6 +219,7 @@ export default {
   right: -35%;
   overflow: hidden;
   height: 70px;
+  background-color: white;
 }
 
 .content {

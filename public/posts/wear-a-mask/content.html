@@ -1,0 +1,56 @@
+<body><p>Wear A Mask (WAM for short) is <a href="https://github.com/AidanJSmith">Aidan Smith</a>, Lisa Chai, and I's submission for the 2020 Congressional App Challenge (<a href="https://congressionalappchallenge.us/">CaC</a>).</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yM01CnoMRLM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p><em>This is our demo video for CaC</em></p>
+<h1 id="overview">Overview</h1>
+<p>WAM is an online platform which enables the community to leave covid related reviews on public buildings. We initially wanted to have a covid heatmap and a maximum capacity recommendation (calculated from building size and social-distancing recommendations), but those were not achievable as we only had 3 weeks to build the entire project.</p>
+<p>The app is not live but the source code for both the client and the server can be found on Aidan's GitHub:</p>
+<h1 id="tech-stack">Tech Stack</h1>
+<p>There was little debate over what to use for the frontend, as Aidan is an avid Vue fan and I didn't have experience with anything else (although admittedly, it would've been a good learning experience). We chose Google's Firebase for hosting the Vue app, which was apparently unneeded for the challenge.
+The map actually seen is Mapbox, while the searchbar implements Google's various APIs (which were a pain to add).</p>
+<p>As for the backend, we used Flask to build a simple, RESTful server that could handle authentication and writing/retrieving reviews from a database. The API was hosted on a free Heroku account, which conveniently had PostgreSQL plugins that made it extremely easy to hook up the API to.</p>
+<h1 id="highlights">Highlights</h1>
+<h3 id="first-up-this-incredibly-satisfying-loading-animation">First up: this incredibly satisfying loading animation</h3>
+<p><img src="./load.gif" alt="loading-animation"></p>
+<p>Pretty neat, right? 
+This was achieved using just a <code>setInterval</code> for the timing and a style binding for the effect <code>clip-path</code>. </p>
+<pre class=" language-js"><code class=" language-js"><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>loadpercent <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">4.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token operator">&lt;</span>img
+<span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fill"</span>
+<span class="token operator">:</span>style<span class="token operator">=</span><span class="token string">"`clip-path:polygon(0 0, ${loadpercent}% 0, ${loadpercent}% 100%, 0% 100%);`"</span>
+<span class="token operator">:</span>src<span class="token operator">=</span><span class="token string">"require('@/assets/maskfull.svg')"</span><span class="token operator">&gt;</span></code></pre>
+<p>Apparently mapbox's loading slows the entire stack, so the loading time of the animation actually accurately reflects the loading of the site.</p>
+<h3 id="next-up-an-equally-satisfying-transition">Next up: an equally satisfying transition</h3>
+<p><img src="./marker.gif" alt="transition"></p>
+<p>To get this transition, the marker used everywhere else on the map is scaled up and positioned, and the <code>::after</code> psuedo-element which contains text is visible.</p>
+<pre class=" language-js"><code class=" language-js">left<span class="token operator">:</span> <span class="token number">10</span><span class="token operator">%</span> <span class="token operator">!</span>important<span class="token punctuation">;</span>
+top<span class="token operator">:</span> <span class="token number">40</span><span class="token operator">%</span> <span class="token operator">!</span>important<span class="token punctuation">;</span>
+transform<span class="token operator">:</span> <span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">4.2</span><span class="token punctuation">)</span> <span class="token operator">!</span>important<span class="token punctuation">;</span>
+transition<span class="token operator">:</span> <span class="token number">1</span>s all<span class="token punctuation">;</span>
+
+<span class="token operator">&amp;</span><span class="token operator">:</span><span class="token operator">:</span>after <span class="token punctuation">{</span>
+  opacity<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Then when the user is authenticated, several things happen to return control of the marker to mapbox.</p>
+<pre class=" language-js"><code class=" language-js"><span class="token comment">// first the app redirects the user to the root route</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span> path<span class="token operator">:</span> <span class="token string">'/'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// a route watcher detects this and sets a 1s timeout which sets this.small to true</span>
+<span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>small <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// this computed object will start out with fixed, then transition for 1s, then small</span>
+<span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>$route<span class="token punctuation">.</span>path <span class="token operator">===</span> <span class="token string">'/login'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">'fixed'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>boring<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">'small'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token string">'transition'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre>
+<p>The marker will start with a fixed position due to the override from <code>.fixed</code>, then whatever style from <code>.transition</code> is applied, then <code>.small</code> is applied which removes all the styles from the other classes. </p>
+<h1 id="wrapping-up">Wrapping Up</h1>
+<p>Overall, this was a very fun project to work on with Aidan, although we did of course run into annoying issues like CORS headers, redeploying the API over and over again, and eslint somehow broke for me which was not fun at all. 
+We're probably going to do this again next year, and we already have some ideas. Just have to wait until everyone is less busy... </p>
+</body>
