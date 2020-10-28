@@ -47,8 +47,6 @@
 
 import backarrow from '../components/backarrow.vue';
 
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'Sidebar',
   props: ['options'],
@@ -81,7 +79,6 @@ export default {
     id() {
       return this.$route.params.id;
     },
-    ...mapGetters(['authenticated'])
   },
   async mounted() {
     // load catalog here

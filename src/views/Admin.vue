@@ -26,8 +26,6 @@
 <script>
 import backarrow from '../components/backarrow.vue';
 
-import { mapActions, mapGetters } from 'vuex';
-
 export default {
   name: 'Admin',
   data() {
@@ -39,7 +37,6 @@ export default {
     backarrow
   },
   computed: {
-    ...mapGetters(['authenticated', 'authStatus']),
     error() {
       if (this.authStatus.code === 'auth/wrong-password') {
         return 'Incorrect Password';
@@ -48,16 +45,15 @@ export default {
         return 'Try again later';
       }
       return ''
-    }
+    },
   },
   methods: {
-    ...mapActions(['login', 'logout']),
     async submit() {
       let resp = await this.$store.dispatch('login', this.password);
       if (resp) {
         this.$router.replace('/');
       }
-    }
+    },
   },
   mounted() {
     this.$refs.input.focus();

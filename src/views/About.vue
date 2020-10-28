@@ -47,7 +47,6 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
 import backarrow from '../components/backarrow.vue';
 
 export default {
@@ -59,9 +58,6 @@ export default {
     return {
       bio: [],
     }
-  },
-  computed: {
-    ...mapGetters(['authenticated'])
   },
   methods: {
     wait(ms) {

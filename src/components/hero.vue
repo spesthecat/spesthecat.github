@@ -32,18 +32,10 @@
 			</div>
 		</div>
 
-    <div v-if="authenticated" class='editor'>
-      <ul class='words'>
-        <li v-for="word in words" @click.prevent="removeWord(word)" class='word' :key="word"> {{ word }} </li>
-      </ul>
-      <input v-model="word" @keyup.enter="addWord"/>
-      <button @click.prevent="push"> push </button>
-    </div>
 	</div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'Hero',
@@ -55,9 +47,6 @@ export default {
       wrapWidth: 0,
       interval: {}
     }
-  },
-  computed: {
-    ...mapGetters(['authenticated'])
   },
   methods: {
     showWord(id) {
@@ -103,12 +92,6 @@ export default {
     this.words = ['big brain']; // TODO use static
     this.animateHeadline(4500);
   },
-  async beforeDestroy() {
-    clearInterval(this.interval);
-    if (this.authenticated) {
-      await this.push();
-    }
-  }
 }
 </script>
 

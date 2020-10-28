@@ -6,16 +6,8 @@
 
 <script>
 
-import { mapGetters, mapMutations } from 'vuex'
-
 export default {
   name: 'App',
-  computed: {
-    ...mapGetters(['authenticated'])
-  },
-  methods: {
-    ...mapMutations(['set_auth'])
-  },
 }
 
 </script>
