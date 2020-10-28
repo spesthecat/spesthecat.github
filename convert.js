@@ -77,7 +77,7 @@ async function run() {
       console.log('Creating new post...');
       category.items.push(brief);
     }
-    fs.writeFileSync('./public/posts/catalog.json', JSON.stringify({ catalog }, null, 2));
+    fs.writeFileSync(`${dir}/catalog.json`, JSON.stringify({ catalog }, null, 2));
 
     const html = marked(data);
     const dom = new JSDOM(html, {
@@ -92,14 +92,6 @@ async function run() {
       }
     });
     
-    console.log('Creating html file...');
-    fs.writeFile(`${dir}/content.html`, dom.window.document.body.outerHTML, (err) => {
-      if (err) {
-        return console.error(err);
-      }
-      console.log('html file created');
-    });
-
     console.log('Creating meta.json...');
     fs.writeFile(`${dir}/meta.json`,
     JSON.stringify({ title, date: `${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}`}, null, 2),
@@ -109,23 +101,33 @@ async function run() {
       }
       console.log('meta.json file created');
     });
-
+    
     let images = dom.window.document.getElementsByTagName('img');
     for (let i = 0; i < images.length; i++) {
       if (images[i].src === undefined) {
         continue;
       }
-
+      
+      let filename = images[i].src.split('/').pop();
+      let newSrc = `${dir}/${filename}`;
       fs.copyFile(
         images[i].src,
-        `${dir}/${images[i].src.split('/').pop()}`,
+        newSrc,
         (err) => {
           if (err) {
             console.log(err);
           }
+        });
+        images[i].src = `./posts/${brief}/${filename}`;
+      }
+      
+      console.log('Creating html file...');
+      fs.writeFile(`${dir}/content.html`, dom.window.document.body.outerHTML, (err) => {
+        if (err) {
+          return console.error(err);
+        }
+        console.log('html file created');
       });
-    }
-
   });
 }
 
