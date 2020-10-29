@@ -47,6 +47,7 @@
 
 <script>
 
+const bio = require('../static/about.json');
 import backarrow from '../components/backarrow.vue';
 
 export default {
@@ -116,13 +117,12 @@ export default {
     }
   },
   async mounted() {
-    let bio = 'yes'; // TODO add this
     let lazyEls = document.getElementsByClassName('lazy');
 
-    this.bio = bio.paragraphs;
-    // setTimeout(() => {
-    document.getElementById('bio').style.opacity=1;
-    // })
+    this.bio = bio.bio;
+    setTimeout(() => {
+      document.getElementById('bio').style.opacity=1;
+    });
     this.lazies=[];
     lazyEls.forEach((el) => {
       this.lazies.push({offset: el.offsetTop, id: el.id});
