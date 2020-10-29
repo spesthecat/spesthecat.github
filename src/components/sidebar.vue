@@ -97,6 +97,7 @@ export default {
 	height: 100%;
 	left: 0;
 	background-color: var(--tertiary-bg-color);
+	color: var(--primary-bg-color);
 }
 
 .nav {
@@ -177,7 +178,7 @@ export default {
 	position: absolute;
 	top: 1em;
 	left: 5px;
-	border: 1px solid rgb(0, 0, 0);
+	border: 1px solid var(--primary-bg-color);
 	height: calc(100% + 25px);
 	opacity: 0.8;
 }
@@ -206,7 +207,7 @@ export default {
 	content: '';
 	width: 15px;
 	height: 2px;
-	background-color: rgb(44, 42, 42);
+	background-color: var(--primary-bg-color);
 	left: 5px;
 	top: 8px;
 	position: absolute;
@@ -236,7 +237,7 @@ export default {
 	top: 8px;
 	position: absolute;
 	height: 2px;
-	background-color: rgb(44, 42, 42);
+	background-color: var(--primary-bg-color);
 }
 
 .item-link {

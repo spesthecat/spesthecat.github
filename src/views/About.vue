@@ -120,7 +120,7 @@ export default {
           this.extended = false;
         }, 1501);
       }
-    }
+    },
   },
   async mounted() {
     let lazyEls = document.getElementsByClassName('lazy');
@@ -139,7 +139,7 @@ export default {
   },
   destroyed() {
     (document.getElementsByClassName('content')[0]).removeEventListener('scroll', this.onscroll);
-  }
+  },
 }
 
 </script>

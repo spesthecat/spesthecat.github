@@ -15,46 +15,46 @@ export default {
 <style lang="scss">
 
 :root {
-	--primary-text-color: #ddd;
-	// --accent-text-color: #1f98b1;
-	--accent-text-color: #1998DB;
-	--secondary-text-color: rgb(92, 108, 255);
-	--primary-bg-color: #171717;
-	--secondary-bg-color: rgba(88,88,88,0.601);
-	--tertiary-bg-color: rgba(255, 250, 240, 0.911);
+  --primary-text-color: #ddd;
+  // --accent-text-color: #1f98b1;
+  --accent-text-color: #1998DB;
+  --secondary-text-color: rgb(92, 108, 255);
+  --primary-bg-color: #171717;
+  --secondary-bg-color: rgba(88,88,88,0.601);
+  --tertiary-bg-color: rgba(255, 250, 240, 0.911);
 }
 
 * {
-	margin: 0;	
+  margin: 0;	
 }
 
 html, body {
-	height: 100%;
+  height: 100%;
 }
 
 #app {
-	font-family: 'Open Sans', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	background-color: var(--primary-bg-color);
-	color: var(--primary-text-color);
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 #main-view {
-	height: 100%;
-	overflow-y: height;;
-	overflow-x: hidden;
-	scrollbar-width: none;
-	-ms-overflow-style: none;
-	-webkit-scrollbar: none;
+  height: 100%;
+  overflow-y: height;;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-scrollbar: none;
 
-	&::-webkit-scrollbar {
-		display: none;
-	}
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .noselect {

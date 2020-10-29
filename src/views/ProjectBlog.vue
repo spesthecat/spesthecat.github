@@ -219,14 +219,18 @@ export default {
   right: -35%;
   overflow: hidden;
   height: 70px;
-  background-color: white;
+  background-color: var(primary-text-color);
 }
 
 .content {
   &::v-deep {
 
     z-index: 2;
-    color: white;
+    color: var(--primary-text-color);
+    font-family: 'Open Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
     
     p {
 

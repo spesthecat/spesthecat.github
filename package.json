@@ -51,9 +51,12 @@
       "vue/arrow-spacing": "warn",
       "vue/brace-style": "warn",
       "vue/camelcase": "warn",
-      "vue/comma-dangle": "warn",
+      "vue/comma-dangle": "error",
       "vue/component-definition-name-casing": "warn",
-      "vue/component-name-in-template-casing": ["error", "kebab-case"],
+      "vue/component-name-in-template-casing": [
+        "error",
+        "kebab-case"
+      ],
       "vue/dot-location": "warn",
       "vue/eqeqeq": "warn",
       "vue/no-irregular-whitespace": "error",
