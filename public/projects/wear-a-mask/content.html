@@ -1,5 +1,5 @@
 <body><p>Wear A Mask (WAM for short) is <a href="https://github.com/AidanJSmith">Aidan Smith</a>, Lisa Chai, and I's submission for the 2020 Congressional App Challenge (<a href="https://congressionalappchallenge.us/">CaC</a>).</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/yM01CnoMRLM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yM01CnoMRLM" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 
 <p><em>This is our demo video for CaC</em></p>
 <h1 id="overview">Overview</h1>
@@ -11,7 +11,7 @@ The map actually seen is Mapbox, while the searchbar implements Google's various
 <p>As for the backend, we used Flask to build a simple, RESTful server that could handle authentication and writing/retrieving reviews from a database. The API was hosted on a free Heroku account, which conveniently had PostgreSQL plugins that made it extremely easy to hook up the API to.</p>
 <h1 id="highlights">Highlights</h1>
 <h3 id="first-up-this-incredibly-satisfying-loading-animation">First up: this incredibly satisfying loading animation</h3>
-<p><img src="./projects/wear-a-mask/load.gif" alt="loading-animation"></p>
+<p><img src="./projects/wear-a-mask/load.gif" loading="lazy" alt="loading-animation"></p>
 <p>Pretty neat, right? 
 This was achieved using just a <code>setInterval</code> for the timing and a style binding for the effect <code>clip-path</code>. </p>
 <pre class=" language-js"><code class=" language-js"><span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>loadpercent <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">4.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -22,7 +22,7 @@ This was achieved using just a <code>setInterval</code> for the timing and a sty
 <span class="token operator">:</span>src<span class="token operator">=</span><span class="token string">"require('@/assets/maskfull.svg')"</span><span class="token operator">&gt;</span></code></pre>
 <p>Apparently mapbox's loading slows the entire stack, so the loading time of the animation actually accurately reflects the loading of the site.</p>
 <h3 id="next-up-an-equally-satisfying-transition">Next up: an equally satisfying transition</h3>
-<p><img src="./projects/wear-a-mask/marker.gif" alt="transition"></p>
+<p><img src="./projects/wear-a-mask/marker.gif" loading="lazy" alt="transition"></p>
 <p>To get this transition, the marker used everywhere else on the map is scaled up and positioned, and the <code>::after</code> psuedo-element which contains text is visible.</p>
 <pre class=" language-js"><code class=" language-js">left<span class="token operator">:</span> <span class="token number">10</span><span class="token operator">%</span> <span class="token operator">!</span>important<span class="token punctuation">;</span>
 top<span class="token operator">:</span> <span class="token number">40</span><span class="token operator">%</span> <span class="token operator">!</span>important<span class="token punctuation">;</span>

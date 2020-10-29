@@ -1,11 +1,11 @@
 <template>
   <div> 
-    <FileViewer
+    <file-viewer
       v-if="acceptPaths.includes(scope)"
       :src="scope + '/catalog.json'"
       @data="catalog=$event.catalog"
     />
-    <NotFound v-else />
+    <not-found v-else />
 
     <sidebar
       v-if="acceptPaths.includes(scope)"
@@ -15,11 +15,11 @@
 
     <div v-if="postExists">
       <div v-if="id !== undefined">
-        <FileViewer
+        <file-viewer
           :src="asset('meta.json')"
           @data="meta=$event"
         />
-        <FileViewer
+        <file-viewer
           class="file"
           :src="asset('content.html')"
           @data="content=$event; showFooter=true"
@@ -51,7 +51,7 @@
             @onload="showFooter=true"
             v-html="content"
           />
-          <Contact
+          <contact
             v-if="showFooter"
             class="footer"
           />	
@@ -65,7 +65,7 @@
 
     <div v-else-if="id === undefined" />
 
-    <NotFound v-else />
+    <not-found v-else />
   </div>
 </template>
 
@@ -162,7 +162,7 @@ export default {
       // margin-bottom: 10px;
       font-weight: 700;
       // color: #7a7a8c;
-      color: var(--primary-text-color);
+      color: var(--accent-text-color);
     }
 
     .title {
@@ -232,7 +232,7 @@ export default {
 
       a {
         text-decoration: underline;
-        color: var(--primary-text-color);
+        color: var(--accent-text-color);
       }
 
       img {
@@ -270,7 +270,7 @@ export default {
         position: absolute;
         left: -25px;
         font-weight: normal;
-        color: var(--primary-text-color);
+        color: var(--accent-text-color);
       }
     }
   }

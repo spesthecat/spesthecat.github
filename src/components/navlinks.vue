@@ -70,7 +70,7 @@ export default {
 	text-decoration: none;
 	font-weight: bold;
 	cursor: pointer;
-	color: var(--primary-text-color);
+	color: var(--accent-text-color);
 	background-color: rgba(88, 88, 88, 0.401);
 }
 

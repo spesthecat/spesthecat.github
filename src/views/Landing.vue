@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="site-wrapper">
-      <div class="rain" />
-      <Menu id="menu-nav" />
-      <Hero id="hero" />
+      <div class="rain"/>
+      <nav-links id="menu-nav"/>
+      <hero id="hero"/>
     </div>
 
-    <Contact
+    <contact
       id="contact"
       class="footer"
     />
@@ -15,15 +15,15 @@
 
 <script>
 
-import Menu from '../components/navlinks.vue';
+import NavLinks from '../components/navlinks.vue';
 import Hero from '../components/hero.vue';
 import Contact from '../components/contact.vue';
 
 export default {
   name: 'Landing',
   components: {
+    NavLinks,
     Hero,
-    Menu,
     Contact,
   },
   methods: {

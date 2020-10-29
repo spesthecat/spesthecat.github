@@ -6,7 +6,7 @@
 				the page you are looking for does not exist, click here to return to the home page
 			</div>
 			<div class='back'>
-				<backarrow :link="'/'"/>
+				<back-arrow :link="'/'"/>
 			</div> 
 		</div>
 	</div>
@@ -14,12 +14,12 @@
 
 <script>
 
-import backarrow from './backarrow.vue';
+import BackArrow from './backarrow.vue';
 
 export default {
   name: 'Notfound',
   components: {
-    backarrow
+    BackArrow,
   }
 }
 
@@ -33,7 +33,7 @@ export default {
 	}
 
 	.main-text {
-		color: var(--primary-text-color);
+		color: var(--accent-text-color);
 		font-weight: bold;
 		font-size: 100px;
 		position: relative;
@@ -46,7 +46,7 @@ export default {
 	.sub-text {
 		font-size: 20px;
 		font-weight: normal;
-		color: #f1efd9;
+		color: var(--primary-text-color);
 	}
 
 	.back {

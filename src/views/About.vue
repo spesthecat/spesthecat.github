@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+
     <div class="side-scroll">
       <div class="bar-container">
         <div id="bar" />
@@ -7,57 +8,63 @@
     </div>
 
     <div class="content">
-      <div
+      <bio
         id="bio"
+        class="lazy bottom"
+        :data="about.bio"
+      />
+
+      <experience
+        v-if="false"
+        id="experience"
         class="lazy"
-      >
-        <p class="title">
-          bio
-        </p>
-        <p
-          v-for="para of bio"
-          :key="para"
-          class="medium"
-        >
-          {{ para }}
-        </p>
-        <div class="scroll-down">
-          <!-- add jump to the below element with nuxt -->
-          <backarrow :disabled="true" /> 
-        </div>
-      </div>
-      <div
+        :data="about.experience"
+      />
+
+      <education
+        v-if="false"
         id="education"
         class="lazy"
-      >
-        <p class="title">
-          education
-        </p>
-        <p
-          v-for="para of bio"
-          :key="para"
-          class="medium"
-        >
-          {{ para }}
-        </p>
-      </div>
+        :data="about.education"
+      />
+      
+      <achievements
+        id="achievements"
+        class="lazy"
+        :data="about.achievements"
+      />
+      
+      <skills
+        id="skills"
+        class="lazy"
+        :data="about.skills"
+      />
+
     </div>
   </div>
 </template>
 
 <script>
 
-const bio = require('../static/about.json');
-import backarrow from '../components/backarrow.vue';
+const about = require('../static/about.json');
+import Bio from '../components/bio.vue';
+import Education from '../components/education.vue';
+import Experience from '../components/experience.vue';
+import Achievements from '../components/achievements.vue';
+import Skills from '../components/skills.vue';
 
 export default {
   name: 'About',
   components: {
-    backarrow
+    Bio,
+    Education,
+    Experience,
+    Achievements,
+    Skills,
   },
   data() {
     return {
-      bio: [],
+      about: [],
     }
   },
   methods: {
@@ -97,7 +104,6 @@ export default {
       // content.scrollTop + content.clientHeight > el.offsetTop
 
       // handle side scroll sliding
-
       if (scrolled > 0 && content.style.left!=='20%'){
         content.style.left='20%';
         bar.style.left='0';
@@ -109,8 +115,8 @@ export default {
           content.style.left='12.5%';
           bar.style.left='-20%';
         }, 500);
+        
         setTimeout(() => {
-
           this.extended = false;
         }, 1501);
       }
@@ -119,7 +125,7 @@ export default {
   async mounted() {
     let lazyEls = document.getElementsByClassName('lazy');
 
-    this.bio = bio.bio;
+    this.about = about;
     setTimeout(() => {
       document.getElementById('bio').style.opacity=1;
     });
@@ -164,7 +170,7 @@ export default {
 
 	#bar {
 		border-radius: 10px;
-		background: var(--primary-text-color);
+		background: var(--accent-text-color);
 		height: 0;
 		width: 100%;
 		transition: height 0.5s ease;
@@ -177,42 +183,38 @@ export default {
 	width: 75%;
 	left: 12.5%;
 	position: absolute;
-	color: white;
 	transition: left 2s ease;
 
+  &::v-deep {
 
-	.title {
-		text-align: center;
-		width: 100%;
-		padding: 60px 0;
-		color: var(--primary-text-color);
-		font-weight: bold;
-		font-size: 40px;
-	}
+    .title {
+      text-align: center;
+      width: 100%;
+      padding: 60px 0;
+      color: var(--accent-text-color);
+      font-weight: bold;
+      font-size: 40px;
+    }
 
-	.medium {
-		font-size: 25px;
-		font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-		letter-spacing: 0.63px;
-		line-height: 40px;
-		overflow-wrap: break-word;
-		word-break: break-word;
-		margin-top: 40px;
-	}
+    .medium {
+      font-size: 20px;
+      font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      // letter-spacing: 0.63px;
+      letter-spacing: 0.03em;
+      line-height: 1.5em;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      padding-bottom: 1.2em;
+      // margin-top: 10px;
+    }
+
+  }
 
 	#bio {
-		height: 100%;
+		min-height: 100%;
 		margin: 0;
 		padding: 0;
 		overflow: hidden;
-
-		.scroll-down {
-			// width: 40px;
-			transform: rotate(-90deg);
-			position: absolute;
-			left: 50%;
-			bottom: 60px;
-		}
 	}
 	
 	&::-webkit-scrollbar {
@@ -226,7 +228,9 @@ export default {
 
 .lazy {
 	opacity: 0;
-	// margin-top: 10%;
+}
+
+.bottom {
 	padding-top: 30%;
 	transition: opacity 1.5s cubic-bezier(0.165, 0.84, 0.44, 1), padding-top 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }

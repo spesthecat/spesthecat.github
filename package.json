@@ -53,7 +53,7 @@
       "vue/camelcase": "warn",
       "vue/comma-dangle": "warn",
       "vue/component-definition-name-casing": "warn",
-      "vue/component-name-in-template-casing": "warn",
+      "vue/component-name-in-template-casing": ["error", "kebab-case"],
       "vue/dot-location": "warn",
       "vue/eqeqeq": "warn",
       "vue/no-irregular-whitespace": "error",

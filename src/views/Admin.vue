@@ -14,7 +14,7 @@
       >
         {{ error }}
       </div>
-      <backarrow
+      <back-arrow
         @click.native="submit"
         :link="'/admin'"
         class="submit"
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import backarrow from '../components/backarrow.vue';
+import BackArrow from '../components/backarrow.vue';
 
 export default {
   name: 'Admin',
@@ -34,7 +34,7 @@ export default {
     }
   },
   components: {
-    backarrow
+    BackArrow,
   },
   computed: {
     error() {

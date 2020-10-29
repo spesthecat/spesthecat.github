@@ -15,7 +15,9 @@ export default {
 <style lang="scss">
 
 :root {
-	--primary-text-color: #1f98b1;
+	--primary-text-color: #ddd;
+	// --accent-text-color: #1f98b1;
+	--accent-text-color: #1998DB;
 	--secondary-text-color: rgb(92, 108, 255);
 	--primary-bg-color: #171717;
 	--secondary-bg-color: rgba(88,88,88,0.601);
@@ -35,6 +37,7 @@ html, body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: var(--primary-bg-color);
+	color: var(--primary-text-color);
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -48,10 +51,10 @@ html, body {
 	scrollbar-width: none;
 	-ms-overflow-style: none;
 	-webkit-scrollbar: none;
-}
 
-#main-view::-webkit-scrollbar {
-	display: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 .noselect {
@@ -63,4 +66,5 @@ html, body {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
 </style>

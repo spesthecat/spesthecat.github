@@ -17,7 +17,7 @@
 <script>
 
 export default {
-  name: 'Backarrow',
+  name: 'BackArrow',
   props: {
     link: {
       required: false
@@ -36,8 +36,8 @@ export default {
 .arrow-left {
   width: 20px;
   height: 20px;
-  border-left: 2px var(--primary-text-color) solid;
-  border-bottom: 2px var(--primary-text-color) solid;
+  border-left: 2px var(--accent-text-color) solid;
+  border-bottom: 2px var(--accent-text-color) solid;
   transform: rotate(45deg);
   cursor: pointer;
   transition: transform 1s ease;
