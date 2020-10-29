@@ -10,10 +10,44 @@
     "<span class='underline'>Cats</span>: And finally... we arrive at the fluffy, adorable, minature lions. In addition to being cute pets, cats also encapsulate an accurate reflection of my personality: curious-to-death, adventurous, independent, occassionally lazy, etc."
   ],
   "experience": [
-    
+    {
+      "name": "Google",
+      "image": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+      "date": "Jan 2030 - Apr 2031",
+      "description": "Pretty chill place to work"
+    },
+    {
+      "name": "Your mum, Inc.",
+      "image": "",
+      "date": "Jan 2030 - Apr 2031",
+      "description": "Pretty chill place to work"
+    },
+    {
+      "name": "Amazon",
+      "image": "./static/amazon.png",
+      "date": "Jun 2037 - Apr 2040",
+      "description": "Pretty chill place to work"
+    }
   ],
   "education": [
-
+    {
+      "name": "MIT",
+      "image": "https://web.mit.edu/img/mitlogo.gif",
+      "date": "Jan 2030 - Apr 2031",
+      "description": "Pretty chill place to study"
+    },
+    {
+      "name": "Your mum, edu",
+      "image": "",
+      "date": "Jan 2030 - Apr 2031",
+      "description": "Pretty chill place to work"
+    },
+    {
+      "name": "Cambridge",
+      "image": "./static/amazon.png",
+      "date": "Jun 2037 - Apr 2040",
+      "description": "Urgh, brits"
+    }
   ],
   "skills": [
 
