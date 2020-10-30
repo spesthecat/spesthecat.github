@@ -111,16 +111,16 @@ export default {
       // content.scrollTop + content.clientHeight > el.offsetTop
 
       // handle side scroll sliding
-      if (scrolled > 0 && content.style.left!=='20%'){
-        content.style.left='20%';
+      if (scrolled > 0 && content.style.left!=='15%'){
+        content.style.left='15%';
         bar.style.left='0';
         setTimeout(() => {
           this.extended = true;
         }, 1500);
       } else if (scrolled === 0) {
         setTimeout(() => {
-          content.style.left='12.5%';
-          bar.style.left='-20%';
+          content.style.left='10%';
+          bar.style.left='-15%';
         }, 500);
         
         setTimeout(() => {
@@ -153,23 +153,20 @@ export default {
 
 <style lang='scss' scoped>
 
-#bio {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+#bio, #hobbies, #education, #experience, #achievements, #skills {
+  position: relative;
+  flex: 1 0 60vh;
 }
 
-#hobbies {
-  min-height: 100vh;
+#bio {
+  flex: 0 0 100vh;
 }
 
 .side-scroll {
 	top: 5%;
-	width: 20%;
+	width: 15%;
 	height: 90%;
-	left: -20%;
-	// background-color: green;
+	left: -15%;
 	position: fixed;
 	transition: left 2s ease, opacity 2s ease;
 }
@@ -191,11 +188,12 @@ export default {
 }
 
 .content {
-	width: 75%;
-	left: 12.5%;
+	width: 80%;
+	left: 10%;
 	position: relative;
-  box-sizing: border-box;
 	transition: left 2s ease;
+  display: flex;
+  flex-flow: column nowrap;
 
   &::v-deep {
 

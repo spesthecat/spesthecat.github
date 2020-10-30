@@ -47,9 +47,7 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  min-height: 100vh;
-  // align-items: center;
-  // position: absolute;
+  min-height: 100%;
 
   .container {
     display: flex;

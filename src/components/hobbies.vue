@@ -18,16 +18,18 @@ export default {
 <style scoped>
 
 .container {
+  position: relative;
   width: 80%;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-flow: column nowrap;
 }
 
 .vert-line {
-  position: absolute;
   height: 50%;
   width: 4px;
+  background-color: white;
 }
 
 </style>
