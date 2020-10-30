@@ -1,13 +1,32 @@
 {
   "bio": [
     "Hey there, welcome to my personal site!",
-    "I'm Kenneth Sun, a developer, amateur physicist, musician, writer, and cat lover. This site is made to showcase everything that doesn't fit in a resume, as well as to practice a variety of skills; it will be frequently updated as my skills and personality change.",
-    "<b>A few remarks on my interests/hobbies:</b>",
-    "<span class='underline'>Programming</span>: This has always been a great source of entertainment (and a <em>great</em> deal of pain) for me. But I enjoy learning and overcoming challenges.",
-    "<span class='underline'>Physics</span>: I call myself an amateur out of respect for the actual physicists who work on problems that define our world, but I hope to join them some day. I enjoy physics in much of the same sense as programming, with the added astonishment when looking at the world through a different lens.",
-    "<span class='underline'>Writing</span>: <em>Clearly</em> I must enjoy writing, if I've written all this. Writing is my favorite way to express ideas because it gives me the luxury of thinking through and scrutinizing every sentence before committing to them &#8212 I'm much less eloquent in speech.",
-    "<span class='underline'>Music</span>: I've been playing piano for about 7 years, but only got serious these past couple of years. I find it beautiful and profound, and it's something I'll likely be doing my entire life.",
-    "<span class='underline'>Cats</span>: And finally... we arrive at the fluffy, adorable, minature lions. In addition to being cute pets, cats also encapsulate an accurate reflection of my personality: curious-to-death, adventurous, independent, occassionally lazy, etc."
+    "I'm Kenneth Sun, a developer, amateur physicist, musician, writer, and cat lover. This site is made to showcase everything that doesn't fit in a resume, as well as to practice a variety of skills; it will be updated frequently as my skills and taste change.",
+    "I built this site mostly from scratch with Vue. The source code, as well as the site itself, are both hosted on <a class='link external' href='https://github.com/spesthecat/spesthecat.github.io' target='_blank'>Github</a> (Github pages).",
+    "Nothing is ever perfect. If you find a bug, have suggestions, or just want to talk, feel free to <a class='link' href='about#contact'>contact me</a>.",
+    ""
+  ],
+  "hobbies": [
+    {
+      "name": "programming",
+      "desc": "This has always been a great source of entertainment (and a <em>great</em> deal of pain) for me. But I enjoy learning and overcoming challenges."
+    },
+    {
+      "name": "physics",
+      "desc": "I call myself an amateur out of respect for the actual physicists who work on problems that define our world, but I hope to join them some day. I enjoy physics in much of the same sense as programming, with the added astonishment when looking at the world through a different lens."
+    },
+    {
+      "name": "writing",
+      "desc": "<em>Clearly</em> I must enjoy writing, if I've written all this. Writing is my favorite way to express ideas because it gives me the luxury of thinking through and scrutinizing every sentence before committing to them &#8212 I'm much less eloquent in speech."
+    },
+    {
+      "name": "music",
+      "desc": "I've been playing piano for about 7 years, but only got serious these past couple of years. I find it beautiful and profound, and it's something I'll likely be doing my entire life."
+    },
+    {
+      "name": "cats",
+      "desc": "And finally... we arrive at the fluffy, adorable, minature lions. In addition to being cute pets, cats also encapsulate an accurate reflection of my personality: curious-to-death, adventurous, independent, occassionally lazy, etc."
+    }
   ],
   "experience": [
     {
