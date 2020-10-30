@@ -1,19 +1,27 @@
 <template>
   <div>
-    <p class="title">
-      about
-    </p>
+    <div class='content'>
+      <div class='title container'>
+        <p>
+          bio
+        </p>
+      </div>
 
-    <p
-      v-for="para of data"
-      :key="para[0]"
-      class="medium"
-      v-html="para"
-    />
+      <div class='paragraphs'>
+        <p
+          v-for="para of data"
+          :key="para[0]"
+          class="medium"
+          v-html="para"
+        />
+      </div>
 
-    <div class="scroll-down">
-      <!-- add jump to the below element with nuxt -->
-      <back-arrow :disabled="true" /> 
+      <div class='scroll-down container'>
+        <div>
+          <!-- add jump to the below element with nuxt -->
+          <back-arrow :disabled="true" /> 
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,11 +43,25 @@ export default {
 
 <style lang='scss' scoped>
 
+.content {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  min-height: 100vh;
+  // align-items: center;
+  // position: absolute;
+
+  .container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-self: center;
+    flex: 0 1 200px;
+  }
+}
+
 .scroll-down {
   transform: rotate(-90deg);
-  height: 40px;
-  width: 40px;
-  margin: 50px auto;
 }
 
 .medium {
@@ -47,6 +69,22 @@ export default {
     .underline {
       padding-bottom: 2px;
       border-bottom: 2px solid var(--primary-text-color);
+    }
+    
+    .link {
+      text-decoration: underline;
+      color: var(--accent-text-color);
+    }
+
+    .external::after {
+      content: '';
+      display: inline-block;
+      position: relative;
+      left: 2px;
+      height: 0.7em;
+      width: 0.7em;
+      background-image: url(../static/external-link-alt-solid.svg);
+      filter: invert(54%) sepia(64%) saturate(3933%) hue-rotate(172deg) brightness(96%) contrast(81%);
     }
   }
 }

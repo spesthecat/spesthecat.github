@@ -14,15 +14,19 @@
         :data="about.bio"
       />
 
+      <hobbies
+        id="hobbies"
+        class="lazy bottom"
+        :data="about.hobbies"
+      />
+
       <experience
-        v-if="false"
         id="experience"
         class="lazy"
         :data="about.experience"
       />
 
       <education
-        v-if="false"
         id="education"
         class="lazy"
         :data="about.education"
@@ -48,6 +52,7 @@
 
 const about = require('../static/about.json');
 import Bio from '../components/bio.vue';
+import Hobbies from '../components/hobbies.vue';
 import Education from '../components/education.vue';
 import Experience from '../components/experience.vue';
 import Achievements from '../components/achievements.vue';
@@ -57,6 +62,7 @@ export default {
   name: 'About',
   components: {
     Bio,
+    Hobbies,
     Education,
     Experience,
     Achievements,
@@ -76,13 +82,14 @@ export default {
       });
     },
     async onscroll() {
+      let about = document.getElementsByClassName('about')[0];
       let content = document.getElementsByClassName('content')[0];
       let bar = document.getElementsByClassName('side-scroll')[0];
 
       // progress bar
 
-      let height = content.scrollHeight - content.clientHeight;
-      let scrolled = (content.scrollTop / height) * 100;
+      let height = about.scrollHeight - about.clientHeight;
+      let scrolled = (about.scrollTop / height) * 100;
       if (this.extended) {
         document.getElementById('bar').style.height=scrolled+'%';
       }else {
@@ -97,8 +104,8 @@ export default {
 
       // lazy load effect & category filling
       for (let i=this.lazies.length; i-- > 0;){
-        if (content.scrollTop + content.clientHeight > this.lazies[i].offset) { // if this thing is visible
-          document.getElementById(this.lazies[i].id).style="opacity: 1; padding-top: 0";
+        if (about.scrollTop + about.clientHeight > this.lazies[i].offset) { // if this thing is visible
+          document.getElementById(this.lazies[i].id).style="opacity: 1; padding: 0";
         }
       }
       // content.scrollTop + content.clientHeight > el.offsetTop
@@ -135,10 +142,10 @@ export default {
       // todo add categories to progress bar accordingly
     });
 		
-    (document.getElementsByClassName('content')[0]).addEventListener('scroll', this.onscroll);
+    (document.getElementsByClassName('about')[0]).addEventListener('scroll', this.onscroll);
   },
   destroyed() {
-    (document.getElementsByClassName('content')[0]).removeEventListener('scroll', this.onscroll);
+    (document.getElementsByClassName('about')[0]).removeEventListener('scroll', this.onscroll);
   },
 }
 
@@ -146,9 +153,15 @@ export default {
 
 <style lang='scss' scoped>
 
-.about {
-	/* width: 100%; */
-	height: 100%;
+#bio {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#hobbies {
+  min-height: 100vh;
 }
 
 .side-scroll {
@@ -178,19 +191,15 @@ export default {
 }
 
 .content {
-	overflow-y: auto;
-	height: 100%;
 	width: 75%;
 	left: 12.5%;
-	position: absolute;
+	position: relative;
+  box-sizing: border-box;
 	transition: left 2s ease;
 
   &::v-deep {
 
     .title {
-      text-align: center;
-      width: 100%;
-      padding: 60px 0;
       color: var(--accent-text-color);
       font-weight: bold;
       font-size: 40px;
@@ -209,13 +218,6 @@ export default {
     }
 
   }
-
-	#bio {
-		min-height: 100%;
-		margin: 0;
-		padding: 0;
-		overflow: hidden;
-	}
 	
 	&::-webkit-scrollbar {
 		display: none;

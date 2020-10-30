@@ -46,7 +46,7 @@ html, body {
 
 #main-view {
   height: 100%;
-  overflow-y: height;;
+  overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
