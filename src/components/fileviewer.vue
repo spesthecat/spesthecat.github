@@ -30,7 +30,7 @@ export default {
   watch: {
     src() {
       this.fetchFile(this.src);
-    }
+    },
   },
 }
 </script>

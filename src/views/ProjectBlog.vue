@@ -119,7 +119,7 @@ export default {
         this.meta = {};
         this.showFooter = false;
       }
-    }
+    },
   },
   components: {
     sidebar,

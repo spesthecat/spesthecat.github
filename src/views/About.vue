@@ -9,38 +9,44 @@
 
     <div class="content">
       <bio
+        v-if="!loading"
         id="bio"
-        class="lazy bottom"
+        class="lazy"
         :data="about.bio"
       />
 
       <hobbies
+        v-if="!loading"
         id="hobbies"
         class="lazy bottom"
         :data="about.hobbies"
       />
 
       <experience
+        v-if="!loading"
         id="experience"
-        class="lazy"
+        class="lazy bottom"
         :data="about.experience"
       />
 
       <education
+        v-if="!loading"
         id="education"
-        class="lazy"
+        class="lazy bottom"
         :data="about.education"
       />
       
       <achievements
+        v-if="!loading"
         id="achievements"
-        class="lazy"
+        class="lazy bottom"
         :data="about.achievements"
       />
       
       <skills
+        v-if="!loading"
         id="skills"
-        class="lazy"
+        class="lazy bottom"
         :data="about.skills"
       />
 
@@ -71,6 +77,8 @@ export default {
   data() {
     return {
       about: [],
+      lazies: [],
+      loading: true,
     }
   },
   methods: {
@@ -81,35 +89,32 @@ export default {
         }, ms )
       });
     },
-    async onscroll() {
-      let about = document.getElementsByClassName('about')[0];
+    handleLazyComponents(about) {
+      for (let i=this.lazies.length; i-- > 0;){
+        if (about.scrollTop + about.clientHeight > this.lazies[i].offset + 50) { // if this thing is visible
+          document.getElementById(this.lazies[i].id).style="opacity: 1; transform: none;";
+        }
+      }
+    },
+    handleProgressBar(about) {
       let content = document.getElementsByClassName('content')[0];
       let bar = document.getElementsByClassName('side-scroll')[0];
-
-      // progress bar
-
       let height = about.scrollHeight - about.clientHeight;
       let scrolled = (about.scrollTop / height) * 100;
+      let barEl = document.getElementById('bar');
+
       if (this.extended) {
-        document.getElementById('bar').style.height=scrolled+'%';
+        barEl.style.height=scrolled+'%';
       }else {
         // makes bar go straight to progress point
         clearTimeout(this.scrollTime);
         this.scrollTime = setTimeout(() => {
-          document.getElementById('bar').style.height=scrolled+'%';
+          barEl.style.height=scrolled+'%';
         }, 1500);
 
         // is there a better way to do this? 
       }
-
-      // lazy load effect & category filling
-      for (let i=this.lazies.length; i-- > 0;){
-        if (about.scrollTop + about.clientHeight > this.lazies[i].offset) { // if this thing is visible
-          document.getElementById(this.lazies[i].id).style="opacity: 1; padding: 0";
-        }
-      }
-      // content.scrollTop + content.clientHeight > el.offsetTop
-
+      
       // handle side scroll sliding
       if (scrolled > 0 && content.style.left!=='15%'){
         content.style.left='15%';
@@ -128,21 +133,34 @@ export default {
         }, 1501);
       }
     },
-  },
-  async mounted() {
-    let lazyEls = document.getElementsByClassName('lazy');
+    async onscroll() {
+      let aboutEl = document.getElementsByClassName('about')[0];
 
+      this.handleProgressBar(aboutEl);
+
+      this.handleLazyComponents(aboutEl);
+    },
+  },
+  mounted() {
     this.about = about;
+    this.loading = false;
+    let aboutEl = document.getElementsByClassName('about')[0];
+
     setTimeout(() => {
+      let lazyEls = document.getElementsByClassName('lazy');
       document.getElementById('bio').style.opacity=1;
+      this.lazies=[];
+      lazyEls.forEach((el) => {
+        console.log(el.offsetTop);
+        this.lazies.push({offset: el.offsetTop, id: el.id});
+        // todo add categories to progress bar accordingly
+      });
+
+      this.handleLazyComponents(aboutEl);
+      this.handleProgressBar(aboutEl);
     });
-    this.lazies=[];
-    lazyEls.forEach((el) => {
-      this.lazies.push({offset: el.offsetTop, id: el.id});
-      // todo add categories to progress bar accordingly
-    });
-		
-    (document.getElementsByClassName('about')[0]).addEventListener('scroll', this.onscroll);
+
+    aboutEl.addEventListener('scroll', this.onscroll);
   },
   destroyed() {
     (document.getElementsByClassName('about')[0]).removeEventListener('scroll', this.onscroll);
@@ -155,11 +173,13 @@ export default {
 
 #bio, #hobbies, #education, #experience, #achievements, #skills {
   position: relative;
-  flex: 1 0 60vh;
+  flex: 0 0 auto;
+  margin-bottom: 5vh;
 }
 
 #bio {
   flex: 0 0 100vh;
+  transition: opacity 1s ease;
 }
 
 .side-scroll {
@@ -231,8 +251,11 @@ export default {
 }
 
 .bottom {
-	padding-top: 30%;
-	transition: opacity 1.5s cubic-bezier(0.165, 0.84, 0.44, 1), padding-top 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+	// padding-top: 15vh;
+	// margin-top: 15vh;
+  transform: translateY(-15vh);
+  transition: all 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+	// transition: opacity 1.5s cubic-bezier(0.165, 0.84, 0.44, 1), padding-top 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 </style>

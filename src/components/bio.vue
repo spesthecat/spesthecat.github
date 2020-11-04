@@ -10,7 +10,7 @@
       <div class='paragraphs'>
         <p
           v-for="para of data"
-          :key="para[0]"
+          :key="para.slice(3)"
           class="medium"
           v-html="para"
         />
@@ -47,7 +47,8 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  min-height: 100%;
+  position: relative;
+  min-height: 100vh;
 
   .container {
     display: flex;

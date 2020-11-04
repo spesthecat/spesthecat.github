@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class='container'>
-      <div class='vert-line'></div>
+      <div 
+        class='vert-line'
+        :style="{height: `${vertHeight}vh`}">
+      </div>
     </div>
   </div>
 </template>
@@ -12,6 +15,15 @@ export default {
   props: [
     'data',
   ],
+  data() {
+    return {
+      cardHeight: 10,
+      vertHeight: 0,
+    }
+  },
+  mounted() {
+    this.vertHeight = this.cardHeight * this.data.length;
+  },
 }
 </script>
 
@@ -19,17 +31,16 @@ export default {
 
 .container {
   position: relative;
-  width: 80%;
-  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
 }
 
 .vert-line {
-  height: 50%;
-  width: 4px;
-  background-color: white;
+  width: 6px;
+  border-radius: 4px;
+  background-color: var(--tertiary-bg-color);
 }
 
 </style>
