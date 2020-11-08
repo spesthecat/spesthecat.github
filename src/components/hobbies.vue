@@ -7,22 +7,24 @@
         hobbies
       </div>
 
-      <div
-      v-if="loaded" 
-      class='vert-line'
-      :style="{height: `${vertHeight}vh`}">
-      </div>
 
       <div
       v-if="loaded" 
-      class="hobby-container"
-      :style="{height: `${vertHeight}vh`}">
+      class="hobby-container">
+      <!-- :style="{height: `${vertHeight}vh`}"> -->
+      
+        <div
+        v-if="loaded" 
+        class='vert-line'>
+        <!-- :style="{height: `${vertHeight}vh`}"> -->
+        </div>
+        
         <div
         v-for="(item, index) in data"
         :key="index"
         class='item'
-        :class="{right: index%2===1, left: index%2===0}"
-        :style="{'grid-row': `${index+1} / span 2`}">
+        :class="{right: index%2===1, left: index%2===0}">
+        <!-- :style="{'grid-row': `${index+1} / span 2`}"> -->
 
           <div 
           class='bg' 
@@ -30,6 +32,8 @@
           loading="lazy"/>
 
           <div class='stem'></div>
+
+          <div class='text medium' v-html="item.desc"></div>
 
         </div>
       </div>
@@ -89,29 +93,31 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  justify-content: center;
 }
 
 .hobby-container {
-  top: 50px;
   margin: 50px 0;
-  position: absolute;
+  position: relative;
   width: 75%;
-  display: grid;
-  // grid-auto-rows: 5vh;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20% 20%;
-  justify-items: center;
-  // align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: space-around;
 }
 
 .item {
-  width: 100%;
-  height: 100%;
-  border-radius: 6px;
-  background-color: var(--secondary-bg-color);
   position: relative;
-  top: 0;
-  transition: all 0.7s ease;
+  width: 40%;
+  flex: 0 1 auto;
+  margin: 20px 0;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  transition: all 1s ease;
 
   .bg {
     transition: inherit;
@@ -122,15 +128,84 @@ export default {
     background-position: center;
   }
 
-  &.reveal {
-    height: 180%;
-    top: -40%;
+  .text {
+    opacity: 0;
+    transition: opacity 2s ease;
+    position: relative;
+    transition: inherit;
+    width: 60%;
+    font-size: 16px !important;
+    margin: 1em 0;
+  }
 
+  &.reveal {
     .bg {
       width: 35%;
     }
+
+    .text {
+      opacity: 1;
+    }
   }
 }
+
+// .hobby-container {
+//   top: 50px;
+//   margin: 50px 0;
+//   position: absolute;
+//   width: 75%;
+//   display: grid;
+//   // grid-auto-rows: 5vh;
+//   grid-template-columns: 1fr 1fr;
+//   grid-gap: 20% 20%;
+//   justify-items: center;
+//   // align-items: center;
+// }
+
+// .item {
+//   width: 100%;
+//   height: 100%;
+//   border-radius: 6px;
+//   background-color: var(--secondary-bg-color);
+//   position: relative;
+//   top: 0;
+//   transition: all 0.7s ease;
+//   display: flex;
+//   flex-flow: row nowrap;
+//   align-items: center;
+
+//   .bg {
+//     transition: inherit;
+//     position: absolute;
+//     height: 100%;
+//     width: 100%;
+//     background-size: cover;
+//     background-position: center;
+//   }
+
+//   .text {
+//     opacity: 0;
+//     transition: opacity 3s ease;
+//     position: absolute;
+//     transition: inherit;
+//     width: 59%;
+//     // margin: 0 10px;
+//     font-size: 16px !important;
+//   }
+
+//   &.reveal {
+//     height: 180%;
+//     top: -40%;
+
+//     .bg {
+//       width: 35%;
+//     }
+
+//     .text {
+//       opacity: 1;
+//     }
+//   }
+// }
 
 .stem {
   background-color: var(--tertiary-bg-color);
@@ -142,7 +217,8 @@ export default {
 }
 
 .left {
-  grid-column: 1 / 1;
+  // grid-column: 1 / 1;
+  margin-bottom: 10%;
 
   .bg {
     left: 0;
@@ -151,10 +227,16 @@ export default {
   .stem {
     right: -22%;
   }
+
+  .text {
+    right: 3%;
+    margin-left: auto;
+  }
 }
 
 .right {
-  grid-column: 2 / 2;
+  // grid-column: 2 / 2;
+  margin-top: 10%;
 
   .bg {
     right: 0;
@@ -163,11 +245,19 @@ export default {
   .stem {
     left: -22%;
   }
+
+  .text {
+    left: 3%;
+  }
+
 }
 
 .vert-line {
-  margin: 50px 0;
+  position: absolute;
+  left: calc(50% - 3px);
+  // top: -5%;
   width: 6px;
+  height: 100%;
   border-radius: 4px;
   background-color: var(--tertiary-bg-color);
 }
