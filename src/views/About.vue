@@ -19,6 +19,7 @@
         v-if="!loading"
         id="hobbies"
         class="lazy bottom"
+        :scrolled="scrolled"
         :data="about.hobbies"
       />
 
@@ -77,8 +78,9 @@ export default {
   data() {
     return {
       about: [],
-      lazies: [],
       loading: true,
+      scrolled: 0,
+      els: {},
     }
   },
   methods: {
@@ -89,43 +91,40 @@ export default {
         }, ms )
       });
     },
-    handleLazyComponents(about) {
-      for (let i=this.lazies.length; i-- > 0;){
-        if (about.scrollTop + about.clientHeight > this.lazies[i].offset + 50) { // if this thing is visible
-          document.getElementById(this.lazies[i].id).style="opacity: 1; transform: none;";
+    handleLazyComponents() {
+      for (let i=this.els.lazies.length; i-- > 0;){
+        if (this.scrolled > this.els.lazies[i].offsetTop + 50) { // if this thing is visible
+          this.els.lazies[i].style="opacity: 1; transform: none;";
         }
       }
     },
-    handleProgressBar(about) {
-      let content = document.getElementsByClassName('content')[0];
-      let bar = document.getElementsByClassName('side-scroll')[0];
-      let height = about.scrollHeight - about.clientHeight;
-      let scrolled = (about.scrollTop / height) * 100;
-      let barEl = document.getElementById('bar');
+    handleProgressBar() {
+      let height = this.els.about.scrollHeight - this.els.about.clientHeight;
+      let scrolled = (this.els.about.scrollTop / height) * 100;
 
       if (this.extended) {
-        barEl.style.height=scrolled+'%';
+        this.els.bar.style.height=scrolled+'%';
       }else {
         // makes bar go straight to progress point
         clearTimeout(this.scrollTime);
         this.scrollTime = setTimeout(() => {
-          barEl.style.height=scrolled+'%';
+          this.els.bar.style.height=scrolled+'%';
         }, 1500);
 
         // is there a better way to do this? 
       }
       
       // handle side scroll sliding
-      if (scrolled > 0 && content.style.left!=='15%'){
-        content.style.left='15%';
-        bar.style.left='0';
+      if (scrolled > 0 && this.els.content.style.left!=='15%'){
+        this.els.content.style.left='15%';
+        this.els.side.style.left='0';
         setTimeout(() => {
           this.extended = true;
         }, 1500);
       } else if (scrolled === 0) {
         setTimeout(() => {
-          content.style.left='10%';
-          bar.style.left='-15%';
+          this.els.content.style.left='10%';
+          this.els.side.style.left='-15%';
         }, 500);
         
         setTimeout(() => {
@@ -134,36 +133,33 @@ export default {
       }
     },
     async onscroll() {
-      let aboutEl = document.getElementsByClassName('about')[0];
+      this.scrolled = this.els.about.scrollTop + this.els.about.clientHeight;
 
-      this.handleProgressBar(aboutEl);
+      this.handleProgressBar();
 
-      this.handleLazyComponents(aboutEl);
+      this.handleLazyComponents();
     },
   },
   mounted() {
     this.about = about;
     this.loading = false;
-    let aboutEl = document.getElementsByClassName('about')[0];
+    this.els.about = document.getElementsByClassName('about')[0];
+    this.els.side = document.getElementsByClassName('side-scroll')[0];
+    this.els.bar = document.getElementById('bar');
+    this.els.content = document.getElementsByClassName('content')[0];
 
     setTimeout(() => {
-      let lazyEls = document.getElementsByClassName('lazy');
+      this.els.lazies = document.getElementsByClassName('lazy'); 
       document.getElementById('bio').style.opacity=1;
-      this.lazies=[];
-      lazyEls.forEach((el) => {
-        console.log(el.offsetTop);
-        this.lazies.push({offset: el.offsetTop, id: el.id});
-        // todo add categories to progress bar accordingly
-      });
 
-      this.handleLazyComponents(aboutEl);
-      this.handleProgressBar(aboutEl);
+      this.handleLazyComponents();
+      this.handleProgressBar();
     });
 
-    aboutEl.addEventListener('scroll', this.onscroll);
+    this.els.about.addEventListener('scroll', this.onscroll);
   },
   destroyed() {
-    (document.getElementsByClassName('about')[0]).removeEventListener('scroll', this.onscroll);
+    this.els.about.removeEventListener('scroll', this.onscroll);
   },
 }
 
