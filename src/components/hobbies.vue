@@ -21,7 +21,7 @@
         v-for="(item, index) in data"
         :key="index"
         class='item'
-        :class="{right: index%2===1}"
+        :class="{right: index%2===1, left: index%2===0}"
         :style="{'grid-row': `${index+1} / span 2`}">
 
           <div 
@@ -29,9 +29,7 @@
           :style="{'background-image': `url(./static/${item.name}.jpg)`}" 
           loading="lazy"/>
 
-          <div>
-            {{ item.name }}
-          </div>
+          <div class='stem'></div>
 
         </div>
       </div>
@@ -44,19 +42,42 @@
 export default {
   name: 'Hobbies',
   props: [
+    'scrolled',
     'data',
   ],
   data() {
     return {
       loaded: false,
-      cardHeight: 30,
+      cardHeight: 20,
       vertHeight: 0,
+      offset: 400,
+      els: {},
     }
+  },
+  methods: {
+    handleLazy() {
+      for (let i=this.els.lazies.length;  i-- > 0; ) {
+        if (this.scrolled - this.els.hobby.offsetTop > this.els.lazies[i].offsetTop + this.offset) {
+          this.els.lazies[i].classList.add('reveal');
+        }
+      }
+    },
   },
   mounted() {
     this.vertHeight = this.cardHeight * this.data.length;
     this.loaded = true;
+    this.els.hobby = document.getElementById('hobbies');
+
+    setTimeout(() => {
+      this.els.lazies = this.els.hobby.getElementsByClassName('item');
+      this.handleLazy();
+    });
   },
+  watch: {
+    scrolled() {
+      this.handleLazy();
+    }
+  }
 }
 </script>
 
@@ -78,31 +99,70 @@ export default {
   display: grid;
   // grid-auto-rows: 5vh;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 10% 20%;
+  grid-gap: 20% 20%;
   justify-items: center;
   // align-items: center;
 }
 
 .item {
   width: 100%;
+  height: 100%;
   border-radius: 6px;
-  grid-column: 1 /  1;
+  background-color: var(--secondary-bg-color);
+  position: relative;
+  top: 0;
+  transition: all 0.7s ease;
 
   .bg {
+    transition: inherit;
+    position: absolute;
     height: 100%;
     width: 100%;
     background-size: cover;
     background-position: center;
-    background-color: var(--secondary-bg-color);
-    
-    // filter: blur(8px);
-    // -webkit-filter: blur(8px);
   }
 
-  &.right {
-    grid-column: 2 / 2;
+  &.reveal {
+    height: 180%;
+    top: -40%;
+
+    .bg {
+      width: 35%;
+    }
+  }
+}
+
+.stem {
+  background-color: var(--tertiary-bg-color);
+  position: absolute;
+  top: calc(50% - 2px);
+  height: 4px;
+  width: 20%;
+  border-radius: 2px;
+}
+
+.left {
+  grid-column: 1 / 1;
+
+  .bg {
+    left: 0;
   }
 
+  .stem {
+    right: -22%;
+  }
+}
+
+.right {
+  grid-column: 2 / 2;
+
+  .bg {
+    right: 0;
+  }
+
+  .stem {
+    left: -22%;
+  }
 }
 
 .vert-line {
