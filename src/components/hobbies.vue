@@ -22,7 +22,7 @@
         <div
         v-for="(item, index) in data"
         :key="index"
-        class='item'
+        class='item hidden'
         :class="{right: index%2===1, left: index%2===0}">
         <!-- :style="{'grid-row': `${index+1} / span 2`}"> -->
 
@@ -52,34 +52,64 @@ export default {
   data() {
     return {
       loaded: false,
-      cardHeight: 20,
-      vertHeight: 0,
-      offset: 400,
+      revealPause: 150,
+      offset: 200,
       els: {},
     }
   },
   methods: {
-    handleLazy() {
-      for (let i=this.els.lazies.length;  i-- > 0; ) {
-        if (this.scrolled - this.els.hobby.offsetTop > this.els.lazies[i].offsetTop + this.offset) {
-          this.els.lazies[i].classList.add('reveal');
+    handleReveal() {
+      for (let i=this.els.lazies?.length;  i-- > 0; ) {
+        let lazy = this.els.lazies[i];
+        let bottom = this.scrolled - this.els.hobby.offsetTop - this.els.container.offsetTop;
+        let lazyBottom = lazy.offsetTop + lazy.offsetHeight;
+        if (bottom > lazyBottom + this.offset) {
+          document.getElementsByClassName('reveal').forEach((el) => {
+            el.classList.remove('reveal');
+          });
+          lazy.classList.add('reveal');
+          return;
         }
       }
     },
+    handleLazy() {
+      // for (let i=0; i++ < this.els.lazies?.length - 1; ) {
+      for (let i=this.els.lazies?.length;  i-- > 0; ) {
+        let lazy = this.els.lazies[i];
+        let bottom = this.scrolled - this.els.hobby.offsetTop - this.els.container.offsetTop;
+        let lazyBottom = lazy.offsetTop + lazy.clientHeight;
+        if (bottom > lazyBottom) {
+          lazy.classList.remove('hidden');
+          lazy.classList.add('show');
+          let up = this.els.lazies[i-1]?.offsetHeight / 5 || 0;
+
+          // not perfect, as it changes overall height of container and also does some weird stuff to the detection
+          lazy.style.marginTop = `-${up}px`; 
+
+          // lazy.style.transform = `translateY(-${up}px)`;
+        }
+      }
+    }
   },
   mounted() {
-    this.vertHeight = this.cardHeight * this.data.length;
+    // this.vertHeight = this.cardHeight * this.data.length;
     this.loaded = true;
     this.els.hobby = document.getElementById('hobbies');
 
     setTimeout(() => {
+      this.els.container = document.getElementsByClassName('hobby-container')[0];
       this.els.lazies = this.els.hobby.getElementsByClassName('item');
+      this.handleReveal();
       this.handleLazy();
     });
   },
   watch: {
     scrolled() {
       this.handleLazy();
+      clearTimeout(this.revealTimeout);
+      this.revealTimeout = setTimeout(() => {
+        this.handleReveal();
+      }, this.revealPause);
     }
   }
 }
@@ -101,17 +131,16 @@ export default {
   position: relative;
   width: 75%;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column nowrap;
   justify-content: space-between;
-  align-items: center;
-  align-content: space-around;
+  // align-items: flex-end;
 }
 
 .item {
   position: relative;
   width: 40%;
   flex: 0 1 auto;
-  margin: 20px 0;
+  // margin: 20px 0;
 
   display: flex;
   flex-flow: row nowrap;
@@ -120,7 +149,7 @@ export default {
   transition: all 1s ease;
 
   .bg {
-    transition: inherit;
+    transition: transform 1.2s ease, width 1s ease;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -149,76 +178,45 @@ export default {
   }
 }
 
-// .hobby-container {
-//   top: 50px;
-//   margin: 50px 0;
-//   position: absolute;
-//   width: 75%;
-//   display: grid;
-//   // grid-auto-rows: 5vh;
-//   grid-template-columns: 1fr 1fr;
-//   grid-gap: 20% 20%;
-//   justify-items: center;
-//   // align-items: center;
-// }
+.hidden {
+  opacity: 0;
 
-// .item {
-//   width: 100%;
-//   height: 100%;
-//   border-radius: 6px;
-//   background-color: var(--secondary-bg-color);
-//   position: relative;
-//   top: 0;
-//   transition: all 0.7s ease;
-//   display: flex;
-//   flex-flow: row nowrap;
-//   align-items: center;
+  .bg, .text {
+    transform: translateY(200px);
+  }
 
-//   .bg {
-//     transition: inherit;
-//     position: absolute;
-//     height: 100%;
-//     width: 100%;
-//     background-size: cover;
-//     background-position: center;
-//   }
+  .stem {
+    width: 0;
+  }
+}
 
-//   .text {
-//     opacity: 0;
-//     transition: opacity 3s ease;
-//     position: absolute;
-//     transition: inherit;
-//     width: 59%;
-//     // margin: 0 10px;
-//     font-size: 16px !important;
-//   }
+.show {
+  opacity: 1;
 
-//   &.reveal {
-//     height: 180%;
-//     top: -40%;
+  .bg, .text {
+    transform: none;
+  }
+  
+  .stem {
+    width: 20%;
+  }
 
-//     .bg {
-//       width: 35%;
-//     }
-
-//     .text {
-//       opacity: 1;
-//     }
-//   }
-// }
+}
 
 .stem {
   background-color: var(--tertiary-bg-color);
   position: absolute;
   top: calc(50% - 2px);
   height: 4px;
-  width: 20%;
   border-radius: 2px;
+  transition: width 0.7s ease;;
+
+  animation: none;
+  -webkit-animation: none;
 }
 
 .left {
-  // grid-column: 1 / 1;
-  margin-bottom: 10%;
+  align-self: flex-start;
 
   .bg {
     left: 0;
@@ -235,8 +233,7 @@ export default {
 }
 
 .right {
-  // grid-column: 2 / 2;
-  margin-top: 10%;
+  align-self: flex-end;
 
   .bg {
     right: 0;
@@ -255,7 +252,6 @@ export default {
 .vert-line {
   position: absolute;
   left: calc(50% - 3px);
-  // top: -5%;
   width: 6px;
   height: 100%;
   border-radius: 4px;

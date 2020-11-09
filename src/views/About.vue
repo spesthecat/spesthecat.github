@@ -92,7 +92,7 @@ export default {
       });
     },
     handleLazyComponents() {
-      for (let i=this.els.lazies.length; i-- > 0;){
+      for (let i=this.els.lazies?.length; i-- > 0;){
         if (this.scrolled > this.els.lazies[i].offsetTop + 50) { // if this thing is visible
           this.els.lazies[i].style="opacity: 1; transform: none;";
         }
@@ -168,7 +168,6 @@ export default {
 <style lang='scss' scoped>
 
 #bio, #hobbies, #education, #experience, #achievements, #skills {
-  position: relative;
   flex: 0 0 auto;
   margin-bottom: 5vh;
 }
