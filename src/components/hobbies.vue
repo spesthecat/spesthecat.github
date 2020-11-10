@@ -29,7 +29,13 @@
           <div 
           class='bg' 
           :style="{'background-image': `url(./static/${item.name}.jpg)`}" 
-          loading="lazy"/>
+          loading="lazy">
+            <div
+            class='preview'
+            :style="{'background-image': `url(./static/${item.name}-preview.jpg)`}"
+            loading="lazy">
+            </div>
+          </div>
 
           <div class='stem'></div>
 
@@ -155,6 +161,19 @@ export default {
     width: 100%;
     background-size: cover;
     background-position: center;
+
+    .preview {
+      transition: inherit;
+      position: absolute;
+      width: 0;
+      height: 100%;
+      background-size: inherit;
+      background-position: inherit;
+
+      filter: blur(4px);
+      -webkit-filter: blur(4px);
+    }
+
   }
 
   .text {
@@ -167,40 +186,24 @@ export default {
     margin: 1em 0;
   }
 
+  .bg, .text {
+    transform-origin: inherit;
+  }
+
   &.reveal {
-    .bg {
-      width: 35%;
+
+    .bg, .text {
+      transform: scale(1.2);
+    }
+
+    .bg .preview {
+      width: 65%;
     }
 
     .text {
       opacity: 1;
     }
   }
-}
-
-.hidden {
-  opacity: 0;
-
-  .bg, .text {
-    transform: translateY(200px);
-  }
-
-  .stem {
-    width: 0;
-  }
-}
-
-.show {
-  opacity: 1;
-
-  .bg, .text {
-    transform: none;
-  }
-  
-  .stem {
-    width: 20%;
-  }
-
 }
 
 .stem {
@@ -217,9 +220,10 @@ export default {
 
 .left {
   align-self: flex-start;
+  transform-origin: right;
 
-  .bg {
-    left: 0;
+  .bg .preview {
+    right: 0;
   }
 
   .stem {
@@ -230,13 +234,18 @@ export default {
     right: 3%;
     margin-left: auto;
   }
+
+  .bg, .text {
+    transform: translateX(-200px);
+  }
 }
 
 .right {
   align-self: flex-end;
+  transform-origin: left;
 
-  .bg {
-    right: 0;
+  .bg .preview {
+    left: 0;
   }
 
   .stem {
@@ -245,6 +254,31 @@ export default {
 
   .text {
     left: 3%;
+  }
+
+  .bg, .text {
+    transform: translateX(200px);
+  }
+
+}
+
+.hidden {
+  opacity: 0;
+
+  .stem {
+    width: 0;
+  }
+}
+
+.show {
+  opacity: 1;
+
+  .bg, .text {
+    transform: none;
+  }
+  
+  .stem {
+    width: 20%;
   }
 
 }
