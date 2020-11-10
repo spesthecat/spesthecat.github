@@ -87,7 +87,7 @@ export default {
         if (bottom > lazyBottom) {
           lazy.classList.remove('hidden');
           lazy.classList.add('show');
-          let up = this.els.lazies[i-1]?.offsetHeight / 5 || 0;
+          let up = this.els.lazies[i-1]?.offsetHeight / 4 || 0;
 
           // not perfect, as it changes overall height of container and also does some weird stuff to the detection
           lazy.style.marginTop = `-${up}px`; 
@@ -274,7 +274,7 @@ export default {
   opacity: 1;
 
   .bg, .text {
-    transform: none;
+    transform: scale(0.8);
   }
   
   .stem {
