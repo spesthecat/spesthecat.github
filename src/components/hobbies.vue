@@ -170,8 +170,8 @@ export default {
       background-size: inherit;
       background-position: inherit;
 
-      filter: blur(4px);
-      -webkit-filter: blur(4px);
+      filter: blur(4px) brightness(0.4);
+      -webkit-filter: blur(4px) brightness(0.4);
     }
 
   }
