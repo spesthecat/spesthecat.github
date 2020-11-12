@@ -2,9 +2,7 @@
   <div class="about">
 
     <div class="side-scroll">
-      <div class="bar-container">
-        <div id="bar" />
-      </div>
+      <div id="bar"></div>
     </div>
 
     <div class="content">
@@ -126,7 +124,6 @@ export default {
     this.about = about;
     this.loading = false;
     this.els.about = document.getElementsByClassName('about')[0];
-    this.els.side = document.getElementsByClassName('side-scroll')[0];
     this.els.bar = document.getElementById('bar');
     this.els.content = document.getElementsByClassName('content')[0];
 
@@ -163,29 +160,22 @@ export default {
 	width: 6px;
 	height: 100%;
 	position: fixed;
-	transition: left 2s ease, opacity 2s ease;
 }
 
-.bar-container {
-	// margin: auto;
-	height: 100%;
-	width: 100%;
-	border-radius: 10px;
 
-	#bar {
-		border-radius: 10px;
-		background: var(--accent-text-color);
-		height: 0;
-		width: 100%;
-		transition: height 0.5s ease;
-	}
+#bar {
+  position: relative;
+  border-radius: 3px;
+  background: var(--accent-text-color);
+  height: 0;
+  width: 100%;
+  transition: height 0.5s ease;
 }
 
 .content {
 	width: 80%;
 	left: 10%;
 	position: relative;
-	transition: left 2s ease;
   display: flex;
   flex-flow: column nowrap;
 
@@ -225,11 +215,8 @@ export default {
 }
 
 .bottom {
-	// padding-top: 15vh;
-	// margin-top: 15vh;
   transform: translateY(-15vh);
   transition: all 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-	// transition: opacity 1.5s cubic-bezier(0.165, 0.84, 0.44, 1), padding-top 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 </style>
