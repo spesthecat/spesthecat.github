@@ -113,24 +113,6 @@ export default {
 
         // is there a better way to do this? 
       }
-      
-      // handle side scroll sliding
-      if (scrolled > 0 && this.els.content.style.left!=='15%'){
-        this.els.content.style.left='15%';
-        this.els.side.style.left='0';
-        setTimeout(() => {
-          this.extended = true;
-        }, 1500);
-      } else if (scrolled === 0) {
-        setTimeout(() => {
-          this.els.content.style.left='10%';
-          this.els.side.style.left='-15%';
-        }, 500);
-        
-        setTimeout(() => {
-          this.extended = false;
-        }, 1501);
-      }
     },
     async onscroll() {
       this.scrolled = this.els.about.scrollTop + this.els.about.clientHeight;
@@ -178,20 +160,17 @@ export default {
 }
 
 .side-scroll {
-	top: 5%;
-	width: 15%;
-	height: 90%;
-	left: -15%;
+	width: 6px;
+	height: 100%;
 	position: fixed;
 	transition: left 2s ease, opacity 2s ease;
 }
 
 .bar-container {
-	margin: auto;
+	// margin: auto;
 	height: 100%;
-	width: 10px;
+	width: 100%;
 	border-radius: 10px;
-	border: 1px solid rgba(196, 196, 196, 0.212);
 
 	#bar {
 		border-radius: 10px;
