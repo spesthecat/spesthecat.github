@@ -219,7 +219,7 @@ export default {
   right: -35%;
   overflow: hidden;
   height: 70px;
-  background-color: var(primary-text-color);
+  background-color: white;
 }
 
 .content {

@@ -49,6 +49,9 @@
         :data="about.skills"
       />
 
+      <contact class='footer'>
+      </contact>
+
     </div>
   </div>
 </template>
@@ -62,6 +65,7 @@ import Education from '../components/education.vue';
 import Experience from '../components/experience.vue';
 import Achievements from '../components/achievements.vue';
 import Skills from '../components/skills.vue';
+import Contact from '../components/contact.vue';
 
 export default {
   name: 'About',
@@ -72,6 +76,7 @@ export default {
     Experience,
     Achievements,
     Skills,
+    Contact,
   },
   data() {
     return {
@@ -93,11 +98,6 @@ export default {
       let height = this.els.about.scrollHeight - this.els.about.clientHeight;
       let scrolled = (this.els.about.scrollTop / height) * 100;
 
-      // makes bar go straight to progress point
-      // clearTimeout(this.scrollTime);
-      // this.scrollTime = setTimeout(() => {
-      //   this.els.bar.style.height=scrolled+'%';
-      // }, 1500);
       this.els.bar.style.height=scrolled+'%';
     },
     async onscroll() {
@@ -145,6 +145,7 @@ export default {
 }
 
 .side-scroll {
+  z-index: 5;
 	width: 6px;
 	height: 100%;
 	position: fixed;
@@ -203,6 +204,16 @@ export default {
 .bottom {
   transform: translateY(-15vh);
   transition: all 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.footer {
+  margin-top: 70px;
+  left: -35%;
+  width: 170%;
+  position: relative;
+  overflow: hidden;
+  height: 70px;
+  background-color: white;
 }
 
 </style>

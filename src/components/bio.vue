@@ -16,7 +16,9 @@
         />
       </div>
 
-      <div class='scroll-down container'>
+      <div 
+      class='scroll-down container'
+      @click="next">
         <div>
           <!-- add jump to the below element with nuxt -->
           <back-arrow :disabled="true" /> 
@@ -37,7 +39,14 @@ export default {
   ],
   components: {
     BackArrow,
-  }
+  },
+  methods: {
+    next() {
+      document.getElementById('hobbies').scrollIntoView({
+        behavior: 'smooth',
+      });
+    },
+  },
 }
 </script>
 
