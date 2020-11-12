@@ -82,13 +82,6 @@ export default {
     }
   },
   methods: {
-    wait(ms) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(ms);
-        }, ms )
-      });
-    },
     handleLazyComponents() {
       for (let i=this.els.lazies?.length; i-- > 0;){
         if (this.scrolled > this.els.lazies[i].offsetTop + 50) { // if this thing is visible
@@ -100,17 +93,12 @@ export default {
       let height = this.els.about.scrollHeight - this.els.about.clientHeight;
       let scrolled = (this.els.about.scrollTop / height) * 100;
 
-      if (this.extended) {
-        this.els.bar.style.height=scrolled+'%';
-      }else {
-        // makes bar go straight to progress point
-        clearTimeout(this.scrollTime);
-        this.scrollTime = setTimeout(() => {
-          this.els.bar.style.height=scrolled+'%';
-        }, 1500);
-
-        // is there a better way to do this? 
-      }
+      // makes bar go straight to progress point
+      // clearTimeout(this.scrollTime);
+      // this.scrollTime = setTimeout(() => {
+      //   this.els.bar.style.height=scrolled+'%';
+      // }, 1500);
+      this.els.bar.style.height=scrolled+'%';
     },
     async onscroll() {
       this.scrolled = this.els.about.scrollTop + this.els.about.clientHeight;
@@ -167,7 +155,7 @@ export default {
   background: var(--accent-text-color);
   height: 0;
   width: 100%;
-  transition: height 0.5s ease;
+  transition: height 0.5s ease 0.3s;
 }
 
 .content {
