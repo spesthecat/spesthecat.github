@@ -21,33 +21,35 @@
         :data="about.hobbies"
       />
 
-      <experience
-        v-if="!loading"
-        id="experience"
-        class="lazy bottom"
-        :data="about.experience"
-      />
+        <div v-if='false'>
+        <experience
+          v-if="!loading"
+          id="experience"
+          class="lazy bottom"
+          :data="about.experience"
+        />
 
-      <education
-        v-if="!loading"
-        id="education"
-        class="lazy bottom"
-        :data="about.education"
-      />
-      
-      <achievements
-        v-if="!loading"
-        id="achievements"
-        class="lazy bottom"
-        :data="about.achievements"
-      />
-      
-      <skills
-        v-if="!loading"
-        id="skills"
-        class="lazy bottom"
-        :data="about.skills"
-      />
+        <education
+          v-if="!loading"
+          id="education"
+          class="lazy bottom"
+          :data="about.education"
+        />
+        
+        <achievements
+          v-if="!loading"
+          id="achievements"
+          class="lazy bottom"
+          :data="about.achievements"
+        />
+        
+        <skills
+          v-if="!loading"
+          id="skills"
+          class="lazy bottom"
+          :data="about.skills"
+        />
+      </div>
 
       <contact class='footer'>
       </contact>

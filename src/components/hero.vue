@@ -101,7 +101,7 @@ export default {
 
 .name-container {
 	position: absolute;
-	left: 33%;
+	left: 20%;
 	top: 150px;
 	background: transparent;
 	transform: scale(2.6);
@@ -124,7 +124,6 @@ export default {
 }
 
 /* animated headline */
-
 
 
 .last {

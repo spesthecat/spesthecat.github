@@ -1,15 +1,17 @@
 <template>
   <div>
+
     <div class="site-wrapper">
-      <div class="rain"/>
-      <nav-links id="menu-nav"/>
-      <hero id="hero"/>
+      <div class="rain"></div>
+      <nav-links id="menu-nav"></nav-links>
+      <hero id="hero"></hero>
     </div>
 
     <contact
       id="contact"
-      class="footer"
-    />
+      class="footer">
+    </contact>
+
   </div>
 </template>
 
