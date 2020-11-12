@@ -37,7 +37,7 @@
 
 <script>
 
-const words = require('../static/hero.json');
+const words = require('../assets/hero.json');
 
 export default {
   name: 'Hero',

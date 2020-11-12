@@ -60,7 +60,7 @@
 
 <script>
 
-const about = require('../static/about.json');
+const about = require('../assets/about.json');
 import Bio from '../components/bio.vue';
 import Hobbies from '../components/hobbies.vue';
 import Education from '../components/education.vue';

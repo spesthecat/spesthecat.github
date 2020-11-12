@@ -5,6 +5,7 @@
       <div class="rain"></div>
       <nav-links id="menu-nav"></nav-links>
       <hero id="hero"></hero>
+      <person id="person"></person>
     </div>
 
     <contact
@@ -20,6 +21,7 @@
 import NavLinks from '../components/navlinks.vue';
 import Hero from '../components/hero.vue';
 import Contact from '../components/contact.vue';
+import Person from '../components/person.vue';
 
 export default {
   name: 'Landing',
@@ -27,6 +29,7 @@ export default {
     NavLinks,
     Hero,
     Contact,
+    Person,
   },
   methods: {
     makeItRain() {
@@ -90,6 +93,14 @@ export default {
 #hero {
 	position: absolute;
 	width: 100%;
+}
+
+#person {
+  position: absolute;
+  height: 30%;
+  width: 100%;
+  bottom: 0;
+  right: 10%;
 }
 
 .rain {

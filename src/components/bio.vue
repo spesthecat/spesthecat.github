@@ -91,7 +91,7 @@ export default {
       left: 2px;
       height: 0.7em;
       width: 0.7em;
-      background-image: url(../static/external-link-alt-solid.svg);
+      background-image: url(../assets/external-link-alt-solid.svg);
       filter: invert(54%) sepia(64%) saturate(3933%) hue-rotate(172deg) brightness(96%) contrast(81%);
     }
   }

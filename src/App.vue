@@ -16,12 +16,14 @@ export default {
 
 :root {
   --primary-text-color: #ddd;
-  // --accent-text-color: #1f98b1;
   --accent-text-color: #1998DB;
   --secondary-text-color: rgb(92, 108, 255);
   --primary-bg-color: #171717;
   --secondary-bg-color: rgba(88,88,88,0.601);
   --tertiary-bg-color: rgba(255, 250, 240, 0.911);
+  
+  --white: white;
+  --black: black;
 }
 
 * {
