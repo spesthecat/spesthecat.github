@@ -35,7 +35,40 @@
 <script>
 
 export default {
+  name: 'Person',
+  data() {
+    return {
+      umbrella: undefined,
+    }
+  },
+  computed: {
+    dims() {
+      return {
+        width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0), 
+        height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+      } 
+    },
+  },
+  methods: {
+    onMouseMove(e) {
+      // this.umbrella.style.transform = `rotateX(${this.mousePos.x * 100 / this.dims.width}deg) rotateY(${this.mousePos.y * 100 / this.dims.height}deg)`
+      // this.umbrella.style.transform = `rotate(${(this.mousePos.x - this.mousePos.y) * 10 / (this.dims.width + this.dims.height)}deg`;
+      // let rotate = this.mousePos.x - (this.dims.width / 2) + this.mousePos.y - (this.dims.height / 2);
+      let rotate = e.pageX - e.pageY;
+      this.umbrella.style.transform = `rotate(${rotate * 0.005 - 20}deg)`;
+      // this.umbrella.style.transform = "rotate(-50deg)";
+    }
+  },  
+  mounted() {
+    setTimeout(() => {
+      this.umbrella = document.getElementsByClassName('umbrella')[0];
+    });
 
+    document.getElementById('main-view').addEventListener('mousemove', e => this.onMouseMove(e));
+  },
+  beforeDestroy() {
+    document.getElementById('main-view').removeEventListener('mousemove', e => this.onMouseMove(e));
+  }
 }
 
 </script>
@@ -76,10 +109,9 @@ export default {
   height: 100%;
   width: 30%;
   min-width: 300px;
-  transition: all 1s ease;
+  transition: height 1s ease;
   transform-origin: bottom center;
   fill: none;
-
   transform: rotate(-20deg);
 }
 
