@@ -1,0 +1,81 @@
+{
+  "bio": [
+    "Hey there, welcome to my personal site!",
+    "I'm Kenneth Sun, a developer, amateur physicist, musician, writer, and cat lover. This site is made to showcase everything that doesn't fit in a resume, as well as to practice a variety of skills; it will be updated frequently as my skills and taste change.",
+    "I built this site mostly from scratch with Vue. The source code, as well as the site itself, are both hosted on <a class='link external' href='https://github.com/spesthecat/spesthecat.github.io' target='_blank'>Github</a> (Github pages).",
+    "Nothing is ever perfect. If you find a bug, have suggestions, or just want to talk, feel free to <a class='link' href='about#contact'>contact me</a>.",
+    ""
+  ],
+  "hobbies": [
+    {
+      "name": "programming",
+      "desc": "This has always been a great source of entertainment (and a <em>great</em> deal of pain) for me. But I enjoy learning and overcoming challenges."
+    },
+    {
+      "name": "physics",
+      "desc": "I call myself an amateur out of respect for the actual physicists who work on problems that define our world, but I hope to join them some day. I enjoy physics in much of the same sense as programming, with the added astonishment when looking at the world through a different lens."
+    },
+    {
+      "name": "writing",
+      "desc": "<em>Clearly</em> I must enjoy writing, if I've written all this. Writing is my favorite way to express ideas because it gives me the luxury of thinking through and scrutinizing every sentence before committing to them &#8212 I'm much less eloquent in speech."
+    },
+    {
+      "name": "music",
+      "desc": "I've been playing piano for about 7 years, but only got serious these past couple of years. I find it beautiful and profound, and it's something I'll likely be doing my entire life."
+    },
+    {
+      "name": "cats",
+      "desc": "And finally... we arrive at the fluffy, adorable, minature lions. In addition to being cute pets, cats also encapsulate an accurate reflection of my personality: curious-to-death, adventurous, independent, occassionally lazy, etc."
+    }
+  ],
+  "experience": [
+    {
+      "name": "Google",
+      "image": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+      "date": "Jan 2030 - Apr 2031",
+      "description": "Pretty chill place to work"
+    },
+    {
+      "name": "Your mum, Inc.",
+      "image": "",
+      "date": "Jan 2030 - Apr 2031",
+      "description": "Pretty chill place to work"
+    },
+    {
+      "name": "Amazon",
+      "image": "./static/amazon.png",
+      "date": "Jun 2037 - Apr 2040",
+      "description": "Pretty chill place to work"
+    }
+  ],
+  "education": [
+    {
+      "name": "MIT",
+      "image": "https://web.mit.edu/img/mitlogo.gif",
+      "date": "Jan 2030 - Apr 2031",
+      "description": "Pretty chill place to study"
+    },
+    {
+      "name": "Your mum, edu",
+      "image": "",
+      "date": "Jan 2030 - Apr 2031",
+      "description": "Pretty chill place to work"
+    },
+    {
+      "name": "Cambridge",
+      "image": "./static/amazon.png",
+      "date": "Jun 2037 - Apr 2040",
+      "description": "Urgh, brits"
+    }
+  ],
+  "skills": [
+
+  ],
+  "achievements": [
+
+  ],
+  "resume": {
+    "link": "",
+    "cover": ""
+  }
+}
