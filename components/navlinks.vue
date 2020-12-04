@@ -10,9 +10,6 @@
 			<nuxt-link class='nav-buttons' to="/projects">
 				/projects
 			</nuxt-link>
-			<nuxt-link class='nav-buttons' to="/blogs">
-				/blogs
-			</nuxt-link>
 			<!-- <nuxt-link class='nav-buttons' to="/about"> 
 				resume
 			</nuxt-link> -->
@@ -33,9 +30,6 @@
 				</a>
 				<nuxt-link class='nav-buttons slide' to="/projects">
 					projects
-				</nuxt-link>
-				<nuxt-link class='nav-buttons slide' to="/blogs">
-					blog
 				</nuxt-link>
 			</div>
 		</div>
