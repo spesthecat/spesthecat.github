@@ -7,7 +7,6 @@
         hobbies
       </div>
 
-
       <div
       v-if="loaded" 
       class="hobby-container">
@@ -28,11 +27,11 @@
 
           <div 
           class='bg' 
-          :style="{'background-image': `url(./static/${item.name}.jpg)`}" 
+          :style="{'background-image': `url(${item.name}.jpg)`}" 
           loading="lazy">
             <div
             class='preview'
-            :style="{'background-image': `url(./static/${item.name}-preview.jpg)`}"
+            :style="{'background-image': `url(${item.name}-preview.jpg)`}"
             loading="lazy">
             </div>
           </div>

@@ -60,26 +60,10 @@
 
 <script>
 
-const about = require('../assets/about.json');
-import Bio from '../components/bio.vue';
-import Hobbies from '../components/hobbies.vue';
-import Education from '../components/education.vue';
-import Experience from '../components/experience.vue';
-import Achievements from '../components/achievements.vue';
-import Skills from '../components/skills.vue';
-import Contact from '../components/contact.vue';
+const about = require('~/assets/about.json');
 
 export default {
   name: 'About',
-  components: {
-    Bio,
-    Hobbies,
-    Education,
-    Experience,
-    Achievements,
-    Skills,
-    Contact,
-  },
   data() {
     return {
       about: [],
