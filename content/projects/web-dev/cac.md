@@ -1,3 +1,8 @@
+---
+title: Wear A Mask!
+category: web-dev
+---
+
 Wear A Mask (WAM for short) is [Aidan Smith](https://github.com/AidanJSmith), Lisa Chai, and I's submission for the 2020 Congressional App Challenge ([CaC](https://congressionalappchallenge.us/)).
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/yM01CnoMRLM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

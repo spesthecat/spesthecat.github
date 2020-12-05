@@ -63,7 +63,6 @@
 const about = require('~/assets/about.json');
 
 export default {
-  name: 'About',
   data() {
     return {
       about: [],

@@ -2,6 +2,26 @@
   <div> 
 
     <div class='project-container'>
+      <div class="header">
+        <div class="meta">
+          <div class="type">
+            {{ project.category }}
+          </div>
+          <div class="title">
+            {{ project.title }}
+          </div>
+          <div class="updated">
+            Last Updated
+          </div>
+          <div class="date">
+            {{ project.updatedAt }}
+          </div>
+        </div>
+
+        <img 
+        :src="require(`~/assets/projects/${project.slug}.png`)"
+        />
+      </div>
 
       <nuxt-content 
       :document="project">
@@ -15,31 +35,20 @@
 <script>
 
 export default {
-  name: 'Projects',
-  async asyncData({ $content, params }) {
-    const project = await $content('projects', params.id).fetch()
+  async asyncData({ $content, params, redirect }) {
+
+    const project = await $content(
+       'projects',
+        params.category,
+        params.id)
+        .fetch()
+        .catch((err) => {
+          return redirect('/projects/home'); // redirect to 404 page soon :tm:
+        });
 
     return { project }
   },
-  data() {
-    return {
-      showFooter: false,
-      catalog: [],
-      meta: {},
-      content: '',
-    }
-  },
-  computed: {
-    contentHeight() {
-      return this.$refs.content.clientHeight;
-    },
-  },
-  methods: {
-  },
-  watch: {
-  },
 }
-
 </script>
 
 <style lang='scss' scoped>
@@ -179,7 +188,7 @@ export default {
     h1 {
       padding-bottom: 15px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.247);
-      &::before {
+      a::before {
         content: '#';
         cursor: pointer;
         position: absolute;

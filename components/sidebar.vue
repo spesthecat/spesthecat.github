@@ -4,8 +4,8 @@
 		<div class='nav'>
 
 			<div class='actual-nav'>
-				<ul v-if="!(loading)" class='list'>
-					<li class='cat' v-for="cat of options.catalog" :key="cat.name">
+				<ul class='list'>
+					<li class='cat' v-for="cat of catalog" :key="cat.name">
 						{{ cat.name }}
 						<ul class='inner-item'>
 							<li @click.prevent="nav=false" 
@@ -14,17 +14,6 @@
 								<nuxt-link class='item-link' :to="`/${scope}/${item}`">
 									<div class='clickable'> {{ item }} </div>
 								</nuxt-link>
-							</li>
-						</ul>
-					</li>
-				</ul>
-
-				<ul v-else class='list'>
-					<li class='cat' v-for="cat in placeholder" :key="cat.name">
-						<span class='placeholder-outer'> {{ cat.name }} </span>
-						<ul class='list'>
-							<li class='item add' v-for="item in cat.items" :key="item">
-								<span class='placeholder-inner'> {{ item }} </span>
 							</li>
 						</ul>
 					</li>
@@ -41,10 +30,12 @@
 
 <script>
 
-import backarrow from '../components/backarrow.vue';
-
 export default {
-  name: 'Sidebar',
+	asyncData({ $content }) {
+		const catalog = await $content('projects', { deep: true }).fetch();
+
+		return { catalog } 
+	}
 }
 </script>
 
