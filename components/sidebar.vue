@@ -1,5 +1,5 @@
 <template>
-  <div id='sidebar' :class="{'slide-left': !nav}">
+  <div>
 
     <div class='nav'>
 
@@ -69,15 +69,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
-#sidebar {
-  position: absolute;
-  width: 250px;
-  height: 100%;
-  left: 0;
-  background-color: var(--tertiary-bg-color);
-  color: var(--primary-bg-color);
-}
 
 .nav {
   display: grid;

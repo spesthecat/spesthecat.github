@@ -1,7 +1,7 @@
 <template>
   <div> 
 
-    <sidebar> </sidebar>
+    <sidebar id="sidebar"> </sidebar>
 
     <div class='project-container'>
       <div class="header">
@@ -21,8 +21,7 @@
         </div>
 
         <img 
-        :src="require(`~/assets/projects/${project.slug}.png`)"
-        />
+        :src="require(`~/assets/projects/${project.slug}.png`)"/>
       </div>
 
       <nuxt-content 
@@ -39,6 +38,10 @@
 export default {
   async asyncData({ $content, params, redirect }) {
 
+    if (!params.category && !params.id) {
+      return redirect('/projects/home');
+    }
+
     const project = await $content(
        'projects',
         params.category,
@@ -54,6 +57,15 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+
+#sidebar {
+  position: absolute;
+  width: 250px;
+  height: 100%;
+  left: 0;
+  background-color: var(--tertiary-bg-color);
+  color: var(--primary-bg-color);
+}
 
 .header {
   width: 100%;
