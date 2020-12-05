@@ -8,14 +8,14 @@
 
           <li
           class="cat"
-          v-for="(long, items) of catalog"
-          :key="long">
+          v-for="(cat, ind) of catalog"
+          :key="ind">
           {{ cat.long }}
           
             <ul class="inner-item">
 
               <li 
-              v-for="(item, ind) of items"
+              v-for="(item, ind) of cat.items"
               :key="ind"
               class="noselect"
               :class="{current: (currId === item.slug), item: !(currId === item.slug)}">
@@ -53,11 +53,16 @@ export default {
   async mounted() {
   
     const { categories } = await this.$content('projects/categories').fetch();
+    
+    for (let [short, long] of Object.entries(categories)) {
+      this.catalog.push({
+        long,
+        items: await this.$content('projects', short)
+        .only(['slug', 'category'])
+        .fetch()
+      });
 
-    for (let [short, long] of Object.entries(categories)){
-      this.catalog[long] = await this.$content('projects', short)
-      .only(['slug', 'category'])
-      .fetch();
+      console.log(this.catalog);
     }
   },
   computed: {
