@@ -1,10 +1,6 @@
 <template>
 	<div id='sidebar' :class="{'slide-left': !nav}">
 
-		<div class='title noselect'> 
-			<nuxt-link class='link' :to="'/'+options.title.toLowerCase()"> {{ options.title }} </nuxt-link>
-		</div>
-
 		<div class='nav'>
 
 			<div class='actual-nav'>
@@ -49,44 +45,7 @@ import backarrow from '../components/backarrow.vue';
 
 export default {
   name: 'Sidebar',
-  props: ['options'],
-  components: {
-    backarrow,
-  },
-  data() {
-    return {
-      catalog: [],
-      placeholder: [
-        {name: 'aaaaaaaa', items: ['aaaaa', 'a'.repeat(20)]},
-        {name: 'a'.repeat(10), items: ['a'.repeat(15), 'a'.repeat(13), 'a'.repeat(14)]},
-        {name: 'a'.repeat(7), items: ['aaaaaaaaaa']},
-        {name: 'a'.repeat(15), items: ['a'.repeat(7)]}
-      ],
-      loading: true,
-      nav: true,
-    }
-  },
-  computed: {
-    currCatalog() {
-      return this.options.title + 'catalog';
-    },
-    currItems() {
-      return this.options.title + 'items';
-    },
-    scope() {
-      return this.options.title.toLowerCase();
-    },
-    id() {
-      return this.$route.params.id;
-    },
-  },
-  async mounted() {
-    // load catalog here
-
-    this.loading = false;
-  }
 }
-
 </script>
 
 <style lang='scss' scoped>

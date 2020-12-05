@@ -10,9 +10,6 @@
 			<nuxt-link class='nav-buttons' to="/projects">
 				/projects
 			</nuxt-link>
-			<!-- <nuxt-link class='nav-buttons' to="/about"> 
-				resume
-			</nuxt-link> -->
 		</div>
 		<div class='menu-slide'>
 			<div @click.prevent="toggleMenu" class='menu-icon'>

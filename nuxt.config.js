@@ -5,6 +5,7 @@ export default {
   buildDir: 'dist',
   
   server: {
+    host: '0',
     port: 3000,
   },
 
