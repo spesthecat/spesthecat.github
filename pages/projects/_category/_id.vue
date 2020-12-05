@@ -1,6 +1,8 @@
 <template>
   <div> 
 
+    <sidebar> </sidebar>
+
     <div class='project-container'>
       <div class="header">
         <div class="meta">
