@@ -22,7 +22,7 @@
 
                 <nuxt-link
                 class="item-link"
-                :to="`/${item.category}/${item.slug}`">
+                :to="`/projects/${item.category}/${item.slug}`">
 
                   <div class="clickable"> {{ item.slug }} </div>
 
@@ -75,10 +75,17 @@ export default {
 
 <style lang='scss' scoped>
 
+#sidebar {
+  transition: transform 0.5s ease;
+  opacity: 0.911;
+  background-color: var(--tertiary-bg-color);
+  color: var(--primary-bg-color);
+}
+
 .nav {
   display: grid;
   grid-template-rows: auto 100px;
-  height: calc(100% - 120px);
+  height: 100%;
   overflow: hidden;
 }
 
@@ -250,7 +257,7 @@ export default {
 @media screen and (max-width: 500px) {
   #sidebar {
     width: 100%;
-    transition: transform 0.5s ease;
+    opacity: 1;
   }
 
   .slide-left {

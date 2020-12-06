@@ -60,11 +60,10 @@ export default {
 
 #sidebar {
   position: absolute;
+  z-index: 5;
   width: 250px;
   height: 100%;
   left: 0;
-  background-color: var(--tertiary-bg-color);
-  color: var(--primary-bg-color);
 }
 
 .header {

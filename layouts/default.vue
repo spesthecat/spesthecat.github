@@ -10,7 +10,7 @@
   --secondary-text-color: rgb(92, 108, 255);
   --primary-bg-color: #171717;
   --secondary-bg-color: rgba(88,88,88,0.601);
-  --tertiary-bg-color: rgba(255, 250, 240, 0.911);
+  --tertiary-bg-color: rgb(255, 250, 240);
   
   --white: white;
   --black: black;
