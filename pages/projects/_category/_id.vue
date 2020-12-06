@@ -198,7 +198,7 @@ export default {
       overflow-x: scroll;
     }
 
-    h1 {
+    h1, h2 {
       padding-bottom: 15px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.247);
       a::before {

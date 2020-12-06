@@ -15,16 +15,16 @@ WAM is an online platform which enables the community to leave covid related rev
 
 The app is not live but the source code for both the client and the server can be found on Aidan's GitHub:
 
-# Tech Stack
+## Tech Stack
 
 There was little debate over what to use for the frontend, as Aidan is an avid Vue fan and I didn't have experience with anything else (although admittedly, it would've been a good learning experience). We chose Google's Firebase for hosting the Vue app, which was apparently unneeded for the challenge.
 The map actually seen is Mapbox, while the searchbar implements Google's various APIs (which were a pain to add).
 
 As for the backend, we used Flask to build a simple, RESTful server that could handle authentication and writing/retrieving reviews from a database. The API was hosted on a free Heroku account, which conveniently had PostgreSQL plugins that made it extremely easy to hook up the API to.
 
-# Highlights
+## Highlights
 
-### First up: this incredibly satisfying loading animation
+### Satisfying loading animation
 
 ![loading-animation](./load.gif)
 
@@ -41,7 +41,7 @@ class="fill"
 
 Apparently mapbox's loading slows the entire stack, so the loading time of the animation actually accurately reflects the loading of the site.
 
-### Next up: an equally satisfying transition
+### An equally satisfying transition
 
 ![transition](./marker.gif)
 
@@ -76,8 +76,3 @@ getClass() {
 },
 ```
 The marker will start with a fixed position due to the override from `.fixed`, then whatever style from `.transition` is applied, then `.small` is applied which removes all the styles from the other classes. 
-
-# Wrapping Up
-
-Overall, this was a very fun project to work on with Aidan, although we did of course run into annoying issues like CORS headers, redeploying the API over and over again, and eslint somehow broke for me which was not fun at all. 
-We're probably going to do this again next year, and we already have some ideas. Just have to wait until everyone is less busy... 
