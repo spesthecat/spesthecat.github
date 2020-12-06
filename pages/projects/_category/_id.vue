@@ -16,7 +16,7 @@
             Last Updated
           </div>
           <div class="date">
-            {{ project.updatedAt }}
+            {{ project.updatedAt.slice(0, 10) }}
           </div>
         </div>
 
