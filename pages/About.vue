@@ -13,7 +13,7 @@
         :data="about.bio"
       />
 
-      <hobbies
+      <lazy-hobbies
         v-if="!loading"
         id="hobbies"
         class="lazy bottom"
@@ -51,8 +51,7 @@
         />
       </div>
 
-      <contact class='footer'>
-      </contact>
+      <contact class='footer'/>
 
     </div>
   </div>

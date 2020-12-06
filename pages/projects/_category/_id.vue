@@ -1,7 +1,7 @@
 <template>
   <div> 
 
-    <sidebar id="sidebar"> </sidebar>
+    <lazy-sidebar id="sidebar"> </lazy-sidebar>
 
     <div class='project-container'>
       <div class="header">
