@@ -1,6 +1,6 @@
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
-  target: 'static',
+  // target: 'static',
   
   buildDir: 'dist',
   
@@ -56,12 +56,16 @@ export default {
   content: {
     markdown: {
       prism: {
-        theme: '~/assets/styles/prism.css'
+        theme: '~/assets/styles/prism-nord.css'
       }
     }
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+  },
+
+  generate: {
+    dir: 'generate',
   }
 }

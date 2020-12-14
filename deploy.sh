@@ -1,5 +1,5 @@
 yarn generate
-cd dist/
+cd generate/
 git init
 git add .
 git commit -m "deploy"
