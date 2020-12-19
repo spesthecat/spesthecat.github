@@ -36,11 +36,17 @@
 <script>
 
 export default {
-  async asyncData({ $content, params, redirect }) {
-
-    if (!params.category && !params.id) {
-      return redirect('/projects/home');
+  mounted() {
+    if (!this.$route.params.category && !this.$route.params.id) {
+      this.home();
     }
+  },
+  methods: {
+    home() {
+      router.push('/projects/home');
+    }
+  }, 
+  async asyncData({ $content, params, redirect }) {
 
     const project = await $content(
        'projects',
@@ -48,7 +54,7 @@ export default {
         params.id)
         .fetch()
         .catch((err) => {
-          return redirect('/projects/home'); // redirect to 404 page soon :tm:
+          this.home();
         });
 
     return { project }
