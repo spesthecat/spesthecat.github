@@ -1,5 +1,6 @@
 <template>
   <div class='contacts'>
+
     <a class='social-link' href='https://github.com/spesthecat' target='_blank'>
       <img class='social' alt='github'
         src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"/>
@@ -15,14 +16,6 @@
 
   </div>
 </template>
-
-<script>
-
-export default {
-  name: 'Contact',
-}
-
-</script>
 
 <style scoped>
 

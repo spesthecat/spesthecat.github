@@ -4,6 +4,7 @@
     <lazy-sidebar id="sidebar"> </lazy-sidebar>
 
     <div class='project-container'>
+
       <div class="header">
         <div class="meta">
           <div class="type">
@@ -27,6 +28,8 @@
       <nuxt-content 
       :document="project">
       </nuxt-content>
+      
+      <contact class="footer"> </contact>
 
     </div>
 
@@ -124,14 +127,13 @@ export default {
 
 .nuxt-content, .background {
   width: 60%;
-  position: absolute;
+  position: relative;
   left: 20%;
   margin-top: 100px;
   white-space: pre-wrap;
 }
 
 .background {
-  position: absolute;
   left: 0;
   width: 100%;
   // height: 100%;
@@ -142,11 +144,8 @@ export default {
 .footer {
   z-index: 1;
   margin-top: 70px;
-  // left: -30%;
-  // width: 160%;
-  position: absolute;
-  left: -35%;
-  right: -35%;
+  width: 100%;
+  position: relative;
   overflow: hidden;
   height: 70px;
   background-color: white;
@@ -165,7 +164,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     font-size: 16px;
     width: 60%;
-    position: absolute;
+    position: relative;
     left: 20%;
     margin-top: 100px;
     white-space: pre-wrap;

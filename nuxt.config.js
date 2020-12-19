@@ -67,5 +67,8 @@ export default {
 
   generate: {
     dir: 'generate',
+    routes: [
+      'projects/home',
+    ],
   }
 }
