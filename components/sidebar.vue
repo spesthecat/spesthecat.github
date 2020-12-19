@@ -50,7 +50,7 @@ export default {
       catalog: [],
     }
   },
-  async mounted() {
+  async fetch() {
   
     const { categories } = await this.$content('projects/categories').fetch();
     
