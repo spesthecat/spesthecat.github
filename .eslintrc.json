@@ -16,7 +16,7 @@
     },
     "plugins": [
         "nuxt",
-        "vue"
+        "vue/recommended"
     ],
     "rules": {
         "vue/camelcase": "error",
