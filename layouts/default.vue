@@ -20,8 +20,13 @@
   margin: 0;	
 }
 
-html, body {
-  height: 100%;
+// html, body {
+//   height: 100%;
+// }
+
+#__nuxt {
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #__layout {
@@ -30,14 +35,14 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #main-view {
-  height: 100%;
+  position: relative;
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: none;

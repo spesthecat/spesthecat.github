@@ -6,6 +6,7 @@
     <div class='project-container'>
 
       <div class="header">
+        <!-- :style="{'background-image': `url(~assets/projects/${project.slug}.png)`}"> -->
         <div class="meta">
           <div class="type">
             {{ project.category }}
@@ -59,7 +60,7 @@ export default {
 <style lang='scss' scoped>
 
 #sidebar {
-  position: absolute;
+  position: fixed;
   z-index: 5;
   width: 250px;
   height: 100%;
@@ -67,14 +68,15 @@ export default {
 }
 
 .header {
+  display: block;
   width: 100%;
-  height: 30%;
+  height: 30vh;
   
   .meta {
     z-index: 3;
     width: 100%;
-    height: 30%;
-    position: absolute;
+    height: 100%;
+    position: relative;
     background: radial-gradient(ellipse closest-side, rgba(15, 14, 22, 0.308), #100f13d2);
     padding: 50px 50px;
     box-sizing: border-box;
@@ -100,20 +102,19 @@ export default {
   }
 
   img {
+    position: relative;
     object-fit: cover;
     width: 100%;
     height: 100%;
+    top: -100%;
   }
 
 }
 
 .project-container {
-  position: absolute;
+  position: relative;
   left: 250px;
   width: calc(100% - 250px);
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .nuxt-content, .background {
