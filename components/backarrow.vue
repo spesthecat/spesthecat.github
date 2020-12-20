@@ -20,14 +20,14 @@ export default {
   name: 'BackArrow',
   props: {
     link: {
-      required: false
+      required: false,
     },
     disabled: {
       required: false,
-      default: false
-    }
-  }
-}
+      default: false,
+    },
+  },
+};
 
 </script>
 

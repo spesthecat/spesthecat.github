@@ -48,21 +48,21 @@ export default {
   data() {
     return {
       catalog: [],
-    }
+    };
   },
   async fetch() {
   
-    const { categories } = await this.$content('projects/categories').fetch();
+    const { categories, } = await this.$content('projects/categories',).fetch();
     
-    for (let [short, long] of Object.entries(categories)) {
+    for (let [short, long,] of Object.entries(categories,)) {
       this.catalog.push({
         long,
-        items: await this.$content('projects', short)
-        .only(['slug', 'category'])
-        .fetch()
-      });
+        items: await this.$content('projects', short,)
+          .only(['slug', 'category',],)
+          .fetch(),
+      },);
 
-      console.log(this.catalog);
+      console.log(this.catalog,);
     }
   },
   computed: {
@@ -70,7 +70,7 @@ export default {
       return this.$route.params.id;
     },
   },
-}
+};
 </script>
 
 <style lang='scss' scoped>

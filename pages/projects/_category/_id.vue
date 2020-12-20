@@ -46,23 +46,23 @@ export default {
   },
   methods: {
     home() {
-      router.push('/projects/home');
-    }
+      this.$router.push('/projects/home',);
+    },
   }, 
-  async asyncData({ $content, params, redirect }) {
+  async asyncData({ $content, params, },) {
 
     const project = await $content(
-       'projects',
-        params.category,
-        params.id)
-        .fetch()
-        .catch((err) => {
-          this.home();
-        });
+      'projects',
+      params.category,
+      params.id,)
+      .fetch()
+      .catch(() => {
+        this.home();
+      },);
 
-    return { project }
+    return { project, };
   },
-}
+};
 </script>
 
 <style lang='scss' scoped>

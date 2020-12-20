@@ -60,7 +60,7 @@ export default {
       revealPause: 150,
       offset: 200,
       els: {},
-    }
+    };
   },
   methods: {
     handleReveal() {
@@ -69,10 +69,10 @@ export default {
         let bottom = this.scrolled - this.els.hobby.offsetTop - this.els.container.offsetTop;
         let lazyBottom = lazy.offsetTop + lazy.offsetHeight;
         if (bottom > lazyBottom + this.offset) {
-          document.getElementsByClassName('reveal').forEach((el) => {
-            el.classList.remove('reveal');
-          });
-          lazy.classList.add('reveal');
+          document.getElementsByClassName('reveal',).forEach((el,) => {
+            el.classList.remove('reveal',);
+          },);
+          lazy.classList.add('reveal',);
           return;
         }
       }
@@ -84,8 +84,8 @@ export default {
         let bottom = this.scrolled - this.els.hobby.offsetTop - this.els.container.offsetTop;
         let lazyBottom = lazy.offsetTop + lazy.clientHeight;
         if (bottom > lazyBottom) {
-          lazy.classList.remove('hidden');
-          lazy.classList.add('show');
+          lazy.classList.remove('hidden',);
+          lazy.classList.add('show',);
           let up = this.els.lazies[i-1]?.offsetHeight / 4 || 0;
 
           // not perfect, as it changes overall height of container and also does some weird stuff to the detection
@@ -94,30 +94,30 @@ export default {
           // lazy.style.transform = `translateY(-${up}px)`;
         }
       }
-    }
+    },
   },
   mounted() {
     // this.vertHeight = this.cardHeight * this.data.length;
     this.loaded = true;
-    this.els.hobby = document.getElementById('hobbies');
+    this.els.hobby = document.getElementById('hobbies',);
 
     setTimeout(() => {
-      this.els.container = document.getElementsByClassName('hobby-container')[0];
-      this.els.lazies = this.els.hobby.getElementsByClassName('item');
+      this.els.container = document.getElementsByClassName('hobby-container',)[0];
+      this.els.lazies = this.els.hobby.getElementsByClassName('item',);
       this.handleReveal();
       this.handleLazy();
-    });
+    },);
   },
   watch: {
     scrolled() {
       this.handleLazy();
-      clearTimeout(this.revealTimeout);
+      clearTimeout(this.revealTimeout,);
       this.revealTimeout = setTimeout(() => {
         this.handleReveal();
-      }, this.revealPause);
-    }
-  }
-}
+      }, this.revealPause,);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

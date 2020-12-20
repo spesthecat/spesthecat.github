@@ -37,12 +37,12 @@ export default {
   ],
   methods: {
     next() {
-      document.getElementById('hobbies').scrollIntoView({
+      document.getElementById('hobbies',).scrollIntoView({
         behavior: 'smooth',
-      });
+      },);
     },
   },
-}
+};
 </script>
 
 <style lang='scss' scoped>

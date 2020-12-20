@@ -12,15 +12,15 @@
 
 export default {
   name: 'BackgroundShapes',
-  props: ['amount'],
+  props: ['amount',],
   data() {
     return {
-      time: 0
-    }
+      time: 0,
+    };
   },
   methods: {
     biasedGen() {
-      let ub = Math.floor(Math.random()*100)+1;
+      let ub = Math.floor(Math.random()*100,)+1;
       if (ub < 40) {
         return 1;
       }else if (ub < 60) {
@@ -33,30 +33,30 @@ export default {
         return 5;
       }
       return 6;
-    }
+    },
   },
   async mounted() {
-    function wait(ms) {
-      return new Promise((resolve) => {
+    function wait(ms,) {
+      return new Promise((resolve,) => {
         setTimeout(() => {
-          resolve(ms);
-        }, ms )
-      });
+          resolve(ms,);
+        }, ms, );
+      },);
     }  
 
-    await wait(1500);
+    await wait(1500,);
 
-    this.time = Math.floor(document.getElementsByClassName('content')[0].clientHeight/35); 
+    this.time = Math.floor(document.getElementsByClassName('content',)[0].clientHeight/35,); 
     // going directly to page has shorter time (assumed inaccurate) than nav from side
     // console.log(this.time);
 
-    let container = document.getElementById('background-shapes-container');
+    let container = document.getElementById('background-shapes-container',);
     let c = 0;
     while (c < this.amount) {
-      await wait(Math.random()*(4000)+3000);
-      let li = document.createElement('li');
+      await wait(Math.random()*(4000)+3000,);
+      let li = document.createElement('li',);
 
-      switch(Math.floor(Math.random()*3)) {
+      switch(Math.floor(Math.random()*3,)) {
       case 0:
         li.className = 'square';
         break;
@@ -71,10 +71,10 @@ export default {
       li.style.transform = `scale(${this.biasedGen()})`;
 
       if(Math.random() >= 0.5) {
-        li.classList.add('drift');
+        li.classList.add('drift',);
         li.style.animationName='drift';
       }else {
-        li.classList.add('drift-reverse');
+        li.classList.add('drift-reverse',);
         li.style.animationName='drift2';
       }
 
@@ -86,12 +86,12 @@ export default {
 
       li.style.animationDuration = Math.random()*(this.time*2)+this.time+'s';
 
-      container.appendChild(li);
+      container.appendChild(li,);
       c++;
     }
-  }
+  },
 	
-}
+};
 
 </script>
 

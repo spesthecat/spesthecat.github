@@ -20,8 +20,8 @@ export default {
   name: 'Notfound',
   components: {
     BackArrow,
-  }
-}
+  },
+};
 
 </script>
 

@@ -34,14 +34,14 @@ export default {
   methods: {
     makeItRain() {
       var increment = 0;
-      var drops = "";
+      var drops = '';
 
       while (increment < 51) {
         //couple random numbers to use for various randomizations
         //random number between 98 and 1
-        var randoHundo = (Math.floor(Math.random() * (130 - 1 + 1) + 1));
+        var randoHundo = (Math.floor(Math.random() * (130 - 1 + 1) + 1,));
         //random number between 5 and 2
-        var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+        var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2,));
         //increment
         increment += randoFiver;
         //add in a new raindrop with various randomizations to certain CSS properties
@@ -56,13 +56,13 @@ export default {
           randoHundo + 's; animation-duration: 2.' + randoHundo + 's;"></div></div>';
       }
 
-      document.getElementsByClassName('rain')[0].innerHTML += drops.trim();
-    }
+      document.getElementsByClassName('rain',)[0].innerHTML += drops.trim();
+    },
   },
   mounted() {
     this.makeItRain();
-  }
-}
+  },
+};
 </script>
 
 <style>
