@@ -1,4 +1,5 @@
 {
+    "root": true,
     "env": {
         "browser": true,
         "commonjs": true,
@@ -7,7 +8,7 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:vue/essential"
+        "plugin:nuxt/recommended"
     ],
     "parserOptions": {
         "parser": "babel-eslint",
@@ -19,9 +20,12 @@
     ],
     "rules": {
         "vue/camelcase": "error",
-        "comma-dangle": [
-            "error",
-            "always"
+        "vue/comma-dangle": [
+            "error", {
+                "arrays": "always-multiline",
+                "objects": "always-multiline",
+                "functions": "never"
+            }
         ],
         "indent": [
             "error",

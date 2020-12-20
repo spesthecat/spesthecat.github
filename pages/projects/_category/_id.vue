@@ -39,28 +39,19 @@
 <script>
 
 export default {
-  mounted() {
-    if (!this.$route.params.category && !this.$route.params.id) {
-      this.home();
-    }
-  },
-  methods: {
-    home() {
-      this.$router.push('/projects/home',);
-    },
-  }, 
-  async asyncData({ $content, params, },) {
+
+  async asyncData({ $content, params, redirect }) {
 
     const project = await $content(
       'projects',
       params.category,
-      params.id,)
+      params.id)
       .fetch()
       .catch(() => {
-        this.home();
-      },);
+        return redirect('/projects/home');
+      });
 
-    return { project, };
+    return { project };
   },
 };
 </script>

@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     home () {
-      this.$router.replace('/projects/home',);
+      this.$router.replace('/projects/home');
     },
   }, 
 };

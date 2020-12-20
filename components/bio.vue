@@ -37,9 +37,9 @@ export default {
   ],
   methods: {
     next() {
-      document.getElementById('hobbies',).scrollIntoView({
+      document.getElementById('hobbies').scrollIntoView({
         behavior: 'smooth',
-      },);
+      });
     },
   },
 };

@@ -37,7 +37,7 @@
 
 <script>
 
-const words = require('../assets/hero.json',);
+const words = require('../assets/hero.json');
 
 export default {
   name: 'Hero',
@@ -51,28 +51,28 @@ export default {
     };
   },
   methods: {
-    showWord(id,) {
+    showWord(id) {
       return {
         'word-visible': id == this.wordId,
         'word-hidden': !(id == this.wordId),
       };
     },
     randomID() {
-      let r = Math.floor(Math.random() * this.words.length,);
+      let r = Math.floor(Math.random() * this.words.length);
       if (this.wordId === r) {
         return r === this.words.length-1 ? r - 1 : r + 1;
       }
       return r;
     },
-    animateHeadline(wait,) {
+    animateHeadline(wait) {
       this.interval = setInterval(() => {
         setTimeout(() => {
           this.wrapWidth = 0;
-        }, 500,);
+        }, 500);
 
         setTimeout(() => {
           this.wordId = this.randomID();
-        }, 1000,);
+        }, 1000);
         
 
         setTimeout(() => {
@@ -81,12 +81,12 @@ export default {
           } catch (e) {
             return;
           }
-        }, 1200,);
-      }, wait,);
+        }, 1200);
+      }, wait);
     },
   },
   async mounted() {
-    this.animateHeadline(4500,);
+    this.animateHeadline(4500);
   },
 };
 </script>

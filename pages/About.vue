@@ -59,7 +59,7 @@
 
 <script>
 
-const about = require('~/assets/about.json',);
+const about = require('~/assets/about.json');
 
 export default {
   data() {
@@ -95,22 +95,22 @@ export default {
   mounted() {
     this.about = about;
     this.loading = false;
-    this.els.about = document.getElementsByClassName('about',)[0];
-    this.els.bar = document.getElementById('bar',);
-    this.els.content = document.getElementsByClassName('content',)[0];
+    this.els.about = document.getElementsByClassName('about')[0];
+    this.els.bar = document.getElementById('bar');
+    this.els.content = document.getElementsByClassName('content')[0];
 
     setTimeout(() => {
-      this.els.lazies = document.getElementsByClassName('lazy',); 
-      document.getElementById('bio',).style.opacity=1;
+      this.els.lazies = document.getElementsByClassName('lazy'); 
+      document.getElementById('bio').style.opacity=1;
 
       this.handleLazyComponents();
       this.handleProgressBar();
-    },);
+    });
 
-    this.els.about.addEventListener('scroll', this.onscroll,);
+    this.els.about.addEventListener('scroll', this.onscroll);
   },
   destroyed() {
-    this.els.about.removeEventListener('scroll', this.onscroll,);
+    this.els.about.removeEventListener('scroll', this.onscroll);
   },
 };
 
