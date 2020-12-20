@@ -117,6 +117,10 @@ export default {
   width: calc(100% - 250px);
 }
 
+.nuxt-content-container {
+  min-height: 70vh;
+}
+
 .nuxt-content, .background {
   width: 60%;
   position: relative;
