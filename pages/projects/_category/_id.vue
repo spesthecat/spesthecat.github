@@ -1,10 +1,8 @@
 <template>
-  <div> 
+  <div>
+    <lazy-sidebar id="sidebar" />
 
-    <lazy-sidebar id="sidebar"> </lazy-sidebar>
-
-    <div class='project-container'>
-
+    <div class="project-container">
       <div class="header">
         <!-- :style="{'background-image': `url(~assets/projects/${project.slug}.png)`}"> -->
         <div class="meta">
@@ -23,17 +21,16 @@
         </div>
 
         <img 
-        :src="require(`~/assets/projects/${project.slug}.png`)"/>
+          :src="require(`~/assets/projects/${project.slug}.png`)"
+        >
       </div>
 
       <nuxt-content 
-      :document="project">
-      </nuxt-content>
+        :document="project"
+      />
       
-      <contact class="footer"> </contact>
-
+      <contact class="footer" />
     </div>
-
   </div>
 </template>
 

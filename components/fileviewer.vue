@@ -1,5 +1,5 @@
 <template>
-  <div/>
+  <div />
 </template>
 <script>
 import axios from 'axios';
@@ -13,13 +13,9 @@ export default {
       data: '',
     };
   },
-  methods: {
-    fetchFile(src) {
-      axios.get(src).then(response => {
-        this.$emit('data', response.data);
-        this.data = response.data;
-        // document.getElementsByClassName('file')[0].innerHTML = this.text;
-      });
+  watch: {
+    src() {
+      this.fetchFile(this.src);
     },
   },
   mounted() {
@@ -27,9 +23,13 @@ export default {
       this.fetchFile(this.src);
     }, 0);
   },
-  watch: {
-    src() {
-      this.fetchFile(this.src);
+  methods: {
+    fetchFile(src) {
+      axios.get(src).then(response => {
+        this.$emit('data', response.data);
+        this.data = response.data;
+        // document.getElementsByClassName('file')[0].innerHTML = this.text;
+      });
     },
   },
 };

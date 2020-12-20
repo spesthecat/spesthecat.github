@@ -1,38 +1,40 @@
 <template>
-	<div id="hero">
-		<div class='name-container'>
-			<div class='letters'>
-				<span class='letter'>k</span>
-				<span class='letter'>e</span>
-				<span class='letter'>n</span>
-				<span class='letter'>n</span>
-				<span class='letter'>e</span>
-				<span class='letter'>t</span>
-				<span class='letter'>h</span>
-			</div>
-			
-		</div>
+  <div id="hero">
+    <div class="name-container">
+      <div class="letters">
+        <span class="letter">k</span>
+        <span class="letter">e</span>
+        <span class="letter">n</span>
+        <span class="letter">n</span>
+        <span class="letter">e</span>
+        <span class="letter">t</span>
+        <span class="letter">h</span>
+      </div>
+    </div>
 
-		<div class='name-container last'>
-			<div class='letters'>
-				<span class='letter'>s</span>
-				<span class='letter'>u</span>
-				<span class='letter'>n</span>
-			</div>
-			<div class="headline-clip">
-				<span class="headline-wrapper" :style="{width: wrapWidth+'px'}">
-				<p ref="word"
-				v-for="word in words"
-				:key="words.indexOf(word)"
-				:class="showWord(words.indexOf(word))"
-				>
-				{{ word }}
-				</p>
-				</span>
-			</div>
-		</div>
-
-	</div>
+    <div class="name-container last">
+      <div class="letters">
+        <span class="letter">s</span>
+        <span class="letter">u</span>
+        <span class="letter">n</span>
+      </div>
+      <div class="headline-clip">
+        <span
+          class="headline-wrapper"
+          :style="{width: wrapWidth+'px'}"
+        >
+          <p
+            v-for="word in words"
+            ref="word"
+            :key="words.indexOf(word)"
+            :class="showWord(words.indexOf(word))"
+          >
+            {{ word }}
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -48,6 +50,9 @@ export default {
       wrapWidth: 0,
       interval: {},
     };
+  },
+  async mounted() {
+    this.animateHeadline(4500);
   },
   methods: {
     showWord(id) {
@@ -83,9 +88,6 @@ export default {
         }, 1200);
       }, wait);
     },
-  },
-  async mounted() {
-    this.animateHeadline(4500);
   },
 };
 </script>

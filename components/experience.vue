@@ -1,25 +1,24 @@
 <template>
-  <div class='container'>
-
-    <div class='title'>
+  <div class="container">
+    <div class="title">
       experience
     </div>
 
 
-    <div class='items'>
-
-      <div class='vert-line'></div>
+    <div class="items">
+      <div class="vert-line" />
 
       <div
-      class='item'
-      v-for='(item, ind) in data'
-      :key='ind'>
+        v-for="(item, ind) in data"
+        :key="ind"
+        class="item"
+      >
         <img
-        class='logo'
-        :src="item.image" 
-        loading='lazy'/>
+          class="logo"
+          :src="item.image" 
+          loading="lazy"
+        >
       </div>
-
     </div>
 
     {{ data }}

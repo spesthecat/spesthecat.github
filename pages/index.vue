@@ -1,29 +1,25 @@
 <template>
   <div>
-
     <div class="site-wrapper">
-      <div class="rain"></div>
-      <navlinks id="menu-nav"></navlinks>
-      <hero id="hero"></hero>
-      <person id="person"></person>
+      <div class="rain" />
+      <navlinks id="menu-nav" />
+      <hero id="hero" />
+      <person id="person" />
     </div>
 
     <contact
       id="contact"
-      class="footer">
-    </contact>
-
+      class="footer"
+    />
   </div>
 </template>
 
 <script>
 
-import NavLinks from '../components/navlinks.vue';
-import Hero from '../components/hero.vue';
-import Contact from '../components/contact.vue';
-import Person from '../components/person.vue';
-
 export default {
+  mounted() {
+    this.makeItRain();
+  },
   methods: {
     makeItRain() {
       var increment = 0;
@@ -51,9 +47,6 @@ export default {
 
       document.getElementsByClassName('rain')[0].innerHTML += drops.trim();
     },
-  },
-  mounted() {
-    this.makeItRain();
   },
 };
 </script>

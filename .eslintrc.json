@@ -8,7 +8,8 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:nuxt/recommended"
+        "plugin:nuxt/recommended",
+        "plugin:vue/base"
     ],
     "parserOptions": {
         "parser": "babel-eslint",
@@ -16,7 +17,7 @@
     },
     "plugins": [
         "nuxt",
-        "vue/recommended"
+        "vue"
     ],
     "rules": {
         "vue/camelcase": "error",

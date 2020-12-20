@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class='content'>
-      <div class='title container'>
+    <div class="content">
+      <div class="title container">
         <p>
           bio
         </p>
       </div>
 
-      <div class='paragraphs'>
+      <div class="paragraphs">
         <p
           v-for="para of data"
           :key="para.slice(3)"
@@ -17,8 +17,9 @@
       </div>
 
       <div 
-      class='scroll-down container'
-      @click="next">
+        class="scroll-down container"
+        @click="next"
+      >
         <div>
           <!-- add jump to the below element with nuxt -->
           <back-arrow :disabled="true" /> 

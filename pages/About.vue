@@ -1,8 +1,7 @@
 <template>
   <div class="about">
-
     <div class="side-scroll">
-      <div id="bar"></div>
+      <div id="bar" />
     </div>
 
     <div class="content">
@@ -21,7 +20,7 @@
         :data="about.hobbies"
       />
 
-        <div v-if='false'>
+      <div v-if="false">
         <experience
           v-if="!loading"
           id="experience"
@@ -51,8 +50,7 @@
         />
       </div>
 
-      <contact class='footer'/>
-
+      <contact class="footer" />
     </div>
   </div>
 </template>
@@ -69,6 +67,26 @@ export default {
       scrolled: 0,
       els: {},
     };
+  },
+  mounted() {
+    this.about = about;
+    this.loading = false;
+    this.els.about = document.getElementsByClassName('about')[0];
+    this.els.bar = document.getElementById('bar');
+    this.els.content = document.getElementsByClassName('content')[0];
+
+    setTimeout(() => {
+      this.els.lazies = document.getElementsByClassName('lazy'); 
+      document.getElementById('bio').style.opacity=1;
+
+      this.handleLazyComponents();
+      this.handleProgressBar();
+    });
+
+    this.els.about.addEventListener('scroll', this.onscroll);
+  },
+  destroyed() {
+    this.els.about.removeEventListener('scroll', this.onscroll);
   },
   methods: {
     handleLazyComponents() {
@@ -91,26 +109,6 @@ export default {
 
       this.handleLazyComponents();
     },
-  },
-  mounted() {
-    this.about = about;
-    this.loading = false;
-    this.els.about = document.getElementsByClassName('about')[0];
-    this.els.bar = document.getElementById('bar');
-    this.els.content = document.getElementsByClassName('content')[0];
-
-    setTimeout(() => {
-      this.els.lazies = document.getElementsByClassName('lazy'); 
-      document.getElementById('bio').style.opacity=1;
-
-      this.handleLazyComponents();
-      this.handleProgressBar();
-    });
-
-    this.els.about.addEventListener('scroll', this.onscroll);
-  },
-  destroyed() {
-    this.els.about.removeEventListener('scroll', this.onscroll);
   },
 };
 

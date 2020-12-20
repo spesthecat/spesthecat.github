@@ -1,15 +1,15 @@
 <template>
-	<div class='not-found'>
-		<div class='main-text'>
-			404 lul
-			<div class='sub-text'>
-				the page you are looking for does not exist, click here to return to the home page
-			</div>
-			<div class='back'>
-				<back-arrow :link="'/'"/>
-			</div> 
-		</div>
-	</div>
+  <div class="not-found">
+    <div class="main-text">
+      404 lul
+      <div class="sub-text">
+        the page you are looking for does not exist, click here to return to the home page
+      </div>
+      <div class="back">
+        <back-arrow :link="'/'" />
+      </div> 
+    </div>
+  </div>
 </template>
 
 <script>

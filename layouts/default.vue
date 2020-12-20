@@ -1,5 +1,5 @@
 <template>
-  <Nuxt id='main-view'></Nuxt>
+  <Nuxt id="main-view" />
 </template>
 
 <style lang="scss">

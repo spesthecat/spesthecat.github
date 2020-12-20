@@ -1,37 +1,61 @@
 <template>
-	<div>
-		<div class='menu-not-slide'>
-			<nuxt-link class='nav-buttons' to="/about">
-				/about
-			</nuxt-link>
-			<a class='nav-buttons' href="#contact">
-				#contact
-			</a>
-			<nuxt-link class='nav-buttons' to="/projects">
-				/projects
-			</nuxt-link>
-		</div>
-		<div class='menu-slide'>
-			<div @click.prevent="toggleMenu" class='menu-icon'>
-				<div class='icon-part'/>
-				<div class='icon-part'/>
-				<div class='icon-part'/>
-			</div>
+  <div>
+    <div class="menu-not-slide">
+      <nuxt-link
+        class="nav-buttons"
+        to="/about"
+      >
+        /about
+      </nuxt-link>
+      <a
+        class="nav-buttons"
+        href="#contact"
+      >
+        #contact
+      </a>
+      <nuxt-link
+        class="nav-buttons"
+        to="/projects"
+      >
+        /projects
+      </nuxt-link>
+    </div>
+    <div class="menu-slide">
+      <div
+        class="menu-icon"
+        @click.prevent="toggleMenu"
+      >
+        <div class="icon-part" />
+        <div class="icon-part" />
+        <div class="icon-part" />
+      </div>
 
-			<div class='nav-menu' :class="{'show-nav-menu': showMenu}">
-				<nuxt-link id='first' class='nav-buttons slide' to="/about">
-					about
-				</nuxt-link>
-				<a class='nav-buttons slide' href="#contact">
-					contact
-				</a>
-				<nuxt-link class='nav-buttons slide' to="/projects">
-					projects
-				</nuxt-link>
-			</div>
-		</div>
-
-	</div>
+      <div
+        class="nav-menu"
+        :class="{'show-nav-menu': showMenu}"
+      >
+        <nuxt-link
+          id="first"
+          class="nav-buttons slide"
+          to="/about"
+        >
+          about
+        </nuxt-link>
+        <a
+          class="nav-buttons slide"
+          href="#contact"
+        >
+          contact
+        </a>
+        <nuxt-link
+          class="nav-buttons slide"
+          to="/projects"
+        >
+          projects
+        </nuxt-link>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

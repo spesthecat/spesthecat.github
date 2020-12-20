@@ -1,11 +1,9 @@
 <template>
-	<div id='background-shapes-container'>
+  <div id="background-shapes-container">
+    <!-- this whole system sucks, should rework it to just generate new shapes and delete old ones -->
 
-		<!-- this whole system sucks, should rework it to just generate new shapes and delete old ones -->
-
-		<!-- ok so basically run loop in mounted and append li elements to this div with infinite animation -->
-
-	</div>
+    <!-- ok so basically run loop in mounted and append li elements to this div with infinite animation -->
+  </div>
 </template>
 
 <script>
@@ -17,23 +15,6 @@ export default {
     return {
       time: 0,
     };
-  },
-  methods: {
-    biasedGen() {
-      let ub = Math.floor(Math.random()*100)+1;
-      if (ub < 40) {
-        return 1;
-      }else if (ub < 60) {
-        return 2;
-      }else if (ub < 70) {
-        return 3;
-      }else if (ub < 80) {
-        return 4;
-      }else if (ub < 90) {
-        return 5;
-      }
-      return 6;
-    },
   },
   async mounted() {
     function wait(ms) {
@@ -89,6 +70,23 @@ export default {
       container.appendChild(li);
       c++;
     }
+  },
+  methods: {
+    biasedGen() {
+      let ub = Math.floor(Math.random()*100)+1;
+      if (ub < 40) {
+        return 1;
+      }else if (ub < 60) {
+        return 2;
+      }else if (ub < 70) {
+        return 3;
+      }else if (ub < 80) {
+        return 4;
+      }else if (ub < 90) {
+        return 5;
+      }
+      return 6;
+    },
   },
 	
 };

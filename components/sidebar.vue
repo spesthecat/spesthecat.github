@@ -1,43 +1,42 @@
 <template>
   <div>
-
-    <div class='nav'>
-
+    <div class="nav">
       <div class="actual-nav">
         <ul class="list">
-
           <li
-          class="cat"
-          v-for="(cat, ind) of catalog"
-          :key="ind">
-          {{ cat.long }}
+            v-for="(cat, ind) of catalog"
+            :key="ind"
+            class="cat"
+          >
+            {{ cat.long }}
           
             <ul class="inner-item">
-
               <li 
-              v-for="(item, ind) of cat.items"
-              :key="ind"
-              class="noselect"
-              :class="{current: (currId === item.slug), item: !(currId === item.slug)}">
-
+                v-for="(item, ind) of cat.items"
+                :key="ind"
+                class="noselect"
+                :class="{current: (currId === item.slug), item: !(currId === item.slug)}"
+              >
                 <nuxt-link
-                class="item-link"
-                :to="`/projects/${item.category}/${item.slug}`">
-
-                  <div class="clickable"> {{ item.slug }} </div>
-
+                  class="item-link"
+                  :to="`/projects/${item.category}/${item.slug}`"
+                >
+                  <div class="clickable">
+                    {{ item.slug }}
+                  </div>
                 </nuxt-link>
-
               </li>
             </ul>
           </li>
         </ul>
       </div>
 
-      <div class='back'>
-        <backarrow id='goback' :link="'/'"/>
+      <div class="back">
+        <backarrow
+          id="goback"
+          :link="'/'"
+        />
       </div>
-
     </div>
   </div>
 </template> 

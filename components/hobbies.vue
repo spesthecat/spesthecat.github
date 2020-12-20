@@ -1,48 +1,53 @@
 <template>
   <div>
-    <div class='container'>
-
+    <div class="container">
       <div
-      class='title'>
+        class="title"
+      >
         hobbies
       </div>
 
       <div
-      v-if="loaded" 
-      class="hobby-container">
-      <!-- :style="{height: `${vertHeight}vh`}"> -->
+        v-if="loaded" 
+        class="hobby-container"
+      >
+        <!-- :style="{height: `${vertHeight}vh`}"> -->
       
         <div
-        v-if="loaded" 
-        class='vert-line'>
+          v-if="loaded" 
+          class="vert-line"
+        >
         <!-- :style="{height: `${vertHeight}vh`}"> -->
         </div>
         
         <div
-        v-for="(item, index) in data"
-        :key="index"
-        class='item hidden'
-        :class="{right: index%2===1, left: index%2===0}">
-        <!-- :style="{'grid-row': `${index+1} / span 2`}"> -->
+          v-for="(item, index) in data"
+          :key="index"
+          class="item hidden"
+          :class="{right: index%2===1, left: index%2===0}"
+        >
+          <!-- :style="{'grid-row': `${index+1} / span 2`}"> -->
 
           <div 
-          class='bg' 
-          :style="{'background-image': `url(${item.name}.jpg)`}" 
-          loading="lazy">
+            class="bg" 
+            :style="{'background-image': `url(${item.name}.jpg)`}" 
+            loading="lazy"
+          >
             <div
-            class='preview'
-            :style="{'background-image': `url(${item.name}-preview.jpg)`}"
-            loading="lazy">
-            </div>
+              class="preview"
+              :style="{'background-image': `url(${item.name}-preview.jpg)`}"
+              loading="lazy"
+            />
           </div>
 
-          <div class='stem'></div>
+          <div class="stem" />
 
-          <div class='text medium' v-html="item.desc"></div>
-
+          <div
+            class="text medium"
+            v-html="item.desc"
+          />
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -61,6 +66,27 @@ export default {
       offset: 200,
       els: {},
     };
+  },
+  watch: {
+    scrolled() {
+      this.handleLazy();
+      clearTimeout(this.revealTimeout);
+      this.revealTimeout = setTimeout(() => {
+        this.handleReveal();
+      }, this.revealPause);
+    },
+  },
+  mounted() {
+    // this.vertHeight = this.cardHeight * this.data.length;
+    this.loaded = true;
+    this.els.hobby = document.getElementById('hobbies');
+
+    setTimeout(() => {
+      this.els.container = document.getElementsByClassName('hobby-container')[0];
+      this.els.lazies = this.els.hobby.getElementsByClassName('item');
+      this.handleReveal();
+      this.handleLazy();
+    });
   },
   methods: {
     handleReveal() {
@@ -94,27 +120,6 @@ export default {
           // lazy.style.transform = `translateY(-${up}px)`;
         }
       }
-    },
-  },
-  mounted() {
-    // this.vertHeight = this.cardHeight * this.data.length;
-    this.loaded = true;
-    this.els.hobby = document.getElementById('hobbies');
-
-    setTimeout(() => {
-      this.els.container = document.getElementsByClassName('hobby-container')[0];
-      this.els.lazies = this.els.hobby.getElementsByClassName('item');
-      this.handleReveal();
-      this.handleLazy();
-    });
-  },
-  watch: {
-    scrolled() {
-      this.handleLazy();
-      clearTimeout(this.revealTimeout);
-      this.revealTimeout = setTimeout(() => {
-        this.handleReveal();
-      }, this.revealPause);
     },
   },
 };
