@@ -20,9 +20,11 @@
   margin: 0;	
 }
 
-// html, body {
-//   height: 100%;
-// }
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-scrollbar: none
+}
 
 #__nuxt {
   overflow-y: auto;
@@ -39,15 +41,14 @@
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-}
+ }
 
 #main-view {
   position: relative;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-scrollbar: none;
+  overflow: hidden;
+  // scrollbar-width: none;
+  // -ms-overflow-style: none;
+  // -webkit-scrollbar: none;
 
   &::-webkit-scrollbar {
     display: none;

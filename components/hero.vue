@@ -40,7 +40,6 @@
 const words = require('../assets/hero.json');
 
 export default {
-  name: 'Hero',
   data() {
     return {
       word: '',

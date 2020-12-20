@@ -3,7 +3,7 @@
 
     <div class="site-wrapper">
       <div class="rain"></div>
-      <nav-links id="menu-nav"></nav-links>
+      <navlinks id="menu-nav"></navlinks>
       <hero id="hero"></hero>
       <person id="person"></person>
     </div>
@@ -24,13 +24,6 @@ import Contact from '../components/contact.vue';
 import Person from '../components/person.vue';
 
 export default {
-  name: 'Landing',
-  components: {
-    NavLinks,
-    Hero,
-    Contact,
-    Person,
-  },
   methods: {
     makeItRain() {
       var increment = 0;
@@ -68,7 +61,7 @@ export default {
 <style>
 
 .site-wrapper {
-	min-height: 100%;
+	min-height: 100vh;
 	position: relative;
 }
 
@@ -85,13 +78,13 @@ export default {
 
 #menu-nav {
 	z-index: 2;
-	position: relative;
+	position: absolute;
 	top: 15px;
 	right: 30px;
 }
 
 #hero {
-	position: absolute;
+	position: relative;
 	width: 100%;
 }
 
@@ -101,6 +94,10 @@ export default {
   width: 100%;
   bottom: 0;
   right: 10%;
+}
+
+#contact {
+  height: 7vh;
 }
 
 .rain {

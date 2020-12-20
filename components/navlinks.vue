@@ -37,7 +37,6 @@
 <script>
 
 export default {
-  name: 'Navlinks',
   data() {
     return {
       showMenu: false,
