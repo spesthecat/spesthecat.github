@@ -114,22 +114,9 @@ export default {
   width: calc(100% - 250px);
 }
 
-.nuxt-content-container {
-  min-height: 70vh;
-}
-
-.nuxt-content, .background {
-  width: 60%;
-  position: relative;
-  left: 20%;
-  margin-top: 100px;
-  white-space: pre-wrap;
-}
-
 .background {
   left: 0;
   width: 100%;
-  // height: 100%;
   z-index: 1;
   overflow: hidden;
 }
@@ -157,6 +144,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     font-size: 16px;
     width: 60%;
+    min-height: 70vh;
     position: relative;
     left: 20%;
     margin-top: 100px;
