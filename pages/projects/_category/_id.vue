@@ -65,6 +65,7 @@ export default {
 }
 
 .header {
+  position: relative;
   display: block;
   width: 100%;
   height: 30vh;
@@ -73,7 +74,7 @@ export default {
     z-index: 3;
     width: 100%;
     height: 100%;
-    position: relative;
+    position: absolute;
     background: radial-gradient(ellipse closest-side, rgba(15, 14, 22, 0.308), #100f13d2);
     padding: 50px 50px;
     box-sizing: border-box;
@@ -99,11 +100,10 @@ export default {
   }
 
   img {
-    position: relative;
+    position: absolute;
     object-fit: cover;
     width: 100%;
     height: 100%;
-    top: -100%;
   }
 
 }
