@@ -22,7 +22,7 @@
       >
         <div>
           <!-- add jump to the below element with nuxt -->
-          <back-arrow :disabled="true" /> 
+          <backarrow :disabled="true" /> 
         </div>
       </div>
     </div>

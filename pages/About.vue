@@ -57,8 +57,6 @@
 
 <script>
 
-const about = require('~/assets/about.json');
-
 export default {
   data() {
     return {
@@ -69,11 +67,11 @@ export default {
     };
   },
   mounted() {
-    this.about = about;
+    this.about = require('~/assets/about.json');
     this.loading = false;
-    this.els.about = document.getElementsByClassName('about')[0];
+
+    this.els.doc = document.documentElement;
     this.els.bar = document.getElementById('bar');
-    this.els.content = document.getElementsByClassName('content')[0];
 
     setTimeout(() => {
       this.els.lazies = document.getElementsByClassName('lazy'); 
@@ -83,10 +81,10 @@ export default {
       this.handleProgressBar();
     });
 
-    this.els.about.addEventListener('scroll', this.onscroll);
+    window.addEventListener('scroll', this.onscroll);
   },
   destroyed() {
-    this.els.about.removeEventListener('scroll', this.onscroll);
+    window.removeEventListener('scroll', this.onscroll);
   },
   methods: {
     handleLazyComponents() {
@@ -97,13 +95,13 @@ export default {
       }
     },
     handleProgressBar() {
-      let height = this.els.about.scrollHeight - this.els.about.clientHeight;
-      let scrolled = (this.els.about.scrollTop / height) * 100;
+      let height = this.els.doc.scrollHeight - this.els.doc.clientHeight;
+      let scrolled = (this.els.doc.scrollTop / height) * 100;
 
       this.els.bar.style.height=scrolled+'%';
     },
     async onscroll() {
-      this.scrolled = this.els.about.scrollTop + this.els.about.clientHeight;
+      this.scrolled = this.els.doc.scrollTop + this.els.doc.clientHeight;
 
       this.handleProgressBar();
 
